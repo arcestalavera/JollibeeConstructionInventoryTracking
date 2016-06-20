@@ -80,7 +80,7 @@
                             </a>
                             <ul id="suppliersNav" class="collapse">
                                 <li>
-                                    <a href="viewsuppliers.html"><i class="fa fa-fw fa-file"></i> View Suppliers</a>
+                                    <a href="Supplier"><i class="fa fa-fw fa-file"></i> View Suppliers</a>
                                 </li>
                             </ul>
                         </li>
@@ -124,7 +124,7 @@
                             </a>
                             <ul id="requestsNav" class="collapse">
                                 <li>
-                                    <a href="viewsuppliers.html"><i class="fa fa-fw fa-file"></i> View Requests</a>
+                                    <a href="Request"><i class="fa fa-fw fa-file"></i> View Requests</a>
                                 </li>
                             </ul>
                         </li>

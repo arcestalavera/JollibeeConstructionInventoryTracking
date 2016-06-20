@@ -8,6 +8,14 @@
         <servlet-name>ViewItem</servlet-name>
         <servlet-class>Servlets.ViewItem</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewSupplier</servlet-name>
+        <servlet-class>Servlets.ViewSupplier</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewRequest</servlet-name>
+        <servlet-class>Servlets.ViewRequest</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewWarehouse</servlet-name>
         <url-pattern>/Warehouse</url-pattern>
@@ -15,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>ViewItem</servlet-name>
         <url-pattern>/Item</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewSupplier</servlet-name>
+        <url-pattern>/Supplier</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewRequest</servlet-name>
+        <url-pattern>/Request</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

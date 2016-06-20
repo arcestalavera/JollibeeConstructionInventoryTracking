@@ -1,3 +1,5 @@
+<%@page import="Models.Supplier"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +32,10 @@
     </head>
 
     <body>
-
+        <%
+            ArrayList<Supplier> supplierList = (ArrayList<Supplier>) request.getSession().getAttribute("suppliers");
+            Supplier supplier;
+        %>
         <div id="wrapper">
 
             <!-- Navigation -->
@@ -76,7 +81,7 @@
                             </a>
                             <ul id="suppliersNav" class="collapse">
                                 <li>
-                                    <a href="viewsuppliers.html"><i class="fa fa-fw fa-file"></i> View Suppliers</a>
+                                    <a href="Supplier"><i class="fa fa-fw fa-file"></i> View Suppliers</a>
                                 </li>
                             </ul>
                         </li>
@@ -120,7 +125,7 @@
                             </a>
                             <ul id="requestsNav" class="collapse">
                                 <li>
-                                    <a href="viewsuppliers.html"><i class="fa fa-fw fa-file"></i> View Requests</a>
+                                    <a href="Request"><i class="fa fa-fw fa-file"></i> View Requests</a>
                                 </li>
                             </ul>
                         </li>
@@ -177,41 +182,20 @@
                                         </tr>
                                     </thead>
                                     <tbody id="supplierTableBody">
+                                        <%
+                                            for (int i = 0; i < supplierList.size(); i++) {
+                                                supplier = supplierList.get(i);
+                                        %>
                                         <tr>
-                                            <td>1</td>
-                                            <td>Supplier 1</td>
-                                            <td style="text-align: right;">Laguna</td>
-                                            <td style="text-align: right;">09278871602</td>
-                                            <td style="text-align: right;">supplier1@supplier1.com</td>
+                                            <td><%=(i + 1)%></td>
+                                            <td><%=supplier.getName()%></td>
+                                            <td style="text-align: right;"><%=supplier.getLocation()%></td>
+                                            <td style="text-align: right;"><%=supplier.getContactNumber()%></td>
+                                            <td style="text-align: right;"><%=supplier.getEmailAddress()%></td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Supplier 2</td>
-                                            <td style="text-align: right;">Laguna</td>
-                                            <td style="text-align: right;">09278871602</td>
-                                            <td style="text-align: right;">supplier2@supplier2.com</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Supplier 3</td>
-                                            <td style="text-align: right;">Laguna</td>
-                                            <td style="text-align: right;">09278871602</td>
-                                            <td style="text-align: right;">supplier3@supplier3.com</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Supplier 4</td>
-                                            <td style="text-align: right;">Laguna</td>
-                                            <td style="text-align: right;">09278871602</td>
-                                            <td style="text-align: right;">supplier4@supplier4.com</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>Supplier 5</td>
-                                            <td style="text-align: right;">Laguna</td>
-                                            <td style="text-align: right;">09278871602</td>
-                                            <td style="text-align: right;">supplier5@supplier5.com</td>
-                                        </tr>
+                                        <%
+                                            }
+                                        %>
                                     </tbody>
                                 </table>
                             </div><!-- end of .table-responsive -->

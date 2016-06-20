@@ -11,7 +11,7 @@ package Models;
  * @author Arces
  */
 public class Item {
-    private int itemID;
+    private int itemID, count;
     private String name;
     private String unit;
 
@@ -55,6 +55,20 @@ public class Item {
      */
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    /**
+     * @return the count
+     */
+    public int getCount() {
+        return count;
+    }
+
+    /**
+     * @param count the count to set
+     */
+    public void setCount(int count) {
+        this.count = count;
     }
     
     

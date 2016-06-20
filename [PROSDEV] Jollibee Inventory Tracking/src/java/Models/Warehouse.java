@@ -3,16 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Models;
+
+import java.util.ArrayList;
 
 /**
  *
  * @author Arces
  */
 public class Warehouse {
+
     private int warehouseID;
-    private String location;
+    private String location, name;
+    private ArrayList<Item> itemList;
 
     /**
      * @return the warehouseID
@@ -41,6 +44,32 @@ public class Warehouse {
     public void setLocation(String location) {
         this.location = location;
     }
-    
-    
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the itemList
+     */
+    public ArrayList<Item> getItemList() {
+        return itemList;
+    }
+
+    /**
+     * @param itemList the itemList to set
+     */
+    public void setItemList(ArrayList<Item> itemList) {
+        this.itemList = itemList;
+    }
 }
