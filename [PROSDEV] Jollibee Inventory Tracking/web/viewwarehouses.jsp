@@ -1,8 +1,9 @@
+<%@page import="Database.Database"%>
+<%@page import="Models.Warehouse"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
-
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,9 +31,11 @@
     </head>
 
     <body>
-
+        <%
+            ArrayList<Warehouse> warehouseList = (ArrayList<Warehouse>) request.getSession().getAttribute("warehouses");
+            Warehouse warehouse;
+        %>
         <div id="wrapper">
-
             <!-- Navigation -->
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -137,14 +140,14 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <h1 class="page-header">
-                                View Suppliers
+                                View Warehouse List
                             </h1>
                             <ol class="breadcrumb">
                                 <li>
-                                    <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Suppliers</a>
+                                    <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Warehouses</a>
                                 </li>
                                 <li class="active">
-                                    <i class="fa fa-edit"></i> View Supplier List
+                                    <i class="fa fa-edit"></i> View Warehouse List
                                 </li>
                             </ol>
                         </div>
@@ -170,48 +173,24 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th style="width: 100%;">Supplier Name</th>
+                                            <th style="width: 100%;">Warehouse Name</th>
                                             <th style="text-align: right;">Location</th>
-                                            <th style="text-align: right;">Contact #</th>
-                                            <th style="text-align: right;">Email</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="supplierTableBody">
+                                    <tbody id="warehouseTableBody">
+
+                                        <%
+                                            for (int i = 0; i < warehouseList.size(); i++) {
+                                                warehouse = warehouseList.get(i);
+                                        %>
                                         <tr>
-                                            <td>1</td>
-                                            <td>Supplier 1</td>
-                                            <td style="text-align: right;">Laguna</td>
-                                            <td style="text-align: right;">09278871602</td>
-                                            <td style="text-align: right;">supplier1@supplier1.com</td>
+                                            <td><%=(i + 1)%></td>
+                                            <td>Warehouse 1</td>
+                                            <td style="text-align: right;"><%=warehouse.getLocation()%></td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Supplier 2</td>
-                                            <td style="text-align: right;">Laguna</td>
-                                            <td style="text-align: right;">09278871602</td>
-                                            <td style="text-align: right;">supplier2@supplier2.com</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Supplier 3</td>
-                                            <td style="text-align: right;">Laguna</td>
-                                            <td style="text-align: right;">09278871602</td>
-                                            <td style="text-align: right;">supplier3@supplier3.com</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Supplier 4</td>
-                                            <td style="text-align: right;">Laguna</td>
-                                            <td style="text-align: right;">09278871602</td>
-                                            <td style="text-align: right;">supplier4@supplier4.com</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>Supplier 5</td>
-                                            <td style="text-align: right;">Laguna</td>
-                                            <td style="text-align: right;">09278871602</td>
-                                            <td style="text-align: right;">supplier5@supplier5.com</td>
-                                        </tr>
+                                        <%
+                                            }
+                                        %>
                                     </tbody>
                                 </table>
                             </div><!-- end of .table-responsive -->

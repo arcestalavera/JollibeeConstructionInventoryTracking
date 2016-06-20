@@ -1,3 +1,5 @@
+<%@page import="Models.Item"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,11 +28,13 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-
     </head>
 
     <body>
-
+        <%
+            ArrayList<Item> itemList = (ArrayList<Item>) request.getSession().getAttribute("items");
+            Item item;
+        %>
         <div id="wrapper">
 
             <!-- Navigation -->
@@ -137,14 +141,14 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <h1 class="page-header">
-                                View Suppliers
+                                View Item List
                             </h1>
                             <ol class="breadcrumb">
                                 <li>
-                                    <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Suppliers</a>
+                                    <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Items</a>
                                 </li>
                                 <li class="active">
-                                    <i class="fa fa-edit"></i> View Supplier List
+                                    <i class="fa fa-edit"></i> View Item List
                                 </li>
                             </ol>
                         </div>
@@ -170,48 +174,23 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th style="width: 100%;">Supplier Name</th>
-                                            <th style="text-align: right;">Location</th>
-                                            <th style="text-align: right;">Contact #</th>
-                                            <th style="text-align: right;">Email</th>
+                                            <th style="width: 100%;">Item Name</th>
+                                            <th style="text-align: right;">Unit Measure</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="supplierTableBody">
+                                    <tbody id="itemTableBody">
+                                        <%
+                                            for (int i = 0; i < itemList.size(); i++) {
+                                                item = itemList.get(i);
+                                        %>
                                         <tr>
-                                            <td>1</td>
-                                            <td>Supplier 1</td>
-                                            <td style="text-align: right;">Laguna</td>
-                                            <td style="text-align: right;">09278871602</td>
-                                            <td style="text-align: right;">supplier1@supplier1.com</td>
+                                            <td><%=(i + 1)%></td>
+                                            <td><%=item.getName()%></td>
+                                            <td style="text-align: right;"><%=item.getUnit()%></td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Supplier 2</td>
-                                            <td style="text-align: right;">Laguna</td>
-                                            <td style="text-align: right;">09278871602</td>
-                                            <td style="text-align: right;">supplier2@supplier2.com</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Supplier 3</td>
-                                            <td style="text-align: right;">Laguna</td>
-                                            <td style="text-align: right;">09278871602</td>
-                                            <td style="text-align: right;">supplier3@supplier3.com</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Supplier 4</td>
-                                            <td style="text-align: right;">Laguna</td>
-                                            <td style="text-align: right;">09278871602</td>
-                                            <td style="text-align: right;">supplier4@supplier4.com</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>Supplier 5</td>
-                                            <td style="text-align: right;">Laguna</td>
-                                            <td style="text-align: right;">09278871602</td>
-                                            <td style="text-align: right;">supplier5@supplier5.com</td>
-                                        </tr>
+                                        <%
+                                            }
+                                        %>
                                     </tbody>
                                 </table>
                             </div><!-- end of .table-responsive -->
