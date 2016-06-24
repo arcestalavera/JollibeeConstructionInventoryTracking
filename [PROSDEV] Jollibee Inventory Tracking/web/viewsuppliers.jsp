@@ -14,6 +14,9 @@
         <title>JCI Inventory Tracking - Suppliers</title>
 
         <!-- Bootstrap Core CSS -->
+        <link href="css/custom-css.css" rel="stylesheet">
+
+        <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom CSS -->
@@ -167,6 +170,12 @@
 
                     <!-- Page Content -->
                     <div class="row">
+                        <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
+                            <button id="add-item" class="btn btn-primary">Add Supplier</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
 
                         <div class="col-lg-12">
 
@@ -179,6 +188,7 @@
                                             <th style="text-align: right;">Location</th>
                                             <th style="text-align: right;">Contact #</th>
                                             <th style="text-align: right;">Email</th>
+                                            <th style="text-align: right;"></th>
                                         </tr>
                                     </thead>
                                     <tbody id="supplierTableBody">
@@ -188,10 +198,18 @@
                                         %>
                                         <tr>
                                             <td><%=(i + 1)%></td>
-                                            <td><%=supplier.getName()%></td>
+                                            <td><button type="button" class="btn btn-link name"><%=supplier.getName()%></button></td>
                                             <td style="text-align: right;"><%=supplier.getLocation()%></td>
                                             <td style="text-align: right;"><%=supplier.getContactNumber()%></td>
                                             <td style="text-align: right;"><%=supplier.getEmailAddress()%></td>
+                                            <td style="white-space: nowrap">
+                                                <a class="edit-button">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a class="delete-button">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                         <%
                                             }
