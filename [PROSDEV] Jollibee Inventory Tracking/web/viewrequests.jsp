@@ -174,6 +174,11 @@
 
                         <!-- Page Content -->
                         <div class="row">
+                            <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
+                                <button id="add-item" class="btn btn-primary">Add Delivery</button>
+                            </div>
+                        </div>
+                        <div class="row">
 
                             <div class="col-lg-12">
 
@@ -196,10 +201,21 @@
                                             %>
                                             <tr>
                                                 <td><%=(i + 1)%></td>
-                                                <td><%=req.getRequestName()%></td>
+                                                <td><button type="button" class="btn btn-link name"><%=req.getRequestName()%></button></td>
                                                 <td style="text-align: right;"><%=item.getName()%></td>
                                                 <td style="text-align: right;"><%=req.getCount()%></td>
                                                 <td style="text-align: right;"><%=req.getStatus()%></td>
+                                                <td style="white-space: no-wrap">
+                                                    <a class="edit-button">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                    <a class="approve-button">
+                                                        <i class="fa fa-check"></i>
+                                                    </a>
+                                                    <a class="reject-button">
+                                                        <i class="fa fa-times"></i>
+                                                    </a>
+                                                </td>
                                             </tr>
                                             <%
                                                 }
