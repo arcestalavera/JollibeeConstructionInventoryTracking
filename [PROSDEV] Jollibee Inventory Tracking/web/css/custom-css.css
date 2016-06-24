@@ -1,0 +1,13 @@
+a{
+	text-decoration: none !important;
+}
+
+.name{
+ 	text-decoration: none !important;
+ 	padding: 0px 0px !important;
+}
+
+.name:focus{
+	outline: none !important;
+	outline-offset: 0px;
+}
