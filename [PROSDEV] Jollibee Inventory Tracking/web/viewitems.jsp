@@ -2,6 +2,10 @@
 <%@page import="java.util.ArrayList"%>
 <%@ include file="header.html" %>
 <%@ include file="topnav.html" %>
+<%
+            ArrayList<Item> itemList = (ArrayList<Item>) request.getSession().getAttribute("items");
+            Item item;
+%>
 <%@ include file="leftnav.html" %>
 <!--<!DOCTYPE html>
 <html lang="en">
@@ -37,10 +41,7 @@
     </head>
 
     <body>
-        <%
-            ArrayList<Item> itemList = (ArrayList<Item>) request.getSession().getAttribute("items");
-            Item item;
-        %>
+        
         <div id="wrapper">
 
              Navigation 
