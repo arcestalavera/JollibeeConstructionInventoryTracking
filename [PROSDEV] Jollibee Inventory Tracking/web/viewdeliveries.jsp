@@ -1,3 +1,7 @@
+<%@include file="header.html"%>
+    <%@include file="topnav.html"%>
+    <%@include file="leftnav.html"%>
+    
 <!--<!DOCTYPE html>
 <html lang="en">
 
@@ -33,10 +37,6 @@
     </head>
 
     <body>-->
-
-    <%@include file="header.html"%>
-    <%@include file="topnav.html"%>
-    <%@include file="leftnav.html"%>
 
 <!--        <div id="wrapper">
 
