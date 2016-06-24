@@ -12,6 +12,10 @@
         <meta name="author" content="">
 
         <title>JCI Inventory Tracking - Items</title>
+
+        <!--Custom CSS-->
+        <link href="css/custom-css.css" rel="stylesheet">
+
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -166,6 +170,12 @@
                     <!-- Page Content -->
                     <div class="row">
 
+                        <div class="row">
+                            <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
+                                <button id="add-item" class="btn btn-primary">Add Item</button>
+                            </div>
+                        </div>
+
                         <div class="col-lg-12">
 
                             <div class="table-responsive">
@@ -185,7 +195,8 @@
                                         %>
                                         <tr>
                                             <td><%=(i + 1)%></td>
-                                            <td><%=item.getName()%></td>
+                                            
+                                            <td><button type="button" class="btn btn-link name"><%=item.getName()%></button></td>
                                             <td style="text-align: right;"><%=item.getUnit()%></td>
                                             <td style="white-space: nowrap">
                                                 <a class="edit-button">
