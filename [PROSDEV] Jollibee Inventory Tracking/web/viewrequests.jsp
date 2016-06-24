@@ -4,6 +4,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="header.html" %>
 <%@ include file="topnav.html" %>
+<%
+                ArrayList<Request> requestList = (ArrayList<Request>) request.getSession().getAttribute("requests");
+                Request req;
+                Item item;
+%>
 <%@ include file="leftnav.html" %>
 <!--<!DOCTYPE html>
     <html lang="en">
@@ -37,11 +42,6 @@
         </head>
 
         <body>
-            <%
-                ArrayList<Request> requestList = (ArrayList<Request>) request.getSession().getAttribute("requests");
-                Request req;
-                Item item;
-            %>
 
             <div id="wrapper">
 
@@ -256,12 +256,3 @@
         </body>
 
     </html>
-
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
