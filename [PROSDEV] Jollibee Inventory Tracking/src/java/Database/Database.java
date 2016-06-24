@@ -134,10 +134,10 @@ public class Database {
             while (rs.next()) {
                 Supplier supplier = new Supplier();
                 supplierID = rs.getInt("supplierID");
-                name = rs.getString("supplierName");
-                location = rs.getString("supplierLocation");
-                contactNumber = rs.getString("supplierContactNo");
-                emailAddress = rs.getString("supplierContactEmail");
+                name = rs.getString("name");
+                location = rs.getString("location");
+                contactNumber = rs.getString("contactNumber");
+                emailAddress = rs.getString("emailAddress");
 
                 supplier.setSupplierID(supplierID);
                 supplier.setName(name);
