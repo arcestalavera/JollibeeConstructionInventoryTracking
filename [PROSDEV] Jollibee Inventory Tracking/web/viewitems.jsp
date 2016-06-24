@@ -11,8 +11,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>JCI Inventory Tracking - Suppliers</title>
-
+        <title>JCI Inventory Tracking - Items</title>
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -176,6 +175,7 @@
                                             <th></th>
                                             <th style="width: 100%;">Item Name</th>
                                             <th style="text-align: right;">Unit Measure</th>
+                                            <th style="text-align: right;"></th>
                                         </tr>
                                     </thead>
                                     <tbody id="itemTableBody">
@@ -187,6 +187,14 @@
                                             <td><%=(i + 1)%></td>
                                             <td><%=item.getName()%></td>
                                             <td style="text-align: right;"><%=item.getUnit()%></td>
+                                            <td style="white-space: nowrap">
+                                                <a class="edit-button">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a class="delete-button">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                         <%
                                             }
