@@ -31,7 +31,7 @@ public class Database {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             String host = "jdbc:mysql://127.0.0.1:3306/inventory_tracking?user=root";
             String uUser = "root";
-            String uPass = "admin";
+            String uPass = "";
 
             con = DriverManager.getConnection(host, uUser, uPass);
 
@@ -134,10 +134,10 @@ public class Database {
             while (rs.next()) {
                 Supplier supplier = new Supplier();
                 supplierID = rs.getInt("supplierID");
-                name = rs.getString("name");
-                location = rs.getString("location");
-                contactNumber = rs.getString("contactNumber");
-                emailAddress = rs.getString("emailAddress");
+                name = rs.getString("supplierName");
+                location = rs.getString("supplierLocation");
+                contactNumber = rs.getString("supplierContactNo");
+                emailAddress = rs.getString("supplierContactEmail");
 
                 supplier.setSupplierID(supplierID);
                 supplier.setName(name);
