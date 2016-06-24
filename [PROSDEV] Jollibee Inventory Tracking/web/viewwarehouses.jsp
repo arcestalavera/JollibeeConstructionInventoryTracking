@@ -12,6 +12,9 @@
 
         <title>JCI Inventory Tracking - Suppliers</title>
 
+        <!--Custom CSS-->
+        <link href="css/custom-css.css" rel="stylesheet">
+
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -165,6 +168,12 @@
 
                     <!-- Page Content -->
                     <div class="row">
+                        <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
+                            <button id="add-item" class="btn btn-primary">Add Warehouse</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
 
                         <div class="col-lg-12">
 
@@ -175,6 +184,7 @@
                                             <th></th>
                                             <th style="width: 100%;">Warehouse Name</th>
                                             <th style="text-align: right;">Location</th>
+                                            <th style="text-align: right;"></th>
                                         </tr>
                                     </thead>
                                     <tbody id="warehouseTableBody">
@@ -185,8 +195,16 @@
                                         %>
                                         <tr>
                                             <td><%=(i + 1)%></td>
-                                            <td><%=warehouse.getName()%></td>
+                                            <td><button type="button" class="btn btn-link name"><%=warehouse.getName()%></button></td>
                                             <td style="text-align: right;"><%=warehouse.getLocation()%></td>
+                                            <td style="white-space: nowrap">
+                                                <a class="edit-button">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a class="delete-button">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                         <%
                                             }
