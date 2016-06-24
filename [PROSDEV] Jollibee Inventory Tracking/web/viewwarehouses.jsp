@@ -3,6 +3,10 @@
 <%@page import="java.util.ArrayList"%>
 <%@ include file="header.html" %>
 <%@ include file="topnav.html" %>
+<%
+    ArrayList<Warehouse> warehouseList = (ArrayList<Warehouse>) request.getSession().getAttribute("warehouses");
+    Warehouse warehouse;
+%>
 <%@ include file="leftnav.html" %>
 <!--<!DOCTYPE html>
 <html lang="en">
@@ -37,10 +41,6 @@
     </head>
 
     <body>
-        <%
-            ArrayList<Warehouse> warehouseList = (ArrayList<Warehouse>) request.getSession().getAttribute("warehouses");
-            Warehouse warehouse;
-        %>
         <div id="wrapper">
              Navigation 
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
