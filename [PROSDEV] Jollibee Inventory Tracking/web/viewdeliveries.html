@@ -9,7 +9,10 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>JCI Inventory Tracking - Suppliers</title>
+        <title>JCI Inventory Tracking - Deliveries</title>
+
+        <!--Custom CSS-->
+        <link href="css/custom-css.css" rel="stylesheet">
 
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -144,7 +147,7 @@
                                     <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Deliveries</a>
                                 </li>
                                 <li class="active">
-                                    <i class="fa fa-edit"></i> View Delivery List
+                                    <i class="fa fa-sign-in"></i> View Delivery List
                                 </li>
                             </ol>
                         </div>
@@ -162,6 +165,12 @@
 
                     <!-- Page Content -->
                     <div class="row">
+                        <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
+                            <button id="add-item" class="btn btn-primary">Add Item</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
 
                         <div class="col-lg-12">
 
@@ -174,43 +183,84 @@
                                             <th style="text-align: right;">Item Name</th>
                                             <th style="text-align: right;">Count</th>
                                             <th style="text-align: right;">Status</th>
+                                            <th style="text-align: right;"></th>
                                         </tr>
                                     </thead>
                                     <tbody id="deliveryTableBody">
                                         <tr>
                                             <td>1</td>
-                                            <td>Supplier 1</td>
+                                            <td><button type="button" class="btn btn-link name">Supplier 1</button></td>
                                             <td style="text-align: right;">Item 1</td>
                                             <td style="text-align: right;">3</td>
                                             <td style="text-align: right;">Finished</td>
+                                            <td style="white-space: nowrap">
+                                                <a class="edit-button">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a class="delete-button">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>2</td>
-                                            <td>Supplier 2</td>
+                                            <td><button type="button" class="btn btn-link name">Supplier 2</button></td>
                                             <td style="text-align: right;">Item 2</td>
                                             <td style="text-align: right;">4</td>
                                             <td style="text-align: right;">Pending Approval</td>
+                                            <td style="white-space: nowrap">
+                                                <a class="edit-button">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a class="delete-button">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
-                                            <td>Supplier 3</td>
+                                            <td><button type="button" class="btn btn-link name">Supplier 3</button></td>
                                             <td style="text-align: right;">Item 3</td>
                                             <td style="text-align: right;">5</td>
                                             <td style="text-align: right;">Finished</td>
+                                            <td style="white-space: nowrap">
+                                                <a class="edit-button">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a class="delete-button">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>4</td>
-                                            <td>Request Guy 4</td>
+                                            <td><button type="button" class="btn btn-link name">Supplier 4</button></td>
                                             <td style="text-align: right;">Item 4</td>
                                             <td style="text-align: right;">6</td>
                                             <td style="text-align: right;">Finished</td>
+                                            <td style="white-space: nowrap">
+                                                <a class="edit-button">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a class="delete-button">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>5</td>
-                                            <td>Request Guy 5</td>
+                                            <td><button type="button" class="btn btn-link name">Supplier 5</button></td>
                                             <td style="text-align: right;">Item 5</td>
                                             <td style="text-align: right;">7</td>
                                             <td style="text-align: right;">Finished</td>
+                                            <td style="white-space: nowrap">
+                                                <a class="edit-button">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a class="delete-button">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
