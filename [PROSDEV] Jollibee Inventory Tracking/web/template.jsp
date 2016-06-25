@@ -1,6 +1,3 @@
-<%@ include file="header.html"%>
-<%@ include file="topnav.html"%>
-<%@ include file="leftnav.html"%>
 <!--<!DOCTYPE html>
 <html lang="en">
 
@@ -12,10 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>JCI Inventory Tracking - Deliveries</title>
-
-        Custom CSS
-        <link href="css/custom-css.css" rel="stylesheet">
+        <title>JCI Inventory Tracking - Suppliers</title>
 
          Bootstrap Core CSS 
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -83,7 +77,6 @@
                             <ul id="suppliersNav" class="collapse">
                                 <li>
                                     <a href="Supplier"><i class="fa fa-fw fa-file"></i> View Suppliers</a>
-                                    <a href="addsupplier.html"><i class="fa fa-fw fa-file"></i> View Suppliers</a>
                                 </li>
                             </ul>
                         </li>
@@ -95,7 +88,6 @@
                             <ul id="warehousesNav" class="collapse">
                                 <li>
                                     <a href="Warehouse"><i class="fa fa-fw fa-file"></i> View Warehouses</a>
-                                    <a href="addwarehouse.html"><i class="fa fa-fw fa-file"></i> Add Warehouse</a>
                                 </li>
                             </ul>
                         </li>
@@ -107,7 +99,6 @@
                             <ul id="itemsNav" class="collapse">
                                 <li>
                                     <a href="Item"><i class="fa fa-fw fa-file"></i> View Items</a>
-                                    <a href="additem.html"><i class="fa fa-fw fa-file"></i> Add Item</a>
                                 </li>
                             </ul>
                         </li>
@@ -130,7 +121,6 @@
                             <ul id="requestsNav" class="collapse">
                                 <li>
                                     <a href="Request"><i class="fa fa-fw fa-file"></i> View Requests</a>
-                                    <a href="addrequest.html"><i class="fa fa-fw fa-file"></i> Add Request</a>
                                 </li>
                             </ul>
                         </li>
@@ -138,63 +128,40 @@
                 </div>
                  /.navbar-collapse 
             </nav>-->
+<%@ include file="header.html" %>
+<%@ include file="topnav.html" %>
+<%@ include file="leftnav.html" %>
 
-            <div id="page-wrapper">
+        <div id="page-wrapper">
 
-                <div class="container-fluid">
+            <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h1 class="page-header">
-                                Add Item
-                            </h1>
-                            <ol class="breadcrumb">
-                                <li>
-                                    <i class="fa fa-dashboard"></i>  <a href="index.html">Deliveries</a>
-                                </li>
-                                <li class="active">
-                                    <i class="fa fa-pencil-square-o"></i> Add Item
-                                </li>
-                            </ol>
-                        </div>
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Blank Page
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li class="active">
+                                <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
+                            </li>
+                        </ol>
                     </div>
-                    <!-- /.row -->
-
-                    <!-- Pagination Options (top) -->
-                    <!-- <div class="row pagination-options">
-                        <ul class="pager" style="margin: 0 0 15px;">
-                            <li><a class="previous prevPage"><i class="fa fa-arrow-left"></i></a></li>
-                            <li class="pageIndicator">Page 1 of 10</li>
-                            <li><a class="next nextPage"><i class="fa fa-arrow-right"></i></a></li>
-                        </ul>
-                    </div> -->
-
-                    <!-- Page Content -->
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <form id="add-item-form">
-                                <div class="form-group">
-                                    <label>Name</label>
-                                    <input class="form-control" name="name" required>
-                                </div><!-- end of .form-group -->
-
-                                <div class="form-group">
-                                    <label>Unit of measure</label>
-                                    <input id="unitofmeasure" class="form-control" name="unitofmeasure" required>
-                                </div><!-- end of .form-group -->
-                                <input type="submit" class="btn btn-primary" value="Add Item">
-                            </form>
-                        </div>
-                    </div>
-
                 </div>
-                <!-- /.container-fluid -->
+                <!-- /.row -->
+
+                <div class="row col-sm-1">
+                    <p> You can place anything here</p>
+                </div>
 
             </div>
-            <!-- /#page-wrapper -->
+            <!-- /.container-fluid -->
 
         </div>
-        <!-- /#wrapper -->
+        <!-- /#page-wrapper -->
 
-        <%@ include file="footer.html"%>
+    </div>
+    <!-- /#wrapper -->
+
+    <%@ include file="footer.html"%>
