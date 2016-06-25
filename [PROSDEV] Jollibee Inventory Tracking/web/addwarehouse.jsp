@@ -1,12 +1,6 @@
-<%@page import="Models.Supplier"%>
-<%@page import="java.util.ArrayList"%>
-<%@ include file="header.html" %>
-<%@ include file="topnav.html" %>
-<%
-            ArrayList<Supplier> supplierList = (ArrayList<Supplier>) request.getSession().getAttribute("suppliers");
-            Supplier supplier;
-%>
-<%@ include file="leftnav.html" %>
+<%@ include file="header.html"%>
+<%@ include file="topnav.html"%>
+<%@ include file="leftnav.html"%>
 <!--<!DOCTYPE html>
 <html lang="en">
 
@@ -18,9 +12,9 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>JCI Inventory Tracking - Suppliers</title>
+        <title>JCI Inventory Tracking - Deliveries</title>
 
-         Bootstrap Core CSS 
+        Custom CSS
         <link href="css/custom-css.css" rel="stylesheet">
 
          Bootstrap Core CSS 
@@ -42,6 +36,7 @@
     </head>
 
     <body>
+
         <div id="wrapper">
 
              Navigation 
@@ -88,6 +83,7 @@
                             <ul id="suppliersNav" class="collapse">
                                 <li>
                                     <a href="Supplier"><i class="fa fa-fw fa-file"></i> View Suppliers</a>
+                                    <a href="addsupplier.html"><i class="fa fa-fw fa-file"></i> View Suppliers</a>
                                 </li>
                             </ul>
                         </li>
@@ -99,6 +95,7 @@
                             <ul id="warehousesNav" class="collapse">
                                 <li>
                                     <a href="Warehouse"><i class="fa fa-fw fa-file"></i> View Warehouses</a>
+                                    <a href="addwarehouse.html"><i class="fa fa-fw fa-file"></i> Add Warehouse</a>
                                 </li>
                             </ul>
                         </li>
@@ -110,6 +107,7 @@
                             <ul id="itemsNav" class="collapse">
                                 <li>
                                     <a href="Item"><i class="fa fa-fw fa-file"></i> View Items</a>
+                                    <a href="additem.html"><i class="fa fa-fw fa-file"></i> Add Item</a>
                                 </li>
                             </ul>
                         </li>
@@ -132,6 +130,7 @@
                             <ul id="requestsNav" class="collapse">
                                 <li>
                                     <a href="Request"><i class="fa fa-fw fa-file"></i> View Requests</a>
+                                    <a href="addrequest.html"><i class="fa fa-fw fa-file"></i> Add Request</a>
                                 </li>
                             </ul>
                         </li>
@@ -148,14 +147,14 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <h1 class="page-header">
-                                View Suppliers
+                                Add Warehouse
                             </h1>
                             <ol class="breadcrumb">
                                 <li>
-                                    <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Suppliers</a>
+                                    <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Warehouse</a>
                                 </li>
                                 <li class="active">
-                                    <i class="fa fa-edit"></i> View Supplier List
+                                    <i class="fa fa-pencil-square-o"></i> Add Warehouse
                                 </li>
                             </ol>
                         </div>
@@ -173,83 +172,21 @@
 
                     <!-- Page Content -->
                     <div class="row">
-                        <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
-                            <button id="add-item" class="btn btn-primary">Add Supplier</button>
+                        <div class="col-lg-12">
+                            <form id="add-item-form">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input class="form-control" name="name" required>
+                                </div><!-- end of .form-group -->
+
+                                <div class="form-group">
+                                    <label>Location</label>
+                                    <input id="location" class="form-control" name="location" required>
+                                </div><!-- end of .form-group -->
+                                <input type="submit" class="btn btn-primary" value="Add Warehouse">
+                            </form>
                         </div>
                     </div>
-
-                    <div class="row">
-
-                        <div class="col-lg-12">
-
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th style="width: 100%;">Supplier Name</th>
-                                            <th style="text-align: right;">Location</th>
-                                            <th style="text-align: right;">Contact #</th>
-                                            <th style="text-align: right;">Email</th>
-                                            <th style="text-align: right;"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="supplierTableBody">
-                                        <%
-                                            for (int i = 0; i < supplierList.size(); i++) {
-                                                supplier = supplierList.get(i);
-                                        %>
-                                        <tr>
-                                            <td><%=(i + 1)%></td>
-                                            <td><button type="button" class="btn btn-link name"><%=supplier.getName()%></button></td>
-                                            <td style="text-align: right;"><%=supplier.getLocation()%></td>
-                                            <td style="text-align: right;"><%=supplier.getContactNumber()%></td>
-                                            <td style="text-align: right;"><%=supplier.getEmailAddress()%></td>
-                                            <td style="white-space: nowrap">
-                                                <a class="edit-button">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a class="delete-button">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <%
-                                            }
-                                        %>
-                                    </tbody>
-                                </table>
-                            </div><!-- end of .table-responsive -->
-
-                        </div><!-- end of .col-lg-12 -->
-
-                    </div><!-- end of .row -->
-
-                    <!-- Pagination Options (bottom) -->
-                    <!-- <div class="row pagination-options">
-                        <div class="col-lg-3" style="text-align: left; margin-bottom: 15px;">
-                            <select id="choosePageNumber" class="form-control">
-                            </select>
-                        </div>
-                        
-                        <div class="col-lg-6">
-                            <ul class="pager" style="margin: 0 0 15px;">
-                                <li><a class="previous prevPage"><i class="fa fa-arrow-left"></i></a></li>
-                                <li class="pageIndicator">Page 1 of 10</li>
-                                <li><a class="next nextPage"><i class="fa fa-arrow-right"></i></a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="col-lg-3" style="text-align: right; margin-bottom: 15px;">
-                            <div style="width: 30%; float: left;">
-                                <input id="itemsPerPage" class="form-control" type="number" min="1"/> 
-                            </div>
-                            <div style="width: 70%; float: right;">
-                                <button type="button" class="btn btn-default" id="chooseItemsPerPage" style="width: 95%;">Set Items Per Page</button>
-                            </div>
-                            <div class="clear: both;"></div>
-                        </div>
-                    </div> -->
 
                 </div>
                 <!-- /.container-fluid -->
