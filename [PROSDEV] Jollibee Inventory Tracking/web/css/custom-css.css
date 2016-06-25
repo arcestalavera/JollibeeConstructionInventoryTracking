@@ -11,3 +11,15 @@ a{
 	outline: none !important;
 	outline-offset: 0px;
 }
+
+.nopad{
+    padding: 0px 0px 0px 0px !important;
+}
+
+.leftelem{
+    padding-right: 15px !important;
+}
+
+.rightelem{
+    padding-left: 15px !important;
+}
