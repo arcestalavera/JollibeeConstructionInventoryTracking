@@ -2,7 +2,7 @@
 function addItem() {
     $.ajax({
         type: "POST",
-        url: "AddItem",
+        url: "HandleItem?action=add",
         data: $(".add-items-form").serialize(),
         success: function(html) {
             $("#add-items-div").prepend(html);
