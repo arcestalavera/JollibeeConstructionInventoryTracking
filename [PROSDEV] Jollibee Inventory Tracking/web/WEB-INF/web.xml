@@ -28,6 +28,10 @@
         <servlet-name>HandleItem</servlet-name>
         <servlet-class>Servlets.HandleItem</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HandleRequest</servlet-name>
+        <servlet-class>Servlets.HandleRequest</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewWarehouse</servlet-name>
         <url-pattern>/Warehouse</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>HandleItem</servlet-name>
         <url-pattern>/HandleItem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HandleRequest</servlet-name>
+        <url-pattern>/HandleRequest</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

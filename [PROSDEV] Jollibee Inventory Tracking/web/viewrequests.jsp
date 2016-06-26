@@ -5,9 +5,10 @@
 <%@ include file="header.html" %>
 <%@ include file="topnav.html" %>
 <%
-                ArrayList<Request> requestList = (ArrayList<Request>) request.getSession().getAttribute("requests");
-                Request req;
-                Item item;
+    ArrayList<Request> requestList = (ArrayList<Request>) request.getSession().getAttribute("requests");
+    Request req;
+    Item item;
+    String status;
 %>
 <%@ include file="leftnav.html" %>
 <!--<!DOCTYPE html>
@@ -141,141 +142,151 @@
                      /.navbar-collapse 
                 </nav>-->
 
-                <div id="page-wrapper">
+<div id="page-wrapper">
 
-                    <div class="container-fluid">
+    <div class="container-fluid">
 
-                        <!-- Page Heading -->
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <h1 class="page-header">
-                                    View Request List
-                                </h1>
-                                <ol class="breadcrumb">
-                                    <li>
-                                        <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Requests</a>
-                                    </li>
-                                    <li class="active">
-                                        <i class="fa fa-edit"></i> View Request List
-                                    </li>
-                                </ol>
-                            </div>
-                        </div>
-                        <!-- /.row -->
-
-                        <!-- Pagination Options (top) -->
-                        <!-- <div class="row pagination-options">
-                            <ul class="pager" style="margin: 0 0 15px;">
-                                <li><a class="previous prevPage"><i class="fa fa-arrow-left"></i></a></li>
-                                <li class="pageIndicator">Page 1 of 10</li>
-                                <li><a class="next nextPage"><i class="fa fa-arrow-right"></i></a></li>
-                            </ul>
-                        </div> -->
-
-                        <!-- Page Content -->
-                        <div class="row">
-                            <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
-                                <button id="add-item" class="btn btn-primary">Add Delivery</button>
-                            </div>
-                        </div>
-                        <div class="row">
-
-                            <div class="col-lg-12">
-
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th style="width: 100%;">Request Name</th>
-                                                <th style="text-align: right;">Item Name</th>
-                                                <th style="text-align: right;">Count</th>
-                                                <th style="text-align: right;">Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="requestsTableBody">
-                                            <%
-                                                for (int i = 0; i < requestList.size(); i++) {
-                                                    req = requestList.get(i);
-                                                    item = req.getItem();
-                                            %>
-                                            <tr>
-                                                <td><%=(i + 1)%></td>
-                                                <td><button type="button" class="btn btn-link name"><%=req.getRequestName()%></button></td>
-                                                <td style="text-align: right;"><%=item.getName()%></td>
-                                                <td style="text-align: right;"><%=req.getCount()%></td>
-                                                <td style="text-align: right;"><%=req.getStatus()%></td>
-                                                <td style="white-space: no-wrap">
-                                                    <a class="edit-button">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
-                                                    </a>
-                                                    <a class="approve-button" data-toggle="modal" 
-                                                       data-target="#modal" data-verdict="approve">
-                                                        <i class="fa fa-check"></i>
-                                                    </a>
-                                                    <a class="reject-button" data-toggle="modal"
-                                                         data-target="#modal" data-verdict="reject">
-                                                        <i class="fa fa-times"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-<!--                                            <%
-                                                }
-                                            %>-->
-                                        </tbody>
-                                    </table>
-                                </div><!-- end of .table-responsive -->
-
-                            </div><!-- end of .col-lg-12 -->
-
-                        </div><!-- end of .row -->
-
-                        <!-- Pagination Options (bottom) -->
-                        <!-- <div class="row pagination-options">
-                            <div class="col-lg-3" style="text-align: left; margin-bottom: 15px;">
-                                <select id="choosePageNumber" class="form-control">
-                                </select>
-                            </div>
-                            
-                            <div class="col-lg-6">
-                                <ul class="pager" style="margin: 0 0 15px;">
-                                    <li><a class="previous prevPage"><i class="fa fa-arrow-left"></i></a></li>
-                                    <li class="pageIndicator">Page 1 of 10</li>
-                                    <li><a class="next nextPage"><i class="fa fa-arrow-right"></i></a></li>
-                                </ul>
-                            </div>
-                            
-                            <div class="col-lg-3" style="text-align: right; margin-bottom: 15px;">
-                                <div style="width: 30%; float: left;">
-                                    <input id="itemsPerPage" class="form-control" type="number" min="1"/> 
-                                </div>
-                                <div style="width: 70%; float: right;">
-                                    <button type="button" class="btn btn-default" id="chooseItemsPerPage" style="width: 95%;">Set Items Per Page</button>
-                                </div>
-                                <div class="clear: both;"></div>
-                            </div>
-                        </div> -->
-
-                    </div>
-                    <!-- /.container-fluid -->
-                    
-                    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <h4 class="modal-title" id="modal-message"></h4>
-                                </div>
-                                <div class="modal-footer">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /#page-wrapper -->
-
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    View Request List
+                </h1>
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Requests</a>
+                    </li>
+                    <li class="active">
+                        <i class="fa fa-edit"></i> View Request List
+                    </li>
+                </ol>
             </div>
-            <!-- /#wrapper -->
+        </div>
+        <!-- /.row -->
 
-            <%@ include file="footer.html"%>
+        <!-- Pagination Options (top) -->
+        <!-- <div class="row pagination-options">
+            <ul class="pager" style="margin: 0 0 15px;">
+                <li><a class="previous prevPage"><i class="fa fa-arrow-left"></i></a></li>
+                <li class="pageIndicator">Page 1 of 10</li>
+                <li><a class="next nextPage"><i class="fa fa-arrow-right"></i></a></li>
+            </ul>
+        </div> -->
+
+        <!-- Page Content -->
+        <div class="row">
+            <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
+                <button id="add-item" class="btn btn-primary">Add Delivery</button>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-lg-12">
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th style="width: 100%;">Request Name</th>
+                                <th style="text-align: right;">Item Name</th>
+                                <th style="text-align: right;">Count</th>
+                                <th style="text-align: right;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="requestsTableBody">
+                            <%
+                                for (int i = 0; i < requestList.size(); i++) {
+                                    req = requestList.get(i);
+                                    item = req.getItem();
+                                    status = req.getStatus();
+                            %>
+                            <tr>
+                                <td><%=(i + 1)%></td>
+                                <td><button type="button" class="btn btn-link name"><%=req.getRequestName()%></button></td>
+                                <td style="text-align: right;"><%=item.getName()%></td>
+                                <td style="text-align: right;"><%=req.getCount()%></td>
+                                <td class = "s<%=req.getRequestID()%>" style="text-align: right;"><%=status%></td>
+                                <td style="white-space: no-wrap">
+                                    <a class="edit-button">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <%
+                                        if (status.equals("Pending Approval")) {
+                                    %>
+                                    <a id = "<%=status.substring(0, 1).toLowerCase()%><%=req.getRequestID()%>" class="approve-button" data-toggle="modal" 
+                                       data-target="#modal" data-verdict="approve">
+                                        <i class="fa fa-check"></i>
+                                    </a>
+                                    <%
+                                        }
+                                        if (!(status.equals("Cancelled") || status.equals("Declined") || status.equals("Finished"))) {
+                                    %>
+                                    <a id = "<%=status.substring(0, 1).toLowerCase()%><%=req.getRequestID()%>" class="reject-button" data-toggle="modal"
+                                       data-target="#modal" data-verdict="reject">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                    <%
+                                        }
+                                    %>
+                                </td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                        </tbody>
+                    </table>
+                </div><!-- end of .table-responsive -->
+
+            </div><!-- end of .col-lg-12 -->
+
+        </div><!-- end of .row -->
+
+        <!-- Pagination Options (bottom) -->
+        <!-- <div class="row pagination-options">
+            <div class="col-lg-3" style="text-align: left; margin-bottom: 15px;">
+                <select id="choosePageNumber" class="form-control">
+                </select>
+            </div>
+            
+            <div class="col-lg-6">
+                <ul class="pager" style="margin: 0 0 15px;">
+                    <li><a class="previous prevPage"><i class="fa fa-arrow-left"></i></a></li>
+                    <li class="pageIndicator">Page 1 of 10</li>
+                    <li><a class="next nextPage"><i class="fa fa-arrow-right"></i></a></li>
+                </ul>
+            </div>
+            
+            <div class="col-lg-3" style="text-align: right; margin-bottom: 15px;">
+                <div style="width: 30%; float: left;">
+                    <input id="itemsPerPage" class="form-control" type="number" min="1"/> 
+                </div>
+                <div style="width: 70%; float: right;">
+                    <button type="button" class="btn btn-default" id="chooseItemsPerPage" style="width: 95%;">Set Items Per Page</button>
+                </div>
+                <div class="clear: both;"></div>
+            </div>
+        </div> -->
+
+    </div>
+    <!-- /.container-fluid -->
+
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4 class="modal-title" id="modal-message"></h4>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<%@ include file="footer.html"%>
