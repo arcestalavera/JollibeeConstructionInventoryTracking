@@ -264,4 +264,19 @@ public class Database {
             e.printStackTrace();
         }
     }
+    
+    public void addItem(String name, String unit) {
+        sql = "INSERT INTO items(name, unit)"
+                + " VALUES(?, ?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setString(1, name);
+            ps.setString(2, unit);
+
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

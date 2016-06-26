@@ -1,6 +1,10 @@
 <%@ include file="header.html"%>
 <%@ include file="topnav.html"%>
 <%@ include file="leftnav.html"%>
+
+
+<script type = "text/javascript" src = "js/Item.js">
+</script>
 <!--<!DOCTYPE html>
 <html lang="en">
 
@@ -171,12 +175,12 @@
                     </div> -->
 
                     <!-- Page Content -->
-                    <div class="row">
+                    <div id = "add-items-div" class="row">
                         <div class="col-lg-12">
-                            <form id="add-item-form">
+                            <form id="add-item-form" class = "add-items-form" onsubmit = "return addItem()" method = "POST">
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input class="form-control" name="name" required>
+                                    <input id = "name" class="form-control" name="name" required>
                                 </div><!-- end of .form-group -->
 
                                 <div class="form-group">
