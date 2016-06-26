@@ -7,6 +7,12 @@
             Item item;
 %>
 <%@ include file="leftnav.html" %>
+
+<script type ="text/javascript">
+function redirect(){
+    location.href = "additem.jsp";
+}
+</script>
 <!--<!DOCTYPE html>
 <html lang="en">
 
@@ -176,7 +182,7 @@
 
                         <div class="row">
                             <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
-                                <button id="add-item" class="btn btn-primary">Add Item</button>
+                                <button id="add-item" class="btn btn-primary" onclick="redirect()">Add Item</button>
                             </div>
                         </div>
 
