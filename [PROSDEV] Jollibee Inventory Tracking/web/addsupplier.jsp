@@ -147,14 +147,14 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <h1 class="page-header">
-                                View Delivery
+                                Add Supplier
                             </h1>
                             <ol class="breadcrumb">
                                 <li>
-                                    <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Deliveries</a>
+                                    <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Suppliers</a>
                                 </li>
                                 <li class="active">
-                                    <i class="fa fa-sign-in"></i> View Delivery List
+                                    <i class="fa fa-sign-in"></i> Add Supplier
                                 </li>
                             </ol>
                         </div>
@@ -172,137 +172,32 @@
 
                     <!-- Page Content -->
                     <div class="row">
-                        <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
-                            <button id="add-item" class="btn btn-primary">Add Item</button>
+                        <div class="col-lg-12">
+                            <form id="add-item-form">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input class="form-control" name="name" required>
+                                </div><!-- end of .form-group -->
+
+                                <div class="form-group">
+                                    <label>Location</label>
+                                    <input id="location" class="form-control" name="location" required>
+                                </div><!-- end of .form-group -->
+                                
+                                <div class="form-group">
+                                    <label>Number</label>
+                                    <input id="contactno" class="form-control" name="contactno" required>
+                                </div><!-- end of .form-group -->
+                                
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input id="emailadd" class="form-control" name="emailadd" required>
+                                </div><!-- end of .form-group -->
+                                <input type="submit" class="btn btn-primary" value="Add Supplier">
+                            </form>
                         </div>
                     </div>
-
-                    <div class="row">
-
-                        <div class="col-lg-12">
-
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th style="width: 100%;">Supplier Name</th>
-                                            <th style="text-align: right;">Item Name</th>
-                                            <th style="text-align: right;">Count</th>
-                                            <th style="text-align: right;">Status</th>
-                                            <th style="text-align: right;"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="deliveryTableBody">
-                                        <tr>
-                                            <td>1</td>
-                                            <td><button type="button" class="btn btn-link name">Supplier 1</button></td>
-                                            <td style="text-align: right;">Item 1</td>
-                                            <td style="text-align: right;">3</td>
-                                            <td style="text-align: right;">Finished</td>
-                                            <td style="white-space: nowrap">
-                                                <a class="edit-button">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a class="delete-button">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td><button type="button" class="btn btn-link name">Supplier 2</button></td>
-                                            <td style="text-align: right;">Item 2</td>
-                                            <td style="text-align: right;">4</td>
-                                            <td style="text-align: right;">Pending Approval</td>
-                                            <td style="white-space: nowrap">
-                                                <a class="edit-button">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a class="delete-button">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td><button type="button" class="btn btn-link name">Supplier 3</button></td>
-                                            <td style="text-align: right;">Item 3</td>
-                                            <td style="text-align: right;">5</td>
-                                            <td style="text-align: right;">Finished</td>
-                                            <td style="white-space: nowrap">
-                                                <a class="edit-button">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a class="delete-button">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td><button type="button" class="btn btn-link name">Supplier 4</button></td>
-                                            <td style="text-align: right;">Item 4</td>
-                                            <td style="text-align: right;">6</td>
-                                            <td style="text-align: right;">Finished</td>
-                                            <td style="white-space: nowrap">
-                                                <a class="edit-button">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a class="delete-button">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td><button type="button" class="btn btn-link name">Supplier 5</button></td>
-                                            <td style="text-align: right;">Item 5</td>
-                                            <td style="text-align: right;">7</td>
-                                            <td style="text-align: right;">Finished</td>
-                                            <td style="white-space: nowrap">
-                                                <a class="edit-button">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a class="delete-button">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div><!-- end of .table-responsive -->
-
-                        </div><!-- end of .col-lg-12 -->
-
-                    </div><!-- end of .row -->
-
-                    <!-- Pagination Options (bottom) -->
-                    <!-- <div class="row pagination-options">
-                        <div class="col-lg-3" style="text-align: left; margin-bottom: 15px;">
-                            <select id="choosePageNumber" class="form-control">
-                            </select>
-                        </div>
-                        
-                        <div class="col-lg-6">
-                            <ul class="pager" style="margin: 0 0 15px;">
-                                <li><a class="previous prevPage"><i class="fa fa-arrow-left"></i></a></li>
-                                <li class="pageIndicator">Page 1 of 10</li>
-                                <li><a class="next nextPage"><i class="fa fa-arrow-right"></i></a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="col-lg-3" style="text-align: right; margin-bottom: 15px;">
-                            <div style="width: 30%; float: left;">
-                                <input id="itemsPerPage" class="form-control" type="number" min="1"/> 
-                            </div>
-                            <div style="width: 70%; float: right;">
-                                <button type="button" class="btn btn-default" id="chooseItemsPerPage" style="width: 95%;">Set Items Per Page</button>
-                            </div>
-                            <div class="clear: both;"></div>
-                        </div>
-                    </div> -->
-
+                    
                 </div>
                 <!-- /.container-fluid -->
 
