@@ -1,6 +1,9 @@
 <%@ include file="header.html"%>
 <%@ include file="topnav.html"%>
 <%@ include file="leftnav.html"%>
+
+<script type = "text/javascript" src = "js/Supplier.js">
+</script>
 <!--<!DOCTYPE html>
 <html lang="en">
 
@@ -171,12 +174,12 @@
                     </div> -->
 
                     <!-- Page Content -->
-                    <div class="row">
+                    <div id = "add-supplier-div" class="row">
                         <div class="col-lg-12">
-                            <form id="add-item-form">
+                            <form class = "add-supplier-form" id="add-item-form" method = "POST" onsubmit="return addSupplier()">
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input class="form-control" name="name" required>
+                                    <input id="name" class="form-control" name="name" required>
                                 </div><!-- end of .form-group -->
 
                                 <div class="form-group">

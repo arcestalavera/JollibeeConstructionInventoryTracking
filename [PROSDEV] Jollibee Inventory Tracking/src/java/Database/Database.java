@@ -247,4 +247,21 @@ public class Database {
             e.printStackTrace();
         }
     }
+    
+    public void addSupplier(String name, String location, String contactNumber, String emailAddress) {
+        sql = "INSERT INTO supplier(name, location, contactNumber, emailAddress)"
+                + " VALUES(?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setString(1, name);
+            ps.setString(2, location);
+            ps.setString(3, contactNumber);
+            ps.setString(4, emailAddress);
+
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

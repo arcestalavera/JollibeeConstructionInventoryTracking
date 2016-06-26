@@ -10,7 +10,7 @@
 
 <script type="text/javascript">
     function redirect(){
-        location.href = "addsuppliers.jsp";
+        location.href = "addsupplier.jsp";
     }
 </script>
 <!--<!DOCTYPE html>
