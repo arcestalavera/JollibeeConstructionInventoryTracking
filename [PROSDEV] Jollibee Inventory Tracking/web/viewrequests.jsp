@@ -209,17 +209,20 @@
                                                     <a class="edit-button">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
-                                                    <a class="approve-button">
+                                                    </a>
+                                                    <a class="approve-button" data-toggle="modal" 
+                                                       data-target="#modal" data-verdict="approve">
                                                         <i class="fa fa-check"></i>
                                                     </a>
-                                                    <a class="reject-button">
+                                                    <a class="reject-button" data-toggle="modal"
+                                                         data-target="#modal" data-verdict="reject">
                                                         <i class="fa fa-times"></i>
                                                     </a>
                                                 </td>
                                             </tr>
-                                            <%
+<!--                                            <%
                                                 }
-                                            %>
+                                            %>-->
                                         </tbody>
                                     </table>
                                 </div><!-- end of .table-responsive -->
@@ -256,6 +259,18 @@
 
                     </div>
                     <!-- /.container-fluid -->
+                    
+                    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <h4 class="modal-title" id="modal-message"></h4>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <!-- /#page-wrapper -->
