@@ -11,10 +11,13 @@ import Models.Supplier;
 import Models.Warehouse;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,7 +34,7 @@ public class Database {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             String host = "jdbc:mysql://127.0.0.1:3306/inventory_tracking?user=root";
             String uUser = "root";
-            String uPass = "";
+            String uPass = "admin";
 
             con = DriverManager.getConnection(host, uUser, uPass);
 
@@ -179,14 +182,13 @@ public class Database {
                 itemID = rs.getInt("itemID");
 
                 item = getItemDetails(itemID);
-                
-                
+
                 request.setRequestID(requestID);
                 request.setCount(count);
                 request.setStatus(status);
                 request.setRequestName(requestName);
                 request.setItem(item);
-                
+
                 requestList.add(request);
             }
         } catch (SQLException e) {
@@ -195,37 +197,54 @@ public class Database {
 
         return requestList;
     }
-    
+
     /*
-        METHODS THAT WILL GET DETAILS OF AN OBJECT
-    */
-    
-    public Item getItemDetails(int itemID){
+     METHODS THAT WILL GET THE DETAILS OF AN OBJECT
+     */
+    public Item getItemDetails(int itemID) {
         Statement stmt;
         ResultSet rs;
         Item item = new Item();
-        
+
         String name, unit;
-        
-        try{
+
+        try {
             stmt = con.createStatement();
 
             sql = "SELECT * FROM items"
                     + " WHERE itemID = " + itemID;
 
             rs = stmt.executeQuery(sql);
-            
-            if(rs.next()){
+
+            if (rs.next()) {
                 name = rs.getString("name");
                 unit = rs.getString("unit");
-                
+
                 item.setName(name);
                 item.setUnit(unit);
             }
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return item;
+    }
+
+    /*
+     METHODS THAT WILL ADD AN OBJECT TO DB
+     */
+    public void addWarehouse(String name, String location) {
+        sql = "INSERT INTO warehouse(name, location)"
+                + " VALUES(?, ?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setString(1, name);
+            ps.setString(2, location);
+
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

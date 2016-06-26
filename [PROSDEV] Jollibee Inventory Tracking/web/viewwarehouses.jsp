@@ -8,6 +8,12 @@
     Warehouse warehouse;
 %>
 <%@ include file="leftnav.html" %>
+
+<script type="text/javascript">
+    function redirect(){
+        location.href = "addwarehouse.jsp";
+    }
+</script>
 <!--<!DOCTYPE html>
 <html lang="en">
     <head>
@@ -172,7 +178,7 @@
                     <!-- Page Content -->
                     <div class="row">
                         <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
-                            <button id="add-item" class="btn btn-primary">Add Warehouse</button>
+                            <button id="add-item" class="btn btn-primary" onclick="redirect()">Add Warehouse</button>
                         </div>
                     </div>
 

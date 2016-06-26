@@ -16,6 +16,10 @@
         <servlet-name>ViewRequest</servlet-name>
         <servlet-class>Servlets.ViewRequest</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddWarehouse</servlet-name>
+        <servlet-class>Servlets.AddWarehouse</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewWarehouse</servlet-name>
         <url-pattern>/Warehouse</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>ViewRequest</servlet-name>
         <url-pattern>/Request</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddWarehouse</servlet-name>
+        <url-pattern>/AddWarehouse</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

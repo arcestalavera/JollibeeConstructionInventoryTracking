@@ -7,6 +7,12 @@
             Supplier supplier;
 %>
 <%@ include file="leftnav.html" %>
+
+<script type="text/javascript">
+    function redirect(){
+        location.href = "addsuppliers.jsp";
+    }
+</script>
 <!--<!DOCTYPE html>
 <html lang="en">
 
@@ -174,7 +180,7 @@
                     <!-- Page Content -->
                     <div class="row">
                         <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
-                            <button id="add-item" class="btn btn-primary">Add Supplier</button>
+                            <button id="add-item" class="btn btn-primary" onclick="redirect()">Add Supplier</button>
                         </div>
                     </div>
 
