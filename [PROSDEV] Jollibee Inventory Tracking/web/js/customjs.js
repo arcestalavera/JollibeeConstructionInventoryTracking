@@ -6,7 +6,8 @@
 
 $(document).ready(function(){
     console.log('yoohoo');
-    $('#modal').on('show.bs.modal', function(event){
+    $('.itemlist').hide();
+    $('#requestsmodal').on('show.bs.modal', function(event){
 //        console.log('yoohoo');
         var trigger = $(event.relatedTarget);
         var verdict = trigger.data('verdict');
@@ -26,9 +27,13 @@ $(document).ready(function(){
         }
     });
     
-    $('#modal').on('hide.bs.modal', function(event){
+    $('#requestsmodal').on('hide.bs.modal', function(event){
         var modal = $(this);
         modal.find('.modal-footer').empty();
+    });
+    
+    $('.additem').on('click', function(event){
+        
     });
 });
 
