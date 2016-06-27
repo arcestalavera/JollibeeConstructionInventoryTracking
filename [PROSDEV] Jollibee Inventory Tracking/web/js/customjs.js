@@ -32,6 +32,18 @@ $(document).ready(function(){
         modal.find('.modal-footer').empty();
     });
     
+    $('#deliveriesmodal').on('show.bs.modal', function(event){
+        var trigger = $(event.relatedTarget);
+        var verdict = trigger.data('verdict');
+        var modal = $(this);
+        
+        if(verdict==='cancel'){
+            modal.find('.modal-title').text("Are you sure you can to cancel this delivery?");
+            modal.find('.modal-footer').append('<button type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>'
+                    + '<button type="button" class="btn btn-default" data-dismiss="modal">No</button>');
+        }
+    });
+    
     $('.additem').on('click', function(event){
         
     });
