@@ -182,9 +182,10 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th style="width: 100%;">Supplier Name</th>
-                                            <th style="text-align: right;">Item Name</th>
-                                            <th style="text-align: right;">Count</th>
+                                            <th style="width: 100%;">Delivery Name</th>
+                                            <th style="text-align: right;">Type</th>
+                                            <th style="text-align: right;">Date Requested</th>
+                                            <th style="text-align: right;">Date Received</th>
                                             <th style="text-align: right;">Status</th>
                                             <th style="text-align: right;"></th>
                                         </tr>
