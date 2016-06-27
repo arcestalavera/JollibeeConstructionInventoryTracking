@@ -7,7 +7,7 @@
 $(document).ready(function(){
     console.log('yoohoo');
     $('.itemlist').hide();
-    $('#modal').on('show.bs.modal', function(event){
+    $('#requestsmodal').on('show.bs.modal', function(event){
 //        console.log('yoohoo');
         var trigger = $(event.relatedTarget);
         var verdict = trigger.data('verdict');
@@ -27,7 +27,7 @@ $(document).ready(function(){
         }
     });
     
-    $('#modal').on('hide.bs.modal', function(event){
+    $('#requestsmodal').on('hide.bs.modal', function(event){
         var modal = $(this);
         modal.find('.modal-footer').empty();
     });
