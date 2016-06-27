@@ -143,14 +143,14 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <h1 class="page-header">
-                                View Delivery
+                                View Deliveries
                             </h1>
                             <ol class="breadcrumb">
                                 <li>
                                     <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Deliveries</a>
                                 </li>
                                 <li class="active">
-                                    <i class="fa fa-sign-in"></i> View Delivery List
+                                    <i class="fa fa-sign-in"></i> View Deliveries
                                 </li>
                             </ol>
                         </div>
@@ -182,9 +182,10 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th style="width: 100%;">Supplier Name</th>
-                                            <th style="text-align: right;">Item Name</th>
-                                            <th style="text-align: right;">Count</th>
+                                            <th style="width: 100%;">Delivery Name</th>
+                                            <th style="text-align: right;">Type</th>
+                                            <th style="text-align: right;">Date Requested</th>
+                                            <th style="text-align: right;">Date Received</th>
                                             <th style="text-align: right;">Status</th>
                                             <th style="text-align: right;"></th>
                                         </tr>
@@ -192,76 +193,74 @@
                                     <tbody id="deliveryTableBody">
                                         <tr>
                                             <td>1</td>
-                                            <td><button type="button" class="btn btn-link name">Supplier 1</button></td>
-                                            <td style="text-align: right;">Item 1</td>
-                                            <td style="text-align: right;">3</td>
-                                            <td style="text-align: right;">Finished</td>
+                                            <td><button type="button" class="btn btn-link name">JolliHammer Time!</button></td>
+                                            <td style="text-align: right;">incoming</td>
+                                            <td style="text-align: right;">06/26/2016</td>
+                                            <td style="text-align: right;">-</td>
+                                            <td style="text-align: right;">Waiting for Approval</td>
                                             <td style="white-space: nowrap">
-                                                <a class="edit-button">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a class="delete-button">
-                                                    <i class="fa fa-trash-o"></i>
+                                                <a class="edit-button" data-toggle="modal"
+                                                   data-target="#deliveriesmodal" data-verdict="cancel">
+                                                    <i class="fa fa-times-circle"></i>
                                                 </a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>2</td>
-                                            <td><button type="button" class="btn btn-link name">Supplier 2</button></td>
-                                            <td style="text-align: right;">Item 2</td>
-                                            <td style="text-align: right;">4</td>
-                                            <td style="text-align: right;">Pending Approval</td>
+                                            <td><button type="button" class="btn btn-link name">JolliNails Time!</button></td>
+                                            <td style="text-align: right;">outcoming</td>
+                                            <td style="text-align: right;">06/12/2016</td>
+                                            <td style="text-align: right;">06/24/2016</td>
+                                            <td style="text-align: right;">Finished</td>
                                             <td style="white-space: nowrap">
-                                                <a class="edit-button">
-                                                    <i class="fa fa-edit"></i>
+                                                <a class="edit-button" data-toggle="modal"
+                                                   data-target="#deliveriesmodal" data-verdict="cancel">
+                                                    <i class="fa fa-times-circle"></i>
                                                 </a>
-                                                <a class="delete-button">
-                                                    <i class="fa fa-trash-o"></i>
+                                                <a class="delete-button" data-toggle="modal"
+                                                   data-target="#deliveriesmodal" data-verdict="delete">
                                                 </a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
-                                            <td><button type="button" class="btn btn-link name">Supplier 3</button></td>
-                                            <td style="text-align: right;">Item 3</td>
-                                            <td style="text-align: right;">5</td>
-                                            <td style="text-align: right;">Finished</td>
+                                            <td><button type="button" class="btn btn-link name">JolliWatdawat</button></td>
+                                            <td style="text-align: right;">outgoing</td>
+                                            <td style="text-align: right;">06/24/2016</td>
+                                            <td style="text-align: right;">-</td>
+                                            <td style="text-align: right;">Ongoing</td>
                                             <td style="white-space: nowrap">
-                                                <a class="edit-button">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a class="delete-button">
-                                                    <i class="fa fa-trash-o"></i>
+                                                <a class="edit-button" data-toggle="modal"
+                                                   data-target="#deliveriesmodal" data-verdict="cancel">
+                                                    <i class="fa fa-times-circle"></i>
                                                 </a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>4</td>
-                                            <td><button type="button" class="btn btn-link name">Supplier 4</button></td>
-                                            <td style="text-align: right;">Item 4</td>
-                                            <td style="text-align: right;">6</td>
-                                            <td style="text-align: right;">Finished</td>
+                                            <td><button type="button" class="btn btn-link name">JolliHammer Time!</button></td>
+                                            <td style="text-align: right;">incoming</td>
+                                            <td style="text-align: right;">06/27/2016</td>
+                                            <td style="text-align: right;">-</td>
+                                            <td style="text-align: right;">Waiting for Approval</td>
                                             <td style="white-space: nowrap">
-                                                <a class="edit-button">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a class="delete-button">
-                                                    <i class="fa fa-trash-o"></i>
+                                                <a class="edit-button" data-toggle="modal"
+                                                   data-target="#deliveriesmodal" data-verdict="cancel">
+                                                    <i class="fa fa-times-circle"></i>
                                                 </a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>5</td>
-                                            <td><button type="button" class="btn btn-link name">Supplier 5</button></td>
-                                            <td style="text-align: right;">Item 5</td>
-                                            <td style="text-align: right;">7</td>
-                                            <td style="text-align: right;">Finished</td>
+                                            <td><button type="button" class="btn btn-link name">JolliNails Time!</button></td>
+                                            <td style="text-align: right;">incoming</td>
+                                            <td style="text-align: right;">06/27/2016</td>
+                                            <td style="text-align: right;">-</td>
+                                            <td style="text-align: right;">Waiting for Approval</td>
                                             <td style="white-space: nowrap">
-                                                <a class="edit-button">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a class="delete-button">
-                                                    <i class="fa fa-trash-o"></i>
+                                                <a class="edit-button" data-toggle="modal"
+                                                   data-target="#deliveriesmodal" data-verdict="cancel">
+                                                    <i class="fa fa-times-circle"></i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -301,6 +300,18 @@
 
                 </div>
                 <!-- /.container-fluid -->
+                
+                <div class="modal fade" id="deliveriesmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <h4 class="modal-title" id="modal-message"></h4>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
             <!-- /#page-wrapper -->
