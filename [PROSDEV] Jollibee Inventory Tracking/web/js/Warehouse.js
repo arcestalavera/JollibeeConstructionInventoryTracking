@@ -2,7 +2,7 @@
 function addWarehouse() {
     $.ajax({
         type: "POST",
-        url: "AddWarehouse",
+        url: "HandleWarehouse?action=add",
         data: $(".add-warehouse-form").serialize(),
         success: function(html) {
             $("#add-warehouse-div").prepend(html);

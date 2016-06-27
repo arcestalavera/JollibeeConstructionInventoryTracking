@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Arces
  */
-public class AddWarehouse extends HttpServlet {
+public class HandleRequest extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,18 +32,24 @@ public class AddWarehouse extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+
         Database db = Database.getInstance();
-        String name, location;
+        String action, resp;
+        int id;
         
-        name = request.getParameter("name");
-        location = request.getParameter("location");
+        action = request.getParameter("action");
         
-        db.addWarehouse(name, location);
-        System.out.println("name = " + name);
-        out.write("<p id = \"add-warehouse-message\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">Warehouse <i>"
-                + name + "</i> has been added! </p>");
+        System.out.println("a = " + action);
+        switch (action) {
+            case "respond":
+                id = Integer.parseInt(request.getParameter("id").substring(1,2));
+                
+                resp = request.getParameter("resp");
+                db.respondRequest(id, resp);
+                break;
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

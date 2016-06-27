@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Servlets;
 
 import Database.Database;
@@ -18,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Arces
  */
-public class AddItem extends HttpServlet {
+public class HandleSupplier extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,16 +32,25 @@ public class AddItem extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+
         Database db = Database.getInstance();
-        String name, unit;
-        
-        name = request.getParameter("name");
-        unit = request.getParameter("unitofmeasure");
-        
-        db.addItem(name, unit);
-        System.out.println("name = " + name);
-        out.write("<p id = \"add-warehouse-message\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">Item <i>"
-                + name + "</i> has been added! </p>");
+        String action, name, location, contactNo, emailAdd;
+
+        action = request.getParameter("action");
+
+        switch (action) {
+            case "add":
+                name = request.getParameter("name");
+                location = request.getParameter("location");
+                contactNo = request.getParameter("contactno");
+                emailAdd = request.getParameter("emailadd");
+
+                db.addSupplier(name, location, contactNo, emailAdd);
+                System.out.println("name = " + name);
+                out.write("<p id = \"add-warehouse-message\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">Supplier <i>"
+                        + name + "</i> has been added! </p>");
+                break;
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

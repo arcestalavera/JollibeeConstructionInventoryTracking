@@ -17,16 +17,20 @@
         <servlet-class>Servlets.ViewRequest</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddWarehouse</servlet-name>
-        <servlet-class>Servlets.AddWarehouse</servlet-class>
+        <servlet-name>HandleWarehouse</servlet-name>
+        <servlet-class>Servlets.HandleWarehouse</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddSupplier</servlet-name>
-        <servlet-class>Servlets.AddSupplier</servlet-class>
+        <servlet-name>HandleSupplier</servlet-name>
+        <servlet-class>Servlets.HandleSupplier</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddItem</servlet-name>
-        <servlet-class>Servlets.AddItem</servlet-class>
+        <servlet-name>HandleItem</servlet-name>
+        <servlet-class>Servlets.HandleItem</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HandleRequest</servlet-name>
+        <servlet-class>Servlets.HandleRequest</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewWarehouse</servlet-name>
@@ -45,16 +49,20 @@
         <url-pattern>/Request</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddWarehouse</servlet-name>
-        <url-pattern>/AddWarehouse</url-pattern>
+        <servlet-name>HandleWarehouse</servlet-name>
+        <url-pattern>/HandleWarehouse</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddSupplier</servlet-name>
-        <url-pattern>/AddSupplier</url-pattern>
+        <servlet-name>HandleSupplier</servlet-name>
+        <url-pattern>/HandleSupplier</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddItem</servlet-name>
-        <url-pattern>/AddItem</url-pattern>
+        <servlet-name>HandleItem</servlet-name>
+        <url-pattern>/HandleItem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HandleRequest</servlet-name>
+        <url-pattern>/HandleRequest</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

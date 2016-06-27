@@ -247,7 +247,7 @@ public class Database {
             e.printStackTrace();
         }
     }
-    
+
     public void addSupplier(String name, String location, String contactNumber, String emailAddress) {
         sql = "INSERT INTO supplier(name, location, contactNumber, emailAddress)"
                 + " VALUES(?, ?, ?, ?)";
@@ -264,7 +264,7 @@ public class Database {
             e.printStackTrace();
         }
     }
-    
+
     public void addItem(String name, String unit) {
         sql = "INSERT INTO items(name, unit)"
                 + " VALUES(?, ?)";
@@ -276,6 +276,25 @@ public class Database {
 
             ps.execute();
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+     METHODS THAT WILL EDIT THE DETAILS OF AN OBJECT
+     */
+    
+    public void respondRequest(int id, String response){
+        sql = "UPDATE requests SET status = ?"
+                + " WHERE requestID = ?";
+        
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, response);
+            ps.setInt(2, id);
+            
+            ps.execute();
+        } catch(SQLException e){
             e.printStackTrace();
         }
     }

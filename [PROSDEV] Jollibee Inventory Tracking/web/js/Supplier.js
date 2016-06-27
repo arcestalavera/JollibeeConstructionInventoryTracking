@@ -2,7 +2,7 @@
 function addSupplier() {
     $.ajax({
         type: "POST",
-        url: "AddSupplier",
+        url: "HandleSupplier?action=add",
         data: $(".add-supplier-form").serialize(),
         success: function(html) {
             $("#add-supplier-div").prepend(html);
