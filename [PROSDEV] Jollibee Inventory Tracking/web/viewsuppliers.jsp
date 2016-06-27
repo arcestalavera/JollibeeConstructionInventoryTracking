@@ -154,7 +154,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <h1 class="page-header">
-                                View Suppliers
+                                View Supplier List
                             </h1>
                             <ol class="breadcrumb">
                                 <li>

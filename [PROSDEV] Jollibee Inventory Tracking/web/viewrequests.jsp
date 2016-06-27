@@ -183,52 +183,6 @@
 
             <div class="col-lg-12">
 
-<<<<<<< HEAD
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th style="width: 100%;">Request Name</th>
-                                                <th style="text-align: right;">Item Name</th>
-                                                <th style="text-align: right;">Count</th>
-                                                <th style="text-align: right;">Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="requestsTableBody">
-                                            <%
-                                                for (int i = 0; i < requestList.size(); i++) {
-                                                    req = requestList.get(i);
-                                                    item = req.getItem();
-                                            %>
-                                            <tr>
-                                                <td><%=(i + 1)%></td>
-                                                <td><button type="button" class="btn btn-link name"><%=req.getRequestName()%></button></td>
-                                                <td style="text-align: right;"><%=item.getName()%></td>
-                                                <td style="text-align: right;"><%=req.getCount()%></td>
-                                                <td style="text-align: right;"><%=req.getStatus()%></td>
-                                                <td style="white-space: no-wrap">
-                                                    <a class="edit-button">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
-                                                    </a>
-                                                    <a class="approve-button" data-toggle="modal" 
-                                                       data-target="#requestsmodal" data-verdict="approve">
-                                                        <i class="fa fa-check"></i>
-                                                    </a>
-                                                    <a class="reject-button" data-toggle="modal"
-                                                         data-target="#requestsmodal" data-verdict="reject">
-                                                        <i class="fa fa-times"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-<!--                                            <%
-                                                }
-                                            %>-->
-                                        </tbody>
-                                    </table>
-                                </div><!-- end of .table-responsive -->
-=======
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -261,7 +215,7 @@
                                         if (status.equals("Pending Approval")) {
                                     %>
                                     <a id = "<%=status.substring(0, 1).toLowerCase()%><%=req.getRequestID()%>" class="approve-button" data-toggle="modal" 
-                                       data-target="#modal" data-verdict="approve">
+                                       data-target="#requestsmodal" data-verdict="approve">
                                         <i class="fa fa-check"></i>
                                     </a>
                                     <%
@@ -269,7 +223,7 @@
                                         if (!(status.equals("Cancelled") || status.equals("Declined") || status.equals("Finished"))) {
                                     %>
                                     <a id = "<%=status.substring(0, 1).toLowerCase()%><%=req.getRequestID()%>" class="reject-button" data-toggle="modal"
-                                       data-target="#modal" data-verdict="reject">
+                                       data-target="#requestsmodal" data-verdict="reject">
                                         <i class="fa fa-times"></i>
                                     </a>
                                     <%
@@ -283,7 +237,6 @@
                         </tbody>
                     </table>
                 </div><!-- end of .table-responsive -->
->>>>>>> 30c0ce3b1a66edd748c88d9a1d02eee8d43e869f
 
             </div><!-- end of .col-lg-12 -->
 
@@ -315,7 +268,6 @@
             </div>
         </div> -->
 
-<<<<<<< HEAD
                     </div>
                     <!-- /.container-fluid -->
                     
@@ -330,12 +282,12 @@
                             </div>
                         </div>
                     </div>
-=======
+
     </div>
     <!-- /.container-fluid -->
->>>>>>> 30c0ce3b1a66edd748c88d9a1d02eee8d43e869f
 
-    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
+
+    <div class="modal fade" id="requestsmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">

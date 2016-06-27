@@ -143,14 +143,14 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <h1 class="page-header">
-                                View Deliveries
+                                View Delivery List
                             </h1>
                             <ol class="breadcrumb">
                                 <li>
                                     <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Deliveries</a>
                                 </li>
                                 <li class="active">
-                                    <i class="fa fa-sign-in"></i> View Deliveries
+                                    <i class="fa fa-sign-in"></i> View Delivery List
                                 </li>
                             </ol>
                         </div>
