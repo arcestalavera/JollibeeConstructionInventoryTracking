@@ -213,13 +213,6 @@
                                             <td style="text-align: right;">06/24/2016</td>
                                             <td style="text-align: right;">Finished</td>
                                             <td style="white-space: nowrap">
-                                                <a class="edit-button" data-toggle="modal"
-                                                   data-target="#deliveriesmodal" data-verdict="cancel">
-                                                    <i class="fa fa-times-circle"></i>
-                                                </a>
-                                                <a class="delete-button" data-toggle="modal"
-                                                   data-target="#deliveriesmodal" data-verdict="delete">
-                                                </a>
                                             </td>
                                         </tr>
                                         <tr>
