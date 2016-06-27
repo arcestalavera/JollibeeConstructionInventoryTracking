@@ -4,13 +4,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="header.html" %>
 <%@ include file="topnav.html" %>
+<%@ include file="leftnav.html" %>
 <%
     ArrayList<Request> requestList = (ArrayList<Request>) request.getSession().getAttribute("requests");
     Request req;
     Item item;
     String status;
 %>
-<%@ include file="leftnav.html" %>
 <!--<!DOCTYPE html>
     <html lang="en">
 
@@ -182,53 +182,6 @@
         <div class="row">
 
             <div class="col-lg-12">
-
-<<<<<<< HEAD
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th style="width: 100%;">Request Name</th>
-                                                <th style="text-align: right;">Item Name</th>
-                                                <th style="text-align: right;">Count</th>
-                                                <th style="text-align: right;">Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="requestsTableBody">
-                                            <%
-                                                for (int i = 0; i < requestList.size(); i++) {
-                                                    req = requestList.get(i);
-                                                    item = req.getItem();
-                                            %>
-                                            <tr>
-                                                <td><%=(i + 1)%></td>
-                                                <td><button type="button" class="btn btn-link name"><%=req.getRequestName()%></button></td>
-                                                <td style="text-align: right;"><%=item.getName()%></td>
-                                                <td style="text-align: right;"><%=req.getCount()%></td>
-                                                <td style="text-align: right;"><%=req.getStatus()%></td>
-                                                <td style="white-space: no-wrap">
-                                                    <a class="edit-button">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
-                                                    </a>
-                                                    <a class="approve-button" data-toggle="modal" 
-                                                       data-target="#requestsmodal" data-verdict="approve">
-                                                        <i class="fa fa-check"></i>
-                                                    </a>
-                                                    <a class="reject-button" data-toggle="modal"
-                                                         data-target="#requestsmodal" data-verdict="reject">
-                                                        <i class="fa fa-times"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-<!--                                            <%
-                                                }
-                                            %>-->
-                                        </tbody>
-                                    </table>
-                                </div><!-- end of .table-responsive -->
-=======
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -252,7 +205,7 @@
                                 <td><button type="button" class="btn btn-link name"><%=req.getRequestName()%></button></td>
                                 <td style="text-align: right;"><%=item.getName()%></td>
                                 <td style="text-align: right;"><%=req.getCount()%></td>
-                                <td class = "s<%=req.getRequestID()%>" style="text-align: right;"><%=status%></td>
+                                <td style="text-align: right;"><%=req.getStatus()%></td>
                                 <td style="white-space: no-wrap">
                                     <a class="edit-button">
                                         <i class="fa fa-edit"></i>
@@ -283,10 +236,7 @@
                         </tbody>
                     </table>
                 </div><!-- end of .table-responsive -->
->>>>>>> 30c0ce3b1a66edd748c88d9a1d02eee8d43e869f
-
             </div><!-- end of .col-lg-12 -->
-
         </div><!-- end of .row -->
 
         <!-- Pagination Options (bottom) -->
@@ -315,25 +265,20 @@
             </div>
         </div> -->
 
-<<<<<<< HEAD
-                    </div>
-                    <!-- /.container-fluid -->
-                    
-                    <div class="modal fade" id="requestsmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <h4 class="modal-title" id="modal-message"></h4>
-                                </div>
-                                <div class="modal-footer">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-=======
     </div>
     <!-- /.container-fluid -->
->>>>>>> 30c0ce3b1a66edd748c88d9a1d02eee8d43e869f
+
+    <div class="modal fade" id="requestsmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4 class="modal-title" id="modal-message"></h4>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
         <div class="modal-dialog" role="document">

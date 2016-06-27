@@ -6,10 +6,12 @@
 
 package Models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Arces
  */
-public class Delivery {
+public class Delivery implements Serializable{
     
 }

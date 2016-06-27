@@ -3,10 +3,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@ include file="header.html" %>
 <%@ include file="topnav.html" %>
-<%
-    ArrayList<Warehouse> warehouseList = (ArrayList<Warehouse>) request.getSession().getAttribute("warehouses");
-    Warehouse warehouse;
-%>
 <%@ include file="leftnav.html" %>
 
 <script type="text/javascript">
@@ -14,6 +10,10 @@
         location.href = "addwarehouse.jsp";
     }
 </script>
+<%
+    ArrayList<Warehouse> warehouseList = (ArrayList<Warehouse>) request.getSession().getAttribute("warehouses");
+    Warehouse warehouse;
+%>
 <!--<!DOCTYPE html>
 <html lang="en">
     <head>
