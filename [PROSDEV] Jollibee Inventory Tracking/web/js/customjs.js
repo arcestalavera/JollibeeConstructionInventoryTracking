@@ -6,13 +6,9 @@
 
 $(document).ready(function() {
     var id, status;
-    console.log('yoohoo');
-<<<<<<< HEAD
+//    console.log('yoohoo');
     $('.itemlist').hide();
     $('#requestsmodal').on('show.bs.modal', function(event){
-=======
-    $('#modal').on('show.bs.modal', function(event) {
->>>>>>> 30c0ce3b1a66edd748c88d9a1d02eee8d43e869f
 //        console.log('yoohoo');
         var trigger = $(event.relatedTarget);
         var verdict = trigger.data('verdict');
@@ -35,7 +31,7 @@ $(document).ready(function() {
                     + '<button type="button" class="btn btn-default" data-dismiss="modal">No</button>');
         }
     });
-<<<<<<< HEAD
+
     
     $('#requestsmodal').on('hide.bs.modal', function(event){
         var modal = $(this);
@@ -53,10 +49,7 @@ $(document).ready(function() {
                     + '<button type="button" class="btn btn-default" data-dismiss="modal">No</button>');
         }
     });
-    
-    $('.additem').on('click', function(event){
         
-=======
 
     $('#modal').on('hide.bs.modal', function(event) {
         var modal = $(this);
@@ -87,7 +80,6 @@ $(document).ready(function() {
                 $(".s" + id.substr(1, 2)).html("Declined");
             }
         });
->>>>>>> 30c0ce3b1a66edd748c88d9a1d02eee8d43e869f
     });
 });
 
