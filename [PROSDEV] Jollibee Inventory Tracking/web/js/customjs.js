@@ -4,10 +4,72 @@
  * and open the template in the editor.
  */
 
+var tableshown;
+var rowcount;
+
+function additem(){
+    
+    console.log('yooohoo');
+    var dropdown = document.getElementById('itemselection');
+    var item = dropdown.options[dropdown.selectedIndex];
+    var name = item.text;
+    var unit = $(dropdown).find(':selected').data('unit');
+    var table = document.getElementById('itemlist');
+    
+    if (!tableshown){
+      table.style.display = 'block';
+      tableshown = true;
+    }
+    
+    rowcount++;
+    var row = table.insertRow(rowcount);
+    var cell1 = row.insertCell(0);
+//    cell1.style= "width: 100%;";
+    cell1.innerHTML = rowcount;
+    var cell2 = row.insertCell(1);
+//    cell1.style= "width: 100%;";
+    cell2.innerHTML = "<button type='button' class='btn btn-link name'>" + name + "</button>";
+    var cell3 = row.insertCell(2);
+//    cell1.style= "width: 100%;";
+    cell3.style = "text-align: right;";
+    cell3.innerHTML = unit;
+    var cell4 = row.insertCell(3);
+    cell4.style = "text-align: right;";
+    cell4.innerHTML = "<input type='number' class='form-control nopad numberinput' name='amount' min='1' style='text-align: right;' required>";
+    var cell5 = row.insertCell(4);
+    cell5.style = "white-space: nowrap;";
+    cell5.innerHTML = "<a class='delete-button' data-toggle='modal'"
+        + "data-target='#addrequestmodal' data-verdict='delete'>"
+        + "<i class='fa fa-trash-o'></i>"
+        + '</a>';
+    
+//    table.append('<tr>'
+//            + '<td></td>'
+//            + '<td style="text-align: right;">' + unit + '</button></td>'
+//            + '<td style="text-align: right;">'
+//            + '<div class="form-group">'
+//            + '<input type="number" class="form-control" name="amount" min="1" required>'
+//            + '</div>'
+//            + '</td>'
+//            + '<td style="white-space: nowrap>'
+//            + '<a class="delete-button" data-toggle="modal"'
+//            + 'data-target="#addrequestmodal" data-verdict="delete">'
+//            + '<i class="fa fa-trash-o"></i>'
+//            + '</a>'
+//            + '</td>'
+//            + '</tr>');
+}
+
+function deleteitem(){
+    
+}
+
 $(document).ready(function() {
     var id, status;
 //    console.log('yoohoo');
-    $('.itemlist').hide();
+    $('#itemlist').hide();
+    tableshown = false;
+    rowcount = 0;
     $('#requestsmodal').on('show.bs.modal', function(event){
 //        console.log('yoohoo');
         var trigger = $(event.relatedTarget);
@@ -43,13 +105,30 @@ $(document).ready(function() {
         var modal = $(this);
         
         if(verdict==='cancel'){
-            modal.find('.modal-title').text("Are you sure you can to cancel this delivery?");
+            modal.find('.modal-title').text("Are you sure you want to cancel this delivery?");
             modal.find('.modal-footer').append('<button type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>'
                     + '<button type="button" class="btn btn-default" data-dismiss="modal">No</button>');
         }
     });
         
-    $('#modal').on('hide.bs.modal', function(event) {
+    $('#deliveriesmodal').on('hide.bs.modal', function(event) {
+        var modal = $(this);
+        modal.find('.modal-footer').empty();
+    });
+    
+    $('#itemsmodal').on('show.bs.modal', function(event){
+        var trigger = $(event.relatedTarget);
+        var verdict = trigger.data('verdict');
+        var modal = $(this);
+        
+        if(verdict==='cancel'){
+            modal.find('.modal-title').text("Are you sure you want to delete this item?");
+            modal.find('.modal-footer').append('<button type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>'
+                    + '<button type="button" class="btn btn-default" data-dismiss="modal">No</button>');
+        }
+    });
+    
+    $('#itemsmodal').on('hide.bs.modal', function(event) {
         var modal = $(this);
         modal.find('.modal-footer').empty();
     });

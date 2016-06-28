@@ -214,7 +214,12 @@
                                     <a class="edit-button">
                                         <i class="fa fa-edit"></i>
                                     </a>
+<<<<<<< HEAD
                                     <a class="delete-button">
+=======
+                                    <a class="delete-button" data-toggle="modal" 
+                                       data-target="#itemsmodal" data-verdict="delete">
+>>>>>>> master
                                         <i class="fa fa-trash-o"></i>
                                     </a>
                                 </td>
@@ -248,6 +253,7 @@
             <div class="col-lg-3" style="text-align: right; margin-bottom: 15px;">
                 <div style="width: 30%; float: left;">
                     <input id="itemsPerPage" class="form-control" type="number" min="1"/> 
+<<<<<<< HEAD
                 </div>
                 <div style="width: 70%; float: right;">
                     <button type="button" class="btn btn-default" id="chooseItemsPerPage" style="width: 95%;">Set Items Per Page</button>
@@ -255,6 +261,18 @@
                 <div class="clear: both;"></div>
             </div>
         </div> -->
+
+        <div class="modal fade" id="itemsmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4 class="modal-title" id="modal-message"></h4>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
     <!-- /.container-fluid -->

@@ -226,8 +226,12 @@
                                     <a class="edit-button">
                                         <i class="fa fa-edit"></i>
                                     </a>
+<<<<<<< HEAD
                                     <a class="delete-button" data-toggle="modal" 
                                        data-target="#suppliersmodal" data-verdict="delete">
+=======
+                                    <a class="delete-button">
+>>>>>>> master
                                         <i class="fa fa-trash-o"></i>
                                     </a>
                                 </td>
@@ -256,6 +260,7 @@
                     <li class="pageIndicator">Page 1 of 10</li>
                     <li><a class="next nextPage"><i class="fa fa-arrow-right"></i></a></li>
                 </ul>
+<<<<<<< HEAD
             </div>
             
             <div class="col-lg-3" style="text-align: right; margin-bottom: 15px;">
@@ -279,7 +284,7 @@
                 </div>
             </div>
         </div>
-        
+      
     </div>
     <!-- /.container-fluid -->
 
