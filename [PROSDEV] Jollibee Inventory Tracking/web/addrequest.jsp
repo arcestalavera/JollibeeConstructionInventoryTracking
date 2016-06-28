@@ -178,17 +178,18 @@
                                     <label>Name</label>
                                     <input class="form-control" name="name" required>
                                 </div><!-- end of .form-group -->
+                                <div class="table-group">
                                 <div class="col-md-10 nopad leftelem">
-                                    <select name="itemselection" class="form-control">
-                                        <option value="item1">Item 1</option>
-                                        <option value="item2">Item 2</option>
-                                        <option value="item3">Item 3</option>
+                                    <select id="itemselection" name="itemselection" class="form-control">
+                                        <option value="item1" data-unit="kg" >Item 1</option>
+                                        <option value="item2" data-unit="100g pack">Item 2</option>
+                                        <option value="item3" data-unit="pc">Item 3</option>
                                     </select>
                                 </div>
                                 <div class="col-md-2 nopad rightelem">
-                                    <button class="additem btn btn-default">Add Item</button>
+                                    <button type="button" class="additem btn btn-default" onclick="additem();">Add Item</button>
                                 </div>
-                                <table class="itemlist col-lg-12">
+                                <table class="col-lg-12"  id="itemlist">
                                     <tr>
                                         <th></th>
                                         <th style="width: 100%;">Item Name</th>
@@ -196,10 +197,9 @@
                                         <th style="text-align: right;">Amount</th>
                                         <th style="text-align: right;"></th>
                                     </tr>
-                                    <tr class="additemhere">
-                                    </tr>
                                 </table>
-                                <input type="submit" class="btn btn-primary col-lg-1" value="Add Item">
+                                </div>  
+                                <input type="submit" class="btn btn-primary col-lg-2" value="Add Request">
                             </form>
                         </div>
                     </div>

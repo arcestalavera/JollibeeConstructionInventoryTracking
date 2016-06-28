@@ -23,3 +23,14 @@ a{
 .rightelem{
     padding-left: 15px !important;
 }
+
+.table-group{
+    padding-bottom: 15px !important;
+}
+
+.numberinput{
+    height: 30px !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
