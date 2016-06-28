@@ -5,13 +5,14 @@
  */
 package Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Arces
  */
-public class Warehouse {
+public class Warehouse implements Serializable{
 
     private int warehouseID;
     private String location, name;

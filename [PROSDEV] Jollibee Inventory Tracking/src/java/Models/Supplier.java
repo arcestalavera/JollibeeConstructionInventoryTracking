@@ -6,11 +6,13 @@
 
 package Models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Arces
  */
-public class Supplier {
+public class Supplier implements Serializable{
     private int supplierID;
     private String name, location, contactNumber, emailAddress;
 

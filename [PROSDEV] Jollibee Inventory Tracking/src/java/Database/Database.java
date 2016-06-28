@@ -5,11 +5,13 @@
  */
 package Database;
 
+import Models.Delivery;
 import Models.Item;
 import Models.Request;
 import Models.Supplier;
 import Models.Warehouse;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -198,6 +200,56 @@ public class Database {
         return requestList;
     }
 
+    public ArrayList<Delivery> getDeliveries(){
+        ArrayList<Delivery> deliveryList = new ArrayList<>();
+        Statement stmt;
+        ResultSet rs;
+        int deliveryID, count, itemID, supplierID;
+        Item item;
+        Supplier supplier;
+        Date startTime, endTime;
+        String type, status, deliveryName;
+
+        try {
+            stmt = con.createStatement();
+
+            sql = "SELECT * FROM deliveries";
+
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                Delivery delivery = new Delivery();
+                deliveryID = rs.getInt("deliveryID");
+                deliveryName = rs.getString("deliveryName");
+                type = rs.getString("type");
+                count = rs.getInt("count");
+                startTime = rs.getDate("startTime");
+                endTime = rs.getDate("endTime");
+                status = rs.getString("status");
+                itemID = rs.getInt("itemID");
+                supplierID = rs.getInt("supplierID");
+
+                item = getItemDetails(itemID);
+                supplier = getSupplierDetails(supplierID);
+                
+                delivery.setDeliveryID(deliveryID);
+                delivery.setDeliveryName(deliveryName);
+                delivery.setType(type);
+                delivery.setCount(count);
+                delivery.setStartTime(startTime);
+                delivery.setEndTime(endTime);
+                delivery.setStatus(status);
+                delivery.setItem(item);
+                delivery.setSupplier(supplier);
+                
+                deliveryList.add(delivery);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return deliveryList;
+    }
     /*
      METHODS THAT WILL GET THE DETAILS OF AN OBJECT
      */
@@ -220,6 +272,7 @@ public class Database {
                 name = rs.getString("name");
                 unit = rs.getString("unit");
 
+                item.setItemID(itemID);
                 item.setName(name);
                 item.setUnit(unit);
             }
@@ -228,6 +281,38 @@ public class Database {
         }
 
         return item;
+    }
+    
+    public Supplier getSupplierDetails(int supplierID){
+        Statement stmt;
+        ResultSet rs;
+        Supplier supplier = new Supplier();
+        String name, location, contactNumber, emailAddress;
+        try {
+            stmt = con.createStatement();
+
+            sql = "SELECT * FROM supplier"
+                    + " WHERE supplierID = " + supplierID;
+
+            rs = stmt.executeQuery(sql);
+
+            if (rs.next()) {
+                name = rs.getString("name");
+                location = rs.getString("location");
+                contactNumber = rs.getString("contactNumber");
+                emailAddress = rs.getString("emailAddress");
+
+                supplier.setSupplierID(supplierID);
+                supplier.setName(name);
+                supplier.setLocation(location);
+                supplier.setContactNumber(contactNumber);
+                supplier.setEmailAddress(emailAddress);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return supplier;
     }
 
     /*

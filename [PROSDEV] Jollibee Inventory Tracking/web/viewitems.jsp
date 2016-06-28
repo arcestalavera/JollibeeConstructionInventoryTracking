@@ -2,17 +2,19 @@
 <%@page import="java.util.ArrayList"%>
 <%@ include file="header.html" %>
 <%@ include file="topnav.html" %>
-<%
-            ArrayList<Item> itemList = (ArrayList<Item>) request.getSession().getAttribute("items");
-            Item item;
-%>
 <%@ include file="leftnav.html" %>
 
+
 <script type ="text/javascript">
-function redirect(){
-    location.href = "additem.jsp";
-}
+    function redirect() {
+        location.href = "additem.jsp";
+    }
 </script>
+
+<%
+    ArrayList<Item> itemList = (ArrayList<Item>) request.getSession().getAttribute("items");
+    Item item;
+%>
 <!--<!DOCTYPE html>
 <html lang="en">
 
@@ -146,121 +148,121 @@ function redirect(){
                  /.navbar-collapse 
             </nav>-->
 
-            <div id="page-wrapper">
+<div id="page-wrapper">
 
-                <div class="container-fluid">
+    <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h1 class="page-header">
-                                View Item List
-                            </h1>
-                            <ol class="breadcrumb">
-                                <li>
-                                    <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Items</a>
-                                </li>
-                                <li class="active">
-                                    <i class="fa fa-edit"></i> View Item List
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
-                    <!-- /.row -->
-
-                    <!-- Pagination Options (top) -->
-                    <!-- <div class="row pagination-options">
-                        <ul class="pager" style="margin: 0 0 15px;">
-                            <li><a class="previous prevPage"><i class="fa fa-arrow-left"></i></a></li>
-                            <li class="pageIndicator">Page 1 of 10</li>
-                            <li><a class="next nextPage"><i class="fa fa-arrow-right"></i></a></li>
-                        </ul>
-                    </div> -->
-
-                    <!-- Page Content -->
-                    <div class="row">
-
-                        <div class="row">
-                            <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
-                                <button id="add-item" class="btn btn-primary" onclick="redirect()">Add Item</button>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12">
-
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th style="width: 100%;">Item Name</th>
-                                            <th style="text-align: right;">Unit Measure</th>
-                                            <th style="text-align: right;"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="itemTableBody">
-                                        <%
-                                            for (int i = 0; i < itemList.size(); i++) {
-                                                item = itemList.get(i);
-                                        %>
-                                        <tr>
-                                            <td><%=(i + 1)%></td>
-                                            
-                                            <td><button type="button" class="btn btn-link name"><%=item.getName()%></button></td>
-                                            <td style="text-align: right;"><%=item.getUnit()%></td>
-                                            <td style="white-space: nowrap">
-                                                <a class="edit-button">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a class="delete-button">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <%
-                                            }
-                                        %>
-                                    </tbody>
-                                </table>
-                            </div><!-- end of .table-responsive -->
-
-                        </div><!-- end of .col-lg-12 -->
-
-                    </div><!-- end of .row -->
-
-                    <!-- Pagination Options (bottom) -->
-                    <!-- <div class="row pagination-options">
-                        <div class="col-lg-3" style="text-align: left; margin-bottom: 15px;">
-                            <select id="choosePageNumber" class="form-control">
-                            </select>
-                        </div>
-                        
-                        <div class="col-lg-6">
-                            <ul class="pager" style="margin: 0 0 15px;">
-                                <li><a class="previous prevPage"><i class="fa fa-arrow-left"></i></a></li>
-                                <li class="pageIndicator">Page 1 of 10</li>
-                                <li><a class="next nextPage"><i class="fa fa-arrow-right"></i></a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="col-lg-3" style="text-align: right; margin-bottom: 15px;">
-                            <div style="width: 30%; float: left;">
-                                <input id="itemsPerPage" class="form-control" type="number" min="1"/> 
-                            </div>
-                            <div style="width: 70%; float: right;">
-                                <button type="button" class="btn btn-default" id="chooseItemsPerPage" style="width: 95%;">Set Items Per Page</button>
-                            </div>
-                            <div class="clear: both;"></div>
-                        </div>
-                    </div> -->
-
-                </div>
-                <!-- /.container-fluid -->
-
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    View Item List
+                </h1>
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Items</a>
+                    </li>
+                    <li class="active">
+                        <i class="fa fa-edit"></i> View Item List
+                    </li>
+                </ol>
             </div>
-            <!-- /#page-wrapper -->
-
         </div>
-        <!-- /#wrapper -->
+        <!-- /.row -->
 
-        <%@ include file="footer.html"%>
+        <!-- Pagination Options (top) -->
+        <!-- <div class="row pagination-options">
+            <ul class="pager" style="margin: 0 0 15px;">
+                <li><a class="previous prevPage"><i class="fa fa-arrow-left"></i></a></li>
+                <li class="pageIndicator">Page 1 of 10</li>
+                <li><a class="next nextPage"><i class="fa fa-arrow-right"></i></a></li>
+            </ul>
+        </div> -->
+
+        <!-- Page Content -->
+        <div class="row">
+
+            <div class="row">
+                <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
+                    <button id="add-item" class="btn btn-primary" onclick="redirect()">Add Item</button>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th style="width: 100%;">Item Name</th>
+                                <th style="text-align: right;">Unit Measure</th>
+                                <th style="text-align: right;"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemTableBody">
+                            <%
+                                for (int i = 0; i < itemList.size(); i++) {
+                                    item = itemList.get(i);
+                            %>
+                            <tr>
+                                <td><%=(i + 1)%></td>
+
+                                <td><button type="button" class="btn btn-link name"><%=item.getName()%></button></td>
+                                <td style="text-align: right;"><%=item.getUnit()%></td>
+                                <td style="white-space: nowrap">
+                                    <a class="edit-button">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a class="delete-button">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                        </tbody>
+                    </table>
+                </div><!-- end of .table-responsive -->
+
+            </div><!-- end of .col-lg-12 -->
+
+        </div><!-- end of .row -->
+
+        <!-- Pagination Options (bottom) -->
+        <!-- <div class="row pagination-options">
+            <div class="col-lg-3" style="text-align: left; margin-bottom: 15px;">
+                <select id="choosePageNumber" class="form-control">
+                </select>
+            </div>
+            
+            <div class="col-lg-6">
+                <ul class="pager" style="margin: 0 0 15px;">
+                    <li><a class="previous prevPage"><i class="fa fa-arrow-left"></i></a></li>
+                    <li class="pageIndicator">Page 1 of 10</li>
+                    <li><a class="next nextPage"><i class="fa fa-arrow-right"></i></a></li>
+                </ul>
+            </div>
+            
+            <div class="col-lg-3" style="text-align: right; margin-bottom: 15px;">
+                <div style="width: 30%; float: left;">
+                    <input id="itemsPerPage" class="form-control" type="number" min="1"/> 
+                </div>
+                <div style="width: 70%; float: right;">
+                    <button type="button" class="btn btn-default" id="chooseItemsPerPage" style="width: 95%;">Set Items Per Page</button>
+                </div>
+                <div class="clear: both;"></div>
+            </div>
+        </div> -->
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<%@ include file="footer.html"%>
