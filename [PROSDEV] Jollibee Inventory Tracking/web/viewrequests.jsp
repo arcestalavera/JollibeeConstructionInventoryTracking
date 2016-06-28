@@ -206,7 +206,7 @@
                                 <td><button type="button" class="btn btn-link name"><%=req.getRequestName()%></button></td>
                                 <td style="text-align: right;"><%=item.getName()%></td>
                                 <td style="text-align: right;"><%=req.getCount()%></td>
-                                <td style="text-align: right;"><%=req.getStatus()%></td>
+                                <td class = "s<%=req.getRequestID()%>" style="text-align: right;"><%=req.getStatus()%></td>
                                 <td style="white-space: no-wrap">
                                     <a class="edit-button">
                                         <i class="fa fa-edit"></i>
@@ -220,7 +220,7 @@
                                     </a>
                                     <%
                                         }
-                                        if (!(status.equals("Cancelled") || status.equals("Declined") || status.equals("Finished"))) {
+                                        if (!(status.equals("Cancelled") || status.equals("Declined") || status.equals("Finished") || status.equals("Ongoing"))) {
                                     %>
                                     <a id = "<%=status.substring(0, 1).toLowerCase()%><%=req.getRequestID()%>" class="reject-button" data-toggle="modal"
                                        data-target="#requestsmodal" data-verdict="reject">

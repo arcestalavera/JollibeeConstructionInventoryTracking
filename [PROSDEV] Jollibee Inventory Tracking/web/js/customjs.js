@@ -151,14 +151,14 @@ $(document).ready(function() {
     });
         
     $(document).on('click', '#approve-yes', function(e) {
-        var passData = {"id": id, "resp": "Approved"};
+        var passData = {"id": id, "resp": "Ongoing"};
         $.ajax({
             type: "POST",
             url: "HandleRequest?action=respond",
             data: passData,
             success: function(html) {
                 $("a[id=" + id + "]").remove();
-                $(".s" + id.substr(1, 2)).html("Approved");
+                $(".s" + id.substr(1, 2)).html("Ongoing");
             }
         });
     });
