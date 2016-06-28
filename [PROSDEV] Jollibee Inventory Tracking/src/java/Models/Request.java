@@ -6,11 +6,13 @@
 
 package Models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Arces
  */
-public class Request {
+public class Request implements Serializable{
     private int requestID, count;
     private Item item;
     private String status, requestName;

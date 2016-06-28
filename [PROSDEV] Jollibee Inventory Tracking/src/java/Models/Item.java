@@ -6,11 +6,13 @@
 
 package Models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Arces
  */
-public class Item {
+public class Item implements Serializable{
     private int itemID, count;
     private String name;
     private String unit;
