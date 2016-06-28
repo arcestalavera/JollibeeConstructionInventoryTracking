@@ -106,7 +106,7 @@ $(document).ready(function() {
         }
     });
         
-    $('#modal').on('hide.bs.modal', function(event) {
+    $('#deliveriesmodal').on('hide.bs.modal', function(event) {
         var modal = $(this);
         modal.find('.modal-footer').empty();
     });
