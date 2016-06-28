@@ -121,7 +121,7 @@ $(document).ready(function() {
         var verdict = trigger.data('verdict');
         var modal = $(this);
         
-        if(verdict==='cancel'){
+        if(verdict==='delete'){
             modal.find('.modal-title').text("Are you sure you want to delete this item?");
             modal.find('.modal-footer').append('<button type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>'
                     + '<button type="button" class="btn btn-default" data-dismiss="modal">No</button>');
@@ -129,6 +129,23 @@ $(document).ready(function() {
     });
     
     $('#itemsmodal').on('hide.bs.modal', function(event) {
+        var modal = $(this);
+        modal.find('.modal-footer').empty();
+    });
+    
+    $('#suppliersmodal').on('show.bs.modal', function(event){
+        var trigger = $(event.relatedTarget);
+        var verdict = trigger.data('verdict');
+        var modal = $(this);
+        
+        if(verdict==='delete'){
+            modal.find('.modal-title').text("Are you sure you want to delete this item?");
+            modal.find('.modal-footer').append('<button type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>'
+                    + '<button type="button" class="btn btn-default" data-dismiss="modal">No</button>');
+        }
+    });
+    
+    $('#suppliersmodal').on('hide.bs.modal', function(event) {
         var modal = $(this);
         modal.find('.modal-footer').empty();
     });
