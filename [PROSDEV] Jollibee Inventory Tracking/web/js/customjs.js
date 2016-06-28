@@ -24,16 +24,21 @@ function additem(){
     rowcount++;
     var row = table.insertRow(rowcount);
     var cell1 = row.insertCell(0);
-    cell1.style= "width: 100%;";
-    cell1.innerHTML = "<button type='button' class='btn btn-link name'>" + name + "</button>";
+//    cell1.style= "width: 100%;";
+    cell1.innerHTML = rowcount;
     var cell2 = row.insertCell(1);
-    cell2.style = "text-align: right;";
-    cell2.innerHTML = "<div class='form-group'>"
-        + "<input type='number' class='form-control' name='amount' min='1' required>"
-        + "</div>";
+//    cell1.style= "width: 100%;";
+    cell2.innerHTML = "<button type='button' class='btn btn-link name'>" + name + "</button>";
     var cell3 = row.insertCell(2);
-    cell3.style = "white-space: nowrap;";
-    cell3.innerHTML = "<a class='delete-button' data-toggle='modal'"
+//    cell1.style= "width: 100%;";
+    cell3.style = "text-align: right;";
+    cell3.innerHTML = unit;
+    var cell4 = row.insertCell(3);
+    cell4.style = "text-align: right;";
+    cell4.innerHTML = "<input type='number' class='form-control nopad numberinput' name='amount' min='1' style='text-align: right;' required>";
+    var cell5 = row.insertCell(4);
+    cell5.style = "white-space: nowrap;";
+    cell5.innerHTML = "<a class='delete-button' data-toggle='modal'"
         + "data-target='#addrequestmodal' data-verdict='delete'>"
         + "<i class='fa fa-trash-o'></i>"
         + '</a>';
@@ -62,7 +67,7 @@ function deleteitem(){
 $(document).ready(function() {
     var id, status;
 //    console.log('yoohoo');
-    $('.itemlist').hide();
+    $('#itemlist').hide();
     tableshown = false;
     rowcount = 0;
     $('#requestsmodal').on('show.bs.modal', function(event){
