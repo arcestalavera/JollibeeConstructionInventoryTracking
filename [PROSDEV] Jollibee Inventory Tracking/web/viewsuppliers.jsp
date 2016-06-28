@@ -2,17 +2,18 @@
 <%@page import="java.util.ArrayList"%>
 <%@ include file="header.html" %>
 <%@ include file="topnav.html" %>
-<%
-            ArrayList<Supplier> supplierList = (ArrayList<Supplier>) request.getSession().getAttribute("suppliers");
-            Supplier supplier;
-%>
 <%@ include file="leftnav.html" %>
 
 <script type="text/javascript">
-    function redirect(){
+    function redirect() {
         location.href = "addsupplier.jsp";
     }
 </script>
+
+<%
+    ArrayList<Supplier> supplierList = (ArrayList<Supplier>) request.getSession().getAttribute("suppliers");
+    Supplier supplier;
+%>
 <!--<!DOCTYPE html>
 <html lang="en">
 
@@ -146,9 +147,9 @@
                  /.navbar-collapse 
             </nav>-->
 
-            <div id="page-wrapper">
+<div id="page-wrapper">
 
-                <div class="container-fluid">
+    <div class="container-fluid">
 
                     <!-- Page Heading -->
                     <div class="row">
@@ -177,93 +178,103 @@
                         </ul>
                     </div> -->
 
-                    <!-- Page Content -->
-                    <div class="row">
-                        <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
-                            <button id="add-item" class="btn btn-primary" onclick="redirect()">Add Supplier</button>
-                        </div>
-                    </div>
 
-                    <div class="row">
+        <!-- Pagination Options (top) -->
+        <!-- <div class="row pagination-options">
+            <ul class="pager" style="margin: 0 0 15px;">
+                <li><a class="previous prevPage"><i class="fa fa-arrow-left"></i></a></li>
+                <li class="pageIndicator">Page 1 of 10</li>
+                <li><a class="next nextPage"><i class="fa fa-arrow-right"></i></a></li>
+            </ul>
+        </div> -->
 
-                        <div class="col-lg-12">
-
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th style="width: 100%;">Supplier Name</th>
-                                            <th style="text-align: right;">Location</th>
-                                            <th style="text-align: right;">Contact #</th>
-                                            <th style="text-align: right;">Email</th>
-                                            <th style="text-align: right;"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="supplierTableBody">
-                                        <%
-                                            for (int i = 0; i < supplierList.size(); i++) {
-                                                supplier = supplierList.get(i);
-                                        %>
-                                        <tr>
-                                            <td><%=(i + 1)%></td>
-                                            <td><button type="button" class="btn btn-link name"><%=supplier.getName()%></button></td>
-                                            <td style="text-align: right;"><%=supplier.getLocation()%></td>
-                                            <td style="text-align: right;"><%=supplier.getContactNumber()%></td>
-                                            <td style="text-align: right;"><%=supplier.getEmailAddress()%></td>
-                                            <td style="white-space: nowrap">
-                                                <a class="edit-button">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a class="delete-button">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <%
-                                            }
-                                        %>
-                                    </tbody>
-                                </table>
-                            </div><!-- end of .table-responsive -->
-
-                        </div><!-- end of .col-lg-12 -->
-
-                    </div><!-- end of .row -->
-
-                    <!-- Pagination Options (bottom) -->
-                    <!-- <div class="row pagination-options">
-                        <div class="col-lg-3" style="text-align: left; margin-bottom: 15px;">
-                            <select id="choosePageNumber" class="form-control">
-                            </select>
-                        </div>
-                        
-                        <div class="col-lg-6">
-                            <ul class="pager" style="margin: 0 0 15px;">
-                                <li><a class="previous prevPage"><i class="fa fa-arrow-left"></i></a></li>
-                                <li class="pageIndicator">Page 1 of 10</li>
-                                <li><a class="next nextPage"><i class="fa fa-arrow-right"></i></a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="col-lg-3" style="text-align: right; margin-bottom: 15px;">
-                            <div style="width: 30%; float: left;">
-                                <input id="itemsPerPage" class="form-control" type="number" min="1"/> 
-                            </div>
-                            <div style="width: 70%; float: right;">
-                                <button type="button" class="btn btn-default" id="chooseItemsPerPage" style="width: 95%;">Set Items Per Page</button>
-                            </div>
-                            <div class="clear: both;"></div>
-                        </div>
-                    </div> -->
-
-                </div>
-                <!-- /.container-fluid -->
-
+        <!-- Page Content -->
+        <div class="row">
+            <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
+                <button id="add-item" class="btn btn-primary" onclick="redirect()">Add Supplier</button>
             </div>
-            <!-- /#page-wrapper -->
-
         </div>
-        <!-- /#wrapper -->
 
-        <%@ include file="footer.html"%>
+        <div class="row">
+
+            <div class="col-lg-12">
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th style="width: 100%;">Supplier Name</th>
+                                <th style="text-align: right;">Location</th>
+                                <th style="text-align: right;">Contact #</th>
+                                <th style="text-align: right;">Email</th>
+                                <th style="text-align: right;"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="supplierTableBody">
+                            <%
+                                for (int i = 0; i < supplierList.size(); i++) {
+                                    supplier = supplierList.get(i);
+                            %>
+                            <tr>
+                                <td><%=(i + 1)%></td>
+                                <td><button type="button" class="btn btn-link name"><%=supplier.getName()%></button></td>
+                                <td style="text-align: right;"><%=supplier.getLocation()%></td>
+                                <td style="text-align: right;"><%=supplier.getContactNumber()%></td>
+                                <td style="text-align: right;"><%=supplier.getEmailAddress()%></td>
+                                <td style="white-space: nowrap">
+                                    <a class="edit-button">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a class="delete-button">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                        </tbody>
+                    </table>
+                </div><!-- end of .table-responsive -->
+
+            </div><!-- end of .col-lg-12 -->
+
+        </div><!-- end of .row -->
+
+        <!-- Pagination Options (bottom) -->
+        <!-- <div class="row pagination-options">
+            <div class="col-lg-3" style="text-align: left; margin-bottom: 15px;">
+                <select id="choosePageNumber" class="form-control">
+                </select>
+            </div>
+            
+            <div class="col-lg-6">
+                <ul class="pager" style="margin: 0 0 15px;">
+                    <li><a class="previous prevPage"><i class="fa fa-arrow-left"></i></a></li>
+                    <li class="pageIndicator">Page 1 of 10</li>
+                    <li><a class="next nextPage"><i class="fa fa-arrow-right"></i></a></li>
+                </ul>
+            </div>
+            
+            <div class="col-lg-3" style="text-align: right; margin-bottom: 15px;">
+                <div style="width: 30%; float: left;">
+                    <input id="itemsPerPage" class="form-control" type="number" min="1"/> 
+                </div>
+                <div style="width: 70%; float: right;">
+                    <button type="button" class="btn btn-default" id="chooseItemsPerPage" style="width: 95%;">Set Items Per Page</button>
+                </div>
+                <div class="clear: both;"></div>
+            </div>
+        </div> -->
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<%@ include file="footer.html"%>

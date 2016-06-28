@@ -4,13 +4,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="header.html" %>
 <%@ include file="topnav.html" %>
+<%@ include file="leftnav.html" %>
 <%
     ArrayList<Request> requestList = (ArrayList<Request>) request.getSession().getAttribute("requests");
     Request req;
     Item item;
     String status;
 %>
-<%@ include file="leftnav.html" %>
 <!--<!DOCTYPE html>
     <html lang="en">
 
@@ -176,7 +176,7 @@
         <!-- Page Content -->
         <div class="row">
             <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
-                <button id="add-item" class="btn btn-primary">Add Delivery</button>
+                <button id="add-item" class="btn btn-primary">Add Request</button>
             </div>
         </div>
         <div class="row">
@@ -206,7 +206,7 @@
                                 <td><button type="button" class="btn btn-link name"><%=req.getRequestName()%></button></td>
                                 <td style="text-align: right;"><%=item.getName()%></td>
                                 <td style="text-align: right;"><%=req.getCount()%></td>
-                                <td class = "s<%=req.getRequestID()%>" style="text-align: right;"><%=status%></td>
+                                <td style="text-align: right;"><%=req.getStatus()%></td>
                                 <td style="white-space: no-wrap">
                                     <a class="edit-button">
                                         <i class="fa fa-edit"></i>
@@ -239,7 +239,6 @@
                 </div><!-- end of .table-responsive -->
 
             </div><!-- end of .col-lg-12 -->
-
         </div><!-- end of .row -->
 
         <!-- Pagination Options (bottom) -->
@@ -267,25 +266,6 @@
                 <div class="clear: both;"></div>
             </div>
         </div> -->
-
-                    </div>
-                    <!-- /.container-fluid -->
-                    
-                    <div class="modal fade" id="requestsmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <h4 class="modal-title" id="modal-message"></h4>
-                                </div>
-                                <div class="modal-footer">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-    </div>
-    <!-- /.container-fluid -->
-
 
     <div class="modal fade" id="requestsmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
         <div class="modal-dialog" role="document">

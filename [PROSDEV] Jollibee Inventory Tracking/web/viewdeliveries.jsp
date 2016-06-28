@@ -1,7 +1,10 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="Models.Delivery"%>
+<%@page import="java.util.ArrayList"%>
 <%@include file="header.html"%>
-    <%@include file="topnav.html"%>
-    <%@include file="leftnav.html"%>
-    
+<%@include file="topnav.html"%>
+<%@include file="leftnav.html"%>
+
 <!--<!DOCTYPE html>
 <html lang="en">
 
@@ -135,6 +138,11 @@
                  /.navbar-collapse 
             </nav>-->
 
+<%
+    ArrayList<Delivery> deliveryList = (ArrayList<Delivery>) request.getSession().getAttribute("deliveries");
+    Delivery delivery;
+    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+%>
             <div id="page-wrapper">
 
                 <div class="container-fluid">
@@ -157,159 +165,111 @@
                     </div>
                     <!-- /.row -->
 
-                    <!-- Pagination Options (top) -->
-                    <!-- <div class="row pagination-options">
-                        <ul class="pager" style="margin: 0 0 15px;">
-                            <li><a class="previous prevPage"><i class="fa fa-arrow-left"></i></a></li>
-                            <li class="pageIndicator">Page 1 of 10</li>
-                            <li><a class="next nextPage"><i class="fa fa-arrow-right"></i></a></li>
-                        </ul>
-                    </div> -->
+        <!-- Pagination Options (top) -->
+        <!-- <div class="row pagination-options">
+            <ul class="pager" style="margin: 0 0 15px;">
+                <li><a class="previous prevPage"><i class="fa fa-arrow-left"></i></a></li>
+                <li class="pageIndicator">Page 1 of 10</li>
+                <li><a class="next nextPage"><i class="fa fa-arrow-right"></i></a></li>
+            </ul>
+        </div> -->
 
-                    <!-- Page Content -->
-                    <div class="row">
-                        <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
-                            <button id="add-item" class="btn btn-primary">Add Item</button>
-                        </div>
-                    </div>
+        <!-- Page Content -->
+        <div class="row">
 
-                    <div class="row">
+            <div class="col-lg-12">
 
-                        <div class="col-lg-12">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th style="width: 100%;">Delivery Name</th>
+                                <th style="text-align: right;">Type</th>
+                                <th style="text-align: right;">Date Requested</th>
+                                <th style="text-align: right;">Date Received</th>
+                                <th style="text-align: right;">Status</th>
+                                <th style="text-align: right;"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="deliveryTableBody">
+                            <%
+                                for (int i = 0; i < deliveryList.size(); i++) {
+                                    delivery = deliveryList.get(i);
+                            %>
+                            <tr>
+                                <td><%=(i + 1)%></td>
+                                <td><button type="button" class="btn btn-link name"><%=delivery.getDeliveryName()%></button></td>
+                                <td style="text-align: right;"><%=delivery.getType()%></td>
+                                <td style="text-align: right;"><%=sdf.format(delivery.getStartTime())%></td>
+                                <td style="text-align: right;"><%=delivery.getEndTime() == null ? "-" : sdf.format(delivery.getEndTime())%></td>
+                                <td style="text-align: right;"><%=delivery.getStatus()%></td>
+                                <td style="white-space: nowrap">
+                                    <a class="edit-button" data-toggle="modal"
+                                       data-target="#deliveriesmodal" data-verdict="cancel">
+                                        <i class="fa fa-times-circle"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                        </tbody>
+                    </table>
+                </div><!-- end of .table-responsive -->
 
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th style="width: 100%;">Delivery Name</th>
-                                            <th style="text-align: right;">Type</th>
-                                            <th style="text-align: right;">Date Requested</th>
-                                            <th style="text-align: right;">Date Received</th>
-                                            <th style="text-align: right;">Status</th>
-                                            <th style="text-align: right;"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="deliveryTableBody">
-                                        <tr>
-                                            <td>1</td>
-                                            <td><button type="button" class="btn btn-link name">JolliHammer Time!</button></td>
-                                            <td style="text-align: right;">incoming</td>
-                                            <td style="text-align: right;">06/26/2016</td>
-                                            <td style="text-align: right;">-</td>
-                                            <td style="text-align: right;">Waiting for Approval</td>
-                                            <td style="white-space: nowrap">
-                                                <a class="edit-button" data-toggle="modal"
-                                                   data-target="#deliveriesmodal" data-verdict="cancel">
-                                                    <i class="fa fa-times-circle"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td><button type="button" class="btn btn-link name">JolliNails Time!</button></td>
-                                            <td style="text-align: right;">outcoming</td>
-                                            <td style="text-align: right;">06/12/2016</td>
-                                            <td style="text-align: right;">06/24/2016</td>
-                                            <td style="text-align: right;">Finished</td>
-                                            <td style="white-space: nowrap">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td><button type="button" class="btn btn-link name">JolliWatdawat</button></td>
-                                            <td style="text-align: right;">outgoing</td>
-                                            <td style="text-align: right;">06/24/2016</td>
-                                            <td style="text-align: right;">-</td>
-                                            <td style="text-align: right;">Ongoing</td>
-                                            <td style="white-space: nowrap">
-                                                <a class="edit-button" data-toggle="modal"
-                                                   data-target="#deliveriesmodal" data-verdict="cancel">
-                                                    <i class="fa fa-times-circle"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td><button type="button" class="btn btn-link name">JolliHammer Time!</button></td>
-                                            <td style="text-align: right;">incoming</td>
-                                            <td style="text-align: right;">06/27/2016</td>
-                                            <td style="text-align: right;">-</td>
-                                            <td style="text-align: right;">Waiting for Approval</td>
-                                            <td style="white-space: nowrap">
-                                                <a class="edit-button" data-toggle="modal"
-                                                   data-target="#deliveriesmodal" data-verdict="cancel">
-                                                    <i class="fa fa-times-circle"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td><button type="button" class="btn btn-link name">JolliNails Time!</button></td>
-                                            <td style="text-align: right;">incoming</td>
-                                            <td style="text-align: right;">06/27/2016</td>
-                                            <td style="text-align: right;">-</td>
-                                            <td style="text-align: right;">Waiting for Approval</td>
-                                            <td style="white-space: nowrap">
-                                                <a class="edit-button" data-toggle="modal"
-                                                   data-target="#deliveriesmodal" data-verdict="cancel">
-                                                    <i class="fa fa-times-circle"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div><!-- end of .table-responsive -->
-
-                        </div><!-- end of .col-lg-12 -->
-
-                    </div><!-- end of .row -->
-
-                    <!-- Pagination Options (bottom) -->
-                    <!-- <div class="row pagination-options">
-                        <div class="col-lg-3" style="text-align: left; margin-bottom: 15px;">
-                            <select id="choosePageNumber" class="form-control">
-                            </select>
-                        </div>
-                        
-                        <div class="col-lg-6">
-                            <ul class="pager" style="margin: 0 0 15px;">
-                                <li><a class="previous prevPage"><i class="fa fa-arrow-left"></i></a></li>
-                                <li class="pageIndicator">Page 1 of 10</li>
-                                <li><a class="next nextPage"><i class="fa fa-arrow-right"></i></a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="col-lg-3" style="text-align: right; margin-bottom: 15px;">
-                            <div style="width: 30%; float: left;">
-                                <input id="itemsPerPage" class="form-control" type="number" min="1"/> 
-                            </div>
-                            <div style="width: 70%; float: right;">
-                                <button type="button" class="btn btn-default" id="chooseItemsPerPage" style="width: 95%;">Set Items Per Page</button>
-                            </div>
-                            <div class="clear: both;"></div>
-                        </div>
-                    </div> -->
-
-                </div>
-                <!-- /.container-fluid -->
-                
-                <div class="modal fade" id="deliveriesmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <h4 class="modal-title" id="modal-message"></h4>
-                            </div>
-                            <div class="modal-footer">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+        <!-- Pagination Options (bottom) -->
+        <!-- <div class="row pagination-options">
+            <div class="col-lg-3" style="text-align: left; margin-bottom: 15px;">
+                <select id="choosePageNumber" class="form-control">
+                </select>
             </div>
-            <!-- /#page-wrapper -->
+            
+            <div class="col-lg-6">
+                <ul class="pager" style="margin: 0 0 15px;">
+                    <li><a class="previous prevPage"><i class="fa fa-arrow-left"></i></a></li>
+                    <li class="pageIndicator">Page 1 of 10</li>
+                    <li><a class="next nextPage"><i class="fa fa-arrow-right"></i></a></li>
+                </ul>
+            </div>
+            
+            <div class="col-lg-3" style="text-align: right; margin-bottom: 15px;">
+                <div style="width: 30%; float: left;">
+                    <input id="itemsPerPage" class="form-control" type="number" min="1"/> 
+                </div>
+                <div style="width: 70%; float: right;">
+                    <button type="button" class="btn btn-default" id="chooseItemsPerPage" style="width: 95%;">Set Items Per Page</button>
+                </div>
+                <div class="clear: both;"></div>
+            </div>
+        </div> -->
 
+    </div>
+    <!-- /.col-lg-12 -->
+    
+    </div>
+    <!-- /.row -->
+    
+
+    <div class="modal fade" id="deliveriesmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4 class="modal-title" id="modal-message"></h4>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
         </div>
-        <!-- /#wrapper -->
+    </div>
 
-        <%@ include file="footer.html"%>
+</div>
+<!-- /.container-fluid -->
+
+</div>
+<!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<%@ include file="footer.html"%>

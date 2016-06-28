@@ -31,7 +31,6 @@ $(document).ready(function() {
                     + '<button type="button" class="btn btn-default" data-dismiss="modal">No</button>');
         }
     });
-
     
     $('#requestsmodal').on('hide.bs.modal', function(event){
         var modal = $(this);
@@ -50,12 +49,11 @@ $(document).ready(function() {
         }
     });
         
-
     $('#modal').on('hide.bs.modal', function(event) {
         var modal = $(this);
         modal.find('.modal-footer').empty();
     });
-
+        
     $(document).on('click', '#approve-yes', function(e) {
         var passData = {"id": id, "resp": "Approved"};
         $.ajax({
