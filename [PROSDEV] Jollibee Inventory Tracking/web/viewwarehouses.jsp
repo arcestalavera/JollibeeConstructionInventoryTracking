@@ -210,7 +210,8 @@
                                                 <a class="edit-button">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
-                                                <a class="delete-button">
+                                                <a class="delete-button" data-toggle="modal" 
+                                                    data-target="#warehousesmodal" data-verdict="delete">
                                                     <i class="fa fa-trash-o"></i>
                                                 </a>
                                             </td>
@@ -251,7 +252,17 @@
                             <div class="clear: both;"></div>
                         </div>
                     </div> -->
-
+                    <div class="modal fade" id="warehousesmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <h4 class="modal-title" id="modal-message"></h4>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
 
