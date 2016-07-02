@@ -1,3 +1,5 @@
+<!--comments explained by makoto39-->
+<!--Start of header.html-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +13,9 @@
 
         <title>JCI Inventory Tracking - Home</title>
 
+        <!--Custom CSS-->
+        <link href="css/custom-css.css" rel="stylesheet">
+        
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -30,6 +35,9 @@
     </head>
 
     <body>
+        
+    <!--end of header.html-->
+    <!--start of topnav.html-->
 
         <div id="wrapper">
 
@@ -66,9 +74,61 @@
                         </ul>
                     </li>
                 </ul>
+    <!--end of topnav.html-->
+    <!--start of leftnav.html-->
                 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <!--place new page or page group here-->
                     <ul class="nav navbar-nav side-nav">
+                        <!--
+                        format of pagegroup - header (this is what you click to see the subpages):
+                        <li>//start of pagegroup
+                          <a data-target="#groupNav" data-toggle="collapse" href="javascript:;">
+                              Group Nav
+                              <b class="caret" style="float: right; margin-top: 10px;"></b>
+                          </a>
+                        you have a data-target="#groupNav" in order for Bootstrap to let the submenu
+                        appear when you click the pagegroup header. Be careful! #groupNav in this
+                        example means that its submenu has an id="groupNav", so if you want
+                        to reference a submenu named with a class use data-target=".groupNav"
+                        instead.
+                        
+                        format of pagegroup - content:
+                          <ul id="groupNav" class="collapse">
+                            <li>
+                                <a href="page1.html"><i class="fa fa-fw fa-file"></i>Page 1</a>
+                                <a href="page2.html"><i class="fa fa-fw fa-file"></i>Page 2</a>
+                            </li>
+                          </ul>
+                        </li>
+                        for the submenu content, place it in a <ul> and place all links (which means
+                        use an <a> tag) inside one <li>. Don't forget to name either in id or class so that your
+                        pagegroup header can reference it!
+                        The <i> class is basically an icon placed beside page name. By default, if
+                        an i class contains "fa", it indicates a font awesome icon. To use a different
+                        font awesome icon, go first to fontawesome.bootstrapcheatsheets.com to see
+                        all icons you can use from font awesome, then find its class code. To use,
+                        enter as <i class="fa fa-fw <fontawesome icon code>"></i>. Two examples are given above.
+                        fa-fw means to set the icon to a fixed width, meaning that it responds also to changes 
+                        with the page width. More information with using font awesome icons are found at
+                        fontawesome.io/examples.
+                        -->
+                        <!--
+                        format of just a page:
+                        <li>
+                            <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
+                        </li>
+                        if you don't really need a group navigation and you want to redirect the page, insert
+                        this within the <ul> tag of the left navigation bar (hint: its the tag this text is
+                        in right now). if you want two or more of these, just duplicate this code
+                        within this tag e.g.
+                        <li>
+                            <a href="bootstrap-grid1.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid 1</a>
+                        </li>
+                        <li>
+                            <a href="bootstrap-grid1.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid 2</a>
+                        </li>
+                        -->
                         <li>
                             <a data-target="#suppliersNav" data-toggle="collapse" href="javascript:;"> 
                                 Suppliers
@@ -132,9 +192,11 @@
                 </div>
                 <!-- /.navbar-collapse -->
             </nav>
+    <!--end of leftnav.html-->
+    <!-- for this part, this will depend per page, however it is VERY IMPORTANT that you include -->
+        <div id="page-wrapper"><!-- <-- this tag. (Not the comment one btw)-->
 
-        <div id="page-wrapper">
-
+            <!--page header, content differs but HTML structure is the same-->
             <div class="container-fluid">
 
                 <!-- Page Heading -->
@@ -143,6 +205,22 @@
                         <h1 class="page-header">
                             Blank Page
                         </h1>
+                        <!--
+                        Breadcrumbs (no, I meant the HTML ones)
+                        These are to guide the user from which page they were in before.
+                        If the page you're in is from another page or is a subpage of a
+                        submenu it will look like this:
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-dashboard"></i> <a href="home-page.html">Home Page</a>
+                            </li>
+                            <li class="active">
+                                <i class="fa fa-edit"></i> Page 1
+                            </li>
+                        </ol>
+                        Meaning that from home-page.html, you clicked a link somewhere on the page
+                        and you're redirected to Page 1! More examples are on each of our pages.
+                        -->
                         <ol class="breadcrumb">
                             <li class="active">
                                 <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
@@ -151,11 +229,57 @@
                     </div>
                 </div>
                 <!-- /.row -->
-
-                <div class="row col-sm-1">
+                
+                <!-- after fixing the header and breadcrumbs, anything from here is what you should display on the page.-->
+                <!-- 
+                ah, before I forget...
+                the grid system!
+                notice that some <div>s is contained with a class of row and some form of col-*?
+                This is one of bootstrap coolest features.
+                The 'row' class indicates that all contents in a tag are aligned as one, well, row.
+                The 'col' class indicates that all contents in a tag are aligned depending on the parent div's width.
+                There are three types of the 'col' tag, namely, 'col-sm-*', 'col-md-*' and 'col-lg-*'.
+                Those types depend on how large the page is.
+                Then, for each type, you can enter a number from 1 to 12 (e.g. 'col-sm-12') to resize the div accordingly.
+                For a more detailed explanation, see getbootstrap.com/css/#grid.
+                In the div following this comment, I set the div to be 'row col-md-1', meaning that the div's size
+                will span the entire width of the parent (any additional padding or margins included).
+                -->
+                <div class="row col-md-1">
                     <p> You can place anything here</p>
                 </div>
+                
+                <!--
+                Modals
+                Modals are what we call 'pop-up windows'.
+                To add a modal to the page, first make sure it appears after any div in the page.
+                Then, copy-paste the following:
+                <div class="modal fade" id="targetmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <h4 class="modal-title" id="modal-message"></h4>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                At first, this modal will be hidden. However, somewhere in your program, if you did something like:
+                <a class="delete-button" data-toggle="modal" 
+                    data-target="#targetmodal" data-verdict="delete">
+                    <i class="fa fa-trash-o"></i>
+                </a>
+                When you click that element, it will display the modal.
+                But wait, the modal seems empty.
+                How should we fill it up? Javascript, duh.
+                Notes on using js for modals will be found at js/customjs.js.
+                
+                Other information regarding bootstrap elements can be found at getboostrap.com!!!
+                -->
 
+            <!-- start of footer.html -->
             </div>
             <!-- /.container-fluid -->
 
@@ -174,3 +298,4 @@
 </body>
 
 </html>
+<!-- end of footer.html -->
