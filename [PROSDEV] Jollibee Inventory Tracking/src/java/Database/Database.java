@@ -36,7 +36,7 @@ public class Database {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             String host = "jdbc:mysql://127.0.0.1:3306/inventory_tracking?user=root";
             String uUser = "root";
-            String uPass = "";
+            String uPass = "admin";
 
             con = DriverManager.getConnection(host, uUser, uPass);
 
@@ -98,7 +98,7 @@ public class Database {
         try {
             stmt = con.createStatement();
 
-            sql = "SELECT * FROM items";
+            sql = "SELECT * FROM items WHERE isDeleted = 0";
 
             rs = stmt.executeQuery(sql);
 
@@ -351,13 +351,14 @@ public class Database {
     }
 
     public void addItem(String name, String unit) {
-        sql = "INSERT INTO items(name, unit)"
-                + " VALUES(?, ?)";
+        sql = "INSERT INTO items(name, unit, isDeleted)"
+                + " VALUES(?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setString(1, name);
             ps.setString(2, unit);
+            ps.setBoolean(3, false);
 
             ps.execute();
         } catch (SQLException e) {

@@ -10,7 +10,8 @@
         location.href = "additem.jsp";
     }
 </script>
-
+<script type = "text/javascript" src = "js/jquery.js"></script>
+<script type = "text/javascript" src = "js/Item.js"></script>
 <%
     ArrayList<Item> itemList = (ArrayList<Item>) request.getSession().getAttribute("items");
     Item item;
@@ -65,16 +66,16 @@
                                 for (int i = 0; i < itemList.size(); i++) {
                                     item = itemList.get(i);
                             %>
-                            <tr>
-                                <td><%=(i + 1)%></td>
+                            <tr id = "i<%=item.getItemID()%>">
+                                <td id ="item-count"><%=(i + 1)%></td>
 
                                 <td><button type="button" class="btn btn-link name"><%=item.getName()%></button></td>
                                 <td style="text-align: right;"><%=item.getUnit()%></td>
-                                <td style="white-space: nowrap">
+                                <td id = "item-actions" style="white-space: nowrap">
                                     <a class="edit-button">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <a class="delete-button" data-toggle="modal" 
+                                    <a id = "d<%=item.getItemID()%>-<%=(i + 1)%>" class="delete-item delete-button" data-toggle="modal" 
                                        data-target="#itemsmodal" data-verdict="delete">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
