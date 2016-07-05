@@ -6,10 +6,11 @@
 
 var tableshown;
 var rowcount;
+var deleteyes;
 
 function additem(){
     
-    console.log('yooohoo');
+    //console.log('yooohoo');
     var dropdown = document.getElementById('itemselection');
     var item = dropdown.options[dropdown.selectedIndex];
     var name = item.text;
@@ -39,7 +40,7 @@ function additem(){
     var cell5 = row.insertCell(4);
     cell5.style = "white-space: nowrap;";
     cell5.innerHTML = "<a class='delete-button' data-toggle='modal'"
-        + "data-target='#addrequestmodal' data-verdict='delete' data-item='"+ rowcount +"'>"
+        + " data-verdict='delete' data-item='"+ rowcount +"'>"
         + "<i class='fa fa-trash-o'></i>"
         + '</a>';
 //    var currow = table.rows[rowcount--];
@@ -191,12 +192,14 @@ $(document).ready(function() {
             modal.find('.modal-title').text("Are you sure you want to delete this supplier?");
             modal.find('.modal-footer').append('<button type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>'
                     + '<button type="button" class="btn btn-default" data-dismiss="modal">No</button>');
+            deleteyes = false;
         }
     });
     
     $('#suppliersmodal').on('hide.bs.modal', function(event) {
         var modal = $(this);
-        modal.find('.modal-footer').empty();
+        if (deleteyes)
+            modal.find('.modal-footer').empty();
     });
     
     $('#warehousesmodal').on('show.bs.modal', function(event){
@@ -219,24 +222,29 @@ $(document).ready(function() {
     $('#addrequestmodal').on('show.bs.modal', function(event){
         var trigger = $(event.relatedTarget);
         var verdict = trigger.data('verdict');
+        var rowcount = trigger.data('item');
         var modal = $(this);
         
         if(verdict==='delete'){
             modal.find('.modal-title').text("Are you sure you want to delete this entry?");
-            modal.find('.modal-footer').append('<button type="button" class="btn btn-primary rowdelete" data-dismiss="modal">Yes</button>'
+            modal.find('.modal-footer').append('<button type="button" class="btn btn-primary" id="rowdelete" data-dismiss="modal"'
+                    +'data-item="'+ rowcount +'">Yes</button>'
                     + '<button type="button" class="btn btn-default" data-dismiss="modal">No</button>');
         }
     });
     
-    $('.rowdelete').on('click', function(event){
-        var trigger = $(event.relatedTarget);
-        var row = trigger.parent();
-        var index = trigger.data('item');
+    $(document).on('click', '.delete-button', function(event){
+//        var index = parseInt($(this).attr('data-item'));
         var table = document.getElementById('itemlist');
-        table.deleteRow(index);
+//        $(this).parent().delete();
+        var row = $(this).parent();
+        row.parent().removeChild(row);
+        rowcount--;
+        if(rowcount==0)
+            table.hide();
     });
     
-    $('#addrequestmodal').on('hide.bs.modal', function(event) {
+    $('#addrequestmodal').on('hide.bs.modal', function(event){
         var modal = $(this);
         modal.find('.modal-footer').empty();
     });

@@ -53,8 +53,22 @@
                                     </tr>
                                 </table>
                                 </div>  
-                                <input type="submit" class="btn btn-primary col-lg-2" value="Add Request">
+                                <div class="col-md-11 nopad">
+                                    <input type="submit" class="btn btn-primary" value="Add Request">
+                                </div>
                             </form>
+                        </div>
+                    </div>
+                    
+                    <div class="modal fade" id="addrequestmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <h4 class="modal-title" id="modal-message"></h4>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
                         </div>
                     </div>
 
