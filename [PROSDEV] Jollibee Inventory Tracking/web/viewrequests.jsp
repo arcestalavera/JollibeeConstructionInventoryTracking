@@ -81,14 +81,6 @@
                                     </a>
                                     <%
                                         }
-                                        if (!(status.equals("Cancelled") || status.equals("Declined") || status.equals("Finished") || status.equals("Ongoing"))) {
-                                    %>
-                                    <a id = "<%=status.substring(0, 1).toLowerCase()%><%=req.getRequestID()%>" class="reject-button" data-toggle="modal"
-                                       data-target="#requestsmodal" data-verdict="reject">
-                                        <i class="fa fa-times"></i>
-                                    </a>
-                                    <%
-                                        }
                                     %>
                                 </td>
                             </tr>
