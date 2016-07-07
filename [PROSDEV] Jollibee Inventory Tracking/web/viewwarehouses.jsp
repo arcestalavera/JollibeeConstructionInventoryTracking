@@ -38,11 +38,6 @@
                     <!-- /.row -->
 
                     <!-- Page Content -->
-                    <div class="row">
-                        <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
-                            <button id="add-item" class="btn btn-primary" onclick="redirect()">Add Warehouse</button>
-                        </div>
-                    </div>
 
                     <div class="row">
 
@@ -55,7 +50,6 @@
                                             <th></th>
                                             <th style="width: 100%;">Warehouse Name</th>
                                             <th style="text-align: right;">Location</th>
-                                            <th style="text-align: right;"></th>
                                         </tr>
                                     </thead>
                                     <tbody id="warehouseTableBody">
@@ -68,15 +62,6 @@
                                             <td><%=(i + 1)%></td>
                                             <td><button type="button" class="btn btn-link name"><%=warehouse.getName()%></button></td>
                                             <td style="text-align: right;"><%=warehouse.getLocation()%></td>
-                                            <td style="white-space: nowrap">
-                                                <a class="edit-button">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a class="delete-button" data-toggle="modal" 
-                                                    data-target="#warehousesmodal" data-verdict="delete">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
                                         </tr>
                                         <%
                                             }
