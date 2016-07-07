@@ -2,9 +2,7 @@
 <%@ include file="topnav.html"%>
 <%@ include file="leftnav.html"%>
 
-
-<script type = "text/javascript" src = "js/Item.js">
-</script>
+<script type = "text/javascript" src = "js/Item.js"></script>
 
             <div id="page-wrapper">
 
