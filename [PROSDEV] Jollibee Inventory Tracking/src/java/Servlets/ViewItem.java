@@ -40,10 +40,9 @@ public class ViewItem extends HttpServlet {
 
         String id = request.getParameter("id");
 
-        System.out.println("id = " + id);
-
         if (id != null) {
             // put code to view item details here
+            reqDispatcher = request.getRequestDispatcher("index.html");
         } else {
             itemList = db.getItems();
 
