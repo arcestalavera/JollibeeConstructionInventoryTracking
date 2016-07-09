@@ -34,7 +34,7 @@ public class HandleSupplier extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         Database db = Database.getInstance();
-        String action, name, location, contactNo, emailAdd;
+        String action, name, location, contactNo, emailAdd, contactPerson;
 
         action = request.getParameter("action");
 
@@ -44,8 +44,9 @@ public class HandleSupplier extends HttpServlet {
                 location = request.getParameter("location");
                 contactNo = request.getParameter("contactno");
                 emailAdd = request.getParameter("emailadd");
+                contactPerson = request.getParameter("contactperson");
 
-                db.addSupplier(name, location, contactNo, emailAdd);
+                db.addSupplier(name, location, contactNo, emailAdd, contactPerson);
                 System.out.println("name = " + name);
                 out.write("<p id = \"add-warehouse-message\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">Supplier <i>"
                         + name + "</i> has been added! </p>");

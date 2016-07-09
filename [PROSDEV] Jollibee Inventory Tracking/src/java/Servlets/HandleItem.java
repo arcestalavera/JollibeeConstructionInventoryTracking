@@ -33,7 +33,7 @@ public class HandleItem extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         Database db = Database.getInstance();
-        String action, name, unit;
+        String action, name, unit, type;
 
         action = request.getParameter("action");
 
@@ -41,8 +41,9 @@ public class HandleItem extends HttpServlet {
             case "add":
                 name = request.getParameter("name");
                 unit = request.getParameter("unitofmeasure");
-
-                db.addItem(name, unit);
+                type = request.getParameter("type");
+                
+                db.addItem(name, type, unit);
                 System.out.println("name = " + name);
                 out.write("<p id = \"add-warehouse-message\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">Item <i>"
                         + name + "</i> has been added! </p>");

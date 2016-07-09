@@ -407,9 +407,9 @@ public class Database {
         }
     }
 
-    public void addSupplier(String name, String location, String contactNumber, String emailAddress) {
-        sql = "INSERT INTO supplier(name, location, contactNumber, emailAddress)"
-                + " VALUES(?, ?, ?, ?)";
+    public void addSupplier(String name, String location, String contactNumber, String emailAddress, String contactPerson) {
+        sql = "INSERT INTO supplier(name, location, contactNumber, emailAddress, contactPerson)"
+                + " VALUES(?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -417,6 +417,7 @@ public class Database {
             ps.setString(2, location);
             ps.setString(3, contactNumber);
             ps.setString(4, emailAddress);
+            ps.setString(5, contactPerson);
 
             ps.execute();
         } catch (SQLException e) {
@@ -424,15 +425,16 @@ public class Database {
         }
     }
 
-    public void addItem(String name, String unit) {
-        sql = "INSERT INTO items(name, unit, isDeleted)"
-                + " VALUES(?, ?, ?)";
+    public void addItem(String name, String type, String unit) {
+        sql = "INSERT INTO items(name, type, unit, isDeleted)"
+                + " VALUES(?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setString(1, name);
-            ps.setString(2, unit);
-            ps.setBoolean(3, false);
+            ps.setString(2, type);
+            ps.setString(3, unit);
+            ps.setBoolean(4, false);
 
             ps.execute();
         } catch (SQLException e) {
