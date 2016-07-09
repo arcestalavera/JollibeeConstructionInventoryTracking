@@ -4,6 +4,7 @@
 <%@page import="Models.Item"%>
 <%@ include file="header.html"%>
 <%@ include file="topnav.html"%>
+<%@ include file="leftnav.html"%>
 
 <%
     Item item = (Item) request.getSession().getAttribute("item");
@@ -15,14 +16,14 @@
 %>
 
 <script>
-    function redirect(id){
-        if(id === -1){
+    function redirect(id) {
+        if (id === -1) {
             //location for edit
-        } else{
-            if(id.substr(0,1) === 's'){
+        } else {
+            if (id.substr(0, 1) === 's') {
                 location.href = "Supplier?id=" + id.substr(1, id.length - 1);
             }
-            else if(id.substr(0,1) === 'w'){
+            else if (id.substr(0, 1) === 'w') {
                 location.href = "Warehouse?id=" + id.substr(1, id.length - 1);
             }
         }
@@ -80,7 +81,8 @@
                                 <th style="width:5%;"></th>
                                 <th style="width: 40%; text-align: center;">Warehouse Name</th>
                                 <th style="width: 40%; text-align: center;">Location</th>
-                                <th style="width: 15%; text-align: center;">Stock in Warehouse</th>
+                                <th style="width: 10%; text-align: center;">Stock in Warehouse</th>
+                                <th style="width: 5%"></th>
                             </tr>
                         </thead>
 
@@ -94,6 +96,11 @@
                                 <td style="text-align: center;"><button type="button" class="btn btn-link name" onclick="redirect('w<%=warehouse.getWarehouseID()%>')"><%=warehouse.getName()%></button></td>
                                 <td style="text-align: center;"><%=warehouse.getLocation()%></td>
                                 <td style="text-align: center;"><%=warehouse.getItem(item.getItemID()).getCount()%></td>
+                                <td id = "item-actions" style="white-space: nowrap">
+                                    <a class="edit-button" title="Edit Item Count In Warehouse">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </td>
                             </tr>
                             <%
                                 }
