@@ -18,6 +18,10 @@ public class Supplier implements Serializable{
     private String name, location, contactNumber, emailAddress, contactPerson;
     private ArrayList<Item> itemList;
 
+    public Supplier(){
+        this.itemList = new ArrayList<>();
+    }
+    
     /**
      * @return the supplierID
      */
@@ -116,5 +120,7 @@ public class Supplier implements Serializable{
         this.itemList = itemList;
     }
     
-    
+    public void addItem(Item item){
+        itemList.add(item);
+    }    
 }

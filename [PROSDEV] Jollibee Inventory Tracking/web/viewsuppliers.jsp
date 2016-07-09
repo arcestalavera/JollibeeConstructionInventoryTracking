@@ -2,6 +2,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@ include file="header.html" %>
 <%@ include file="topnav.html" %>
+<%@ include file="leftnav.html" %>
+
 <script type="text/javascript">
     function redirect(id) {
         if (id === -1)

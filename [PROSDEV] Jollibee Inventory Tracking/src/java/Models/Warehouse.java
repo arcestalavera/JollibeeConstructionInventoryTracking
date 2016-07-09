@@ -12,11 +12,15 @@ import java.util.ArrayList;
  *
  * @author Arces
  */
-public class Warehouse implements Serializable{
+public class Warehouse implements Serializable {
 
     private int warehouseID;
     private String location, name;
     private ArrayList<Item> itemList;
+
+    public Warehouse() {
+        this.itemList = new ArrayList<>();
+    }
 
     /**
      * @return the warehouseID
@@ -72,5 +76,21 @@ public class Warehouse implements Serializable{
      */
     public void setItemList(ArrayList<Item> itemList) {
         this.itemList = itemList;
+    }
+
+    public void addItem(Item item) {
+        itemList.add(item);
+    }
+
+    public Item getItem(int itemID) {
+        boolean isFound = false;
+        Item item = null;
+        for (int i = 0; i < itemList.size() && !isFound; i++) {
+            if (itemList.get(i).getItemID() == itemID) {
+                item = itemList.get(i);
+                isFound = true;
+            }
+        }
+        return item;
     }
 }

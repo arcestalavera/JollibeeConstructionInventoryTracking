@@ -93,7 +93,7 @@ public class Database {
         Statement stmt;
         ResultSet rs;
         int itemID;
-        String name, unit, type;
+        String name, unit, description;
 
         try {
             stmt = con.createStatement();
@@ -106,13 +106,13 @@ public class Database {
                 Item item = new Item();
                 itemID = rs.getInt("itemID");
                 name = rs.getString("name");
-                type = rs.getString("type");
+                description = rs.getString("description");
                 unit = rs.getString("unit");
 
                 item.setItemID(itemID);
                 item.setName(name);
                 item.setUnit(unit);
-                item.setType(type);
+                item.setDescription(description);
 
                 itemList.add(item);
             }
@@ -258,30 +258,30 @@ public class Database {
         ArrayList<Item> itemList = new ArrayList<>();
         ResultSet rs;
         int itemID;
-        String name, unit, type;
+        String name, unit, description;
 
         try {
-            sql = "SELECT I.itemID, I.name, I.type, I.unit FROM items I "
+            sql = "SELECT I.itemID, I.name, I.description, I.unit FROM items I "
                     + " JOIN supplier_of_item SI ON I.itemID = SI.itemID"
                     + " JOIN suppliers S ON SI.supplierID = S.supplierID"
                     + " WHERE I.isDeleted = 0 AND S.supplierID = ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, supplierID);
-            
+
             rs = ps.executeQuery();
 
             while (rs.next()) {
                 Item item = new Item();
                 itemID = rs.getInt("itemID");
                 name = rs.getString("name");
-                type = rs.getString("type");
+                description = rs.getString("description");
                 unit = rs.getString("unit");
 
                 item.setItemID(itemID);
                 item.setName(name);
                 item.setUnit(unit);
-                item.setType(type);
+                item.setDescription(description);
 
                 itemList.add(item);
             }
@@ -292,6 +292,89 @@ public class Database {
         return itemList;
     }
 
+    public ArrayList<Warehouse> getItemWarehouses(int itemID) {
+        ArrayList<Warehouse> warehouseList = new ArrayList<>();
+        ResultSet rs;
+        int warehouseID, count;
+        String name, location;
+
+        try {
+            sql = "SELECT W.warehouseID, W.location, W.name, PI.count FROM items I "
+                    + " JOIN place_of_item PI ON I.itemID = PI.itemID"
+                    + " JOIN warehouses W ON PI.warehouseID = W.warehouseID"
+                    + " WHERE I.itemID = ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, itemID);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Warehouse warehouse = new Warehouse();
+                Item item = new Item();
+                warehouseID = rs.getInt("warehouseID");
+                name = rs.getString("name");
+                location = rs.getString("location");
+                count = rs.getInt("count");
+
+                warehouse.setWarehouseID(warehouseID);
+                warehouse.setLocation(location);
+                warehouse.setName(name);
+                item = getItemDetails(itemID);
+                item.setCount(count);
+
+                warehouse.addItem(item);
+                warehouseList.add(warehouse);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return warehouseList;
+    }
+
+    public ArrayList<Supplier> getItemSuppliers(int itemID) {
+        ArrayList<Supplier> supplierList = new ArrayList<>();
+        ResultSet rs;
+        int supplierID;
+        String name, location, contactNumber, emailAddress, contactPerson;
+
+        try {
+            sql = "SELECT S.supplierID, S.name, S.location, S.contactNumber, S.emailAddress, S.contactPerson FROM items I "
+                    + " JOIN supplier_of_item SI ON I.itemID = SI.itemID"
+                    + " JOIN suppliers S ON SI.supplierID = S.supplierID"
+                    + " WHERE S.isDeleted = 0 AND I.itemID = ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, itemID);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Supplier supplier = new Supplier();
+                supplierID = rs.getInt("supplierID");
+                name = rs.getString("name");
+                location = rs.getString("location");
+                contactNumber = rs.getString("contactNumber");
+                emailAddress = rs.getString("emailAddress");
+                contactPerson = rs.getString("contactPerson");
+
+                supplier.setSupplierID(supplierID);
+                supplier.setName(name);
+                supplier.setLocation(location);
+                supplier.setEmailAddress(emailAddress);
+                supplier.setContactPerson(contactPerson);
+                supplier.setContactNumber(contactNumber);
+
+                supplierList.add(supplier);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return supplierList;
+    }
+
     /*
      METHODS THAT WILL GET THE DETAILS OF AN OBJECT
      */
@@ -300,7 +383,7 @@ public class Database {
         ResultSet rs;
         Item item = new Item();
 
-        String name, unit;
+        String name, description, unit;
 
         try {
             stmt = con.createStatement();
@@ -313,9 +396,11 @@ public class Database {
             if (rs.next()) {
                 name = rs.getString("name");
                 unit = rs.getString("unit");
+                description = rs.getString("description");
 
                 item.setItemID(itemID);
                 item.setName(name);
+                item.setDescription(description);
                 item.setUnit(unit);
             }
         } catch (SQLException e) {
@@ -466,14 +551,14 @@ public class Database {
         }
     }
 
-    public void addItem(String name, String type, String unit) {
-        sql = "INSERT INTO items(name, type, unit, isDeleted)"
+    public void addItem(String name, String description, String unit) {
+        sql = "INSERT INTO items(name, description, unit, isDeleted)"
                 + " VALUES(?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setString(1, name);
-            ps.setString(2, type);
+            ps.setString(2, description);
             ps.setString(3, unit);
             ps.setBoolean(4, false);
 
@@ -516,5 +601,30 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    /*
+     METHODS THAT WILL GENERATE A REPORT
+     */
+    public int getItemCount(int itemID) {
+        int count = 0;
+        ResultSet rs;
+        sql = "SELECT SUM(count) FROM items I"
+                + " JOIN place_of_item PI ON I.itemID = PI.itemID"
+                + " WHERE I.itemID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, itemID);
+
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                count = rs.getInt("SUM(count)");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
     }
 }

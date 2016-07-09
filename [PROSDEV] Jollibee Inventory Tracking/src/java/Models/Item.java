@@ -7,6 +7,7 @@
 package Models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,7 +15,7 @@ import java.io.Serializable;
  */
 public class Item implements Serializable{
     private int itemID, count;
-    private String name, unit, type;
+    private String name, unit, description;
 
     /**
      * @return the itemID
@@ -73,18 +74,16 @@ public class Item implements Serializable{
     }
 
     /**
-     * @return the type
+     * @return the description
      */
-    public String getType() {
-        return type;
+    public String getDescription() {
+        return description;
     }
 
     /**
-     * @param type the type to set
+     * @param description the description to set
      */
-    public void setType(String type) {
-        this.type = type;
+    public void setDescription(String description) {
+        this.description = description;
     }
-    
-    
 }

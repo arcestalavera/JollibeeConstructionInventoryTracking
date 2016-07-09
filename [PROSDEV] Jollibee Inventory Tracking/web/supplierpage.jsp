@@ -58,7 +58,7 @@
                         <tr>
                             <th></th>
                             <th style="width: 100%;">Item Name</th>
-                            <th style="text-align: right">Type</th>
+                            <th style="width: 100%;">Description</th>
                             <th style="text-align: right;">Unit Measure</th>
                             <th style="text-align: right;"></th>
                         </tr>
@@ -69,11 +69,11 @@
                             for (int i = 0; i < itemList.size(); i++) {
                                 item = itemList.get(i);
                         %>
-                        <tr id = "i<%=item.getItemID()%>">
-                            <td id ="item-count"><%=(i + 1)%></td>
+                        <tr>
+                            <td><%=(i + 1)%></td>
 
                             <td><button type="button" class="btn btn-link name"><%=item.getName()%></button></td>
-                            <td style="text-align: right;"><%=item.getType()%></td>
+                            <td style="text-align: right;"><%=item.getDescription()%></td>
                             <td style="text-align: right;"><%=item.getUnit()%></td>
                         </tr>
                         <%
@@ -82,7 +82,6 @@
                     </tbody>
                 </table>
             </div><!-- end of .table-responsive -->
-
         </div><!-- end of .col-md-12 -->
     </div><!-- end of .row-->
 </div><!-- end of .row -->
