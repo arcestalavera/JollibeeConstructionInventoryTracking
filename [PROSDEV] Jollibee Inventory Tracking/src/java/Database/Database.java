@@ -351,6 +351,7 @@ public class Database {
             rs = ps.executeQuery();
 
             while (rs.next()) {
+                Item item = new Item();
                 Supplier supplier = new Supplier();
                 supplierID = rs.getInt("supplierID");
                 name = rs.getString("name");
@@ -365,7 +366,9 @@ public class Database {
                 supplier.setEmailAddress(emailAddress);
                 supplier.setContactPerson(contactPerson);
                 supplier.setContactNumber(contactNumber);
-
+                
+                item = getItemDetails(itemID);
+                supplier.addItem(item);
                 supplierList.add(supplier);
             }
         } catch (SQLException e) {
