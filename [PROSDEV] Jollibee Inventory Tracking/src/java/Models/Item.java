@@ -14,8 +14,7 @@ import java.io.Serializable;
  */
 public class Item implements Serializable{
     private int itemID, count;
-    private String name;
-    private String unit;
+    private String name, unit, type;
 
     /**
      * @return the itemID
@@ -71,6 +70,20 @@ public class Item implements Serializable{
      */
     public void setCount(int count) {
         this.count = count;
+    }
+
+    /**
+     * @return the type
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(String type) {
+        this.type = type;
     }
     
     

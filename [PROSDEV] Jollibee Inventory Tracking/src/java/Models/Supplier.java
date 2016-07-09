@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 public class Supplier implements Serializable{
     private int supplierID;
-    private String name, location, contactNumber, emailAddress;
+    private String name, location, contactNumber, emailAddress, contactPerson;
 
     /**
      * @return the supplierID
@@ -84,6 +84,20 @@ public class Supplier implements Serializable{
      */
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
+    }
+
+    /**
+     * @return the contactPerson
+     */
+    public String getContactPerson() {
+        return contactPerson;
+    }
+
+    /**
+     * @param contactPerson the contactPerson to set
+     */
+    public void setContactPerson(String contactPerson) {
+        this.contactPerson = contactPerson;
     }
     
     

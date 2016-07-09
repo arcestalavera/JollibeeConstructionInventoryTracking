@@ -7,15 +7,17 @@
 package Models;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
  * @author Arces
  */
 public class Request implements Serializable{
-    private int requestID, count;
-    private Item item;
-    private String status, requestName;
+    private int requestID;
+    private Warehouse sourceWarehouse, destWarehouse;
+    private String status, name;
+    private Date startDate, endDate;
 
     /**
      * @return the requestID
@@ -32,31 +34,31 @@ public class Request implements Serializable{
     }
 
     /**
-     * @return the count
+     * @return the sourceWarehouse
      */
-    public int getCount() {
-        return count;
+    public Warehouse getSourceWarehouse() {
+        return sourceWarehouse;
     }
 
     /**
-     * @param count the count to set
+     * @param sourceWarehouse the sourceWarehouse to set
      */
-    public void setCount(int count) {
-        this.count = count;
+    public void setSourceWarehouse(Warehouse sourceWarehouse) {
+        this.sourceWarehouse = sourceWarehouse;
     }
 
     /**
-     * @return the item
+     * @return the destWarehouse
      */
-    public Item getItem() {
-        return item;
+    public Warehouse getDestWarehouse() {
+        return destWarehouse;
     }
 
     /**
-     * @param item the item to set
+     * @param destWarehouse the destWarehouse to set
      */
-    public void setItem(Item item) {
-        this.item = item;
+    public void setDestWarehouse(Warehouse destWarehouse) {
+        this.destWarehouse = destWarehouse;
     }
 
     /**
@@ -74,16 +76,45 @@ public class Request implements Serializable{
     }
 
     /**
-     * @return the requestName
+     * @return the name
      */
-    public String getRequestName() {
-        return requestName;
+    public String getName() {
+        return name;
     }
 
     /**
-     * @param requestName the requestName to set
+     * @param name the name to set
      */
-    public void setRequestName(String requestName) {
-        this.requestName = requestName;
+    public void setName(String name) {
+        this.name = name;
     }
+
+    /**
+     * @return the startDate
+     */
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    /**
+     * @param startDate the startDate to set
+     */
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    /**
+     * @return the endDate
+     */
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    /**
+     * @param endDate the endDate to set
+     */
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+    
 }

@@ -64,7 +64,7 @@ public class Database {
         try {
             stmt = con.createStatement();
 
-            sql = "SELECT * FROM warehouse";
+            sql = "SELECT * FROM warehouses";
 
             rs = stmt.executeQuery(sql);
 
@@ -93,7 +93,7 @@ public class Database {
         Statement stmt;
         ResultSet rs;
         int itemID;
-        String name, unit;
+        String name, unit, type;
 
         try {
             stmt = con.createStatement();
@@ -106,11 +106,13 @@ public class Database {
                 Item item = new Item();
                 itemID = rs.getInt("itemID");
                 name = rs.getString("name");
+                type = rs.getString("type");
                 unit = rs.getString("unit");
 
                 item.setItemID(itemID);
                 item.setName(name);
                 item.setUnit(unit);
+                item.setType(type);
 
                 itemList.add(item);
             }
@@ -127,12 +129,12 @@ public class Database {
         Statement stmt;
         ResultSet rs;
         int supplierID;
-        String name, location, contactNumber, emailAddress;
+        String name, location, contactNumber, emailAddress, contactPerson;
 
         try {
             stmt = con.createStatement();
 
-            sql = "SELECT * FROM supplier";
+            sql = "SELECT * FROM suppliers WHERE isDeleted = 0";
 
             rs = stmt.executeQuery(sql);
 
@@ -143,12 +145,14 @@ public class Database {
                 location = rs.getString("location");
                 contactNumber = rs.getString("contactNumber");
                 emailAddress = rs.getString("emailAddress");
+                contactPerson = rs.getString("contactPerson");
 
                 supplier.setSupplierID(supplierID);
                 supplier.setName(name);
                 supplier.setLocation(location);
                 supplier.setContactNumber(contactNumber);
                 supplier.setEmailAddress(emailAddress);
+                supplier.setContactPerson(contactPerson);
 
                 supplierList.add(supplier);
             }
@@ -164,9 +168,10 @@ public class Database {
         ArrayList<Request> requestList = new ArrayList<>();
         Statement stmt;
         ResultSet rs;
-        int requestID, count, itemID;
-        Item item;
-        String status, requestName;
+        int requestID, sourceWarehouseID, destWarehouseID;
+        Warehouse sourceWarehouse, destWarehouse;
+        String status, name;
+        Date startDate, endDate;
 
         try {
             stmt = con.createStatement();
@@ -178,18 +183,23 @@ public class Database {
             while (rs.next()) {
                 Request request = new Request();
                 requestID = rs.getInt("requestID");
-                count = rs.getInt("count");
                 status = rs.getString("status");
-                requestName = rs.getString("requestName");
-                itemID = rs.getInt("itemID");
-
-                item = getItemDetails(itemID);
-
+                name = rs.getString("name");
+                sourceWarehouseID = rs.getInt("sourceWarehouseID");
+                destWarehouseID = rs.getInt("destWarehouseID");
+                startDate = rs.getDate("startDate");
+                endDate = rs.getDate("endDate");
+                
+                sourceWarehouse = getWarehouseDetails(sourceWarehouseID);
+                destWarehouse = getWarehouseDetails(destWarehouseID);
+                
                 request.setRequestID(requestID);
-                request.setCount(count);
+                request.setName(name);
+                request.setSourceWarehouse(sourceWarehouse);
+                request.setDestWarehouse(destWarehouse);
+                request.setStartDate(startDate);
+                request.setEndDate(endDate);
                 request.setStatus(status);
-                request.setRequestName(requestName);
-                request.setItem(item);
 
                 requestList.add(request);
             }
@@ -204,11 +214,10 @@ public class Database {
         ArrayList<Delivery> deliveryList = new ArrayList<>();
         Statement stmt;
         ResultSet rs;
-        int deliveryID, count, itemID, supplierID;
-        Item item;
-        Supplier supplier;
-        Date startTime, endTime;
-        String type, status, deliveryName;
+        int deliveryID, supplierID, requestID;
+        Request request;
+        Supplier supplier = null;
+        String type, status;
 
         try {
             stmt = con.createStatement();
@@ -220,27 +229,20 @@ public class Database {
             while (rs.next()) {
                 Delivery delivery = new Delivery();
                 deliveryID = rs.getInt("deliveryID");
-                deliveryName = rs.getString("deliveryName");
                 type = rs.getString("type");
-                count = rs.getInt("count");
-                startTime = rs.getDate("startTime");
-                endTime = rs.getDate("endTime");
                 status = rs.getString("status");
-                itemID = rs.getInt("itemID");
                 supplierID = rs.getInt("supplierID");
-
-                item = getItemDetails(itemID);
-                supplier = getSupplierDetails(supplierID);
+                requestID = rs.getInt("requestID");
+                
+                if(supplierID != 0)
+                    supplier = getSupplierDetails(supplierID);
+                request = getRequestDetails(requestID);
                 
                 delivery.setDeliveryID(deliveryID);
-                delivery.setDeliveryName(deliveryName);
                 delivery.setType(type);
-                delivery.setCount(count);
-                delivery.setStartTime(startTime);
-                delivery.setEndTime(endTime);
                 delivery.setStatus(status);
-                delivery.setItem(item);
                 delivery.setSupplier(supplier);
+                delivery.setRequest(request);
                 
                 deliveryList.add(delivery);
             }
@@ -250,6 +252,7 @@ public class Database {
         
         return deliveryList;
     }
+    
     /*
      METHODS THAT WILL GET THE DETAILS OF AN OBJECT
      */
@@ -313,6 +316,77 @@ public class Database {
         }
 
         return supplier;
+    }
+    
+    public Warehouse getWarehouseDetails(int warehouseID){
+        Warehouse warehouse = new Warehouse();
+        Statement stmt;
+        ResultSet rs;
+        String name, location;
+        try {
+            stmt = con.createStatement();
+
+            sql = "SELECT * FROM warehouse"
+                    + " WHERE warehouseID = " + warehouseID;
+
+            rs = stmt.executeQuery(sql);
+
+            if (rs.next()) {
+                name = rs.getString("name");
+                location = rs.getString("location");
+
+                warehouse.setWarehouseID(warehouseID);
+                warehouse.setName(name);
+                warehouse.setLocation(location);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return warehouse;
+    }
+    
+    public Request getRequestDetails(int requestID) {
+        Request request = new Request();
+        Statement stmt;
+        ResultSet rs;
+        int sourceWarehouseID, destWarehouseID;
+        Warehouse sourceWarehouse, destWarehouse;
+        String status, name;
+        Date startDate, endDate;
+
+        try {
+            stmt = con.createStatement();
+
+            sql = "SELECT * FROM requests"
+                    + " WHERE requestID = " + requestID;
+
+            rs = stmt.executeQuery(sql);
+
+            if (rs.next()) {
+                status = rs.getString("status");
+                name = rs.getString("name");
+                sourceWarehouseID = rs.getInt("sourceWarehouseID");
+                destWarehouseID = rs.getInt("destWarehouseID");
+                startDate = rs.getDate("startDate");
+                endDate = rs.getDate("endDate");
+                
+                sourceWarehouse = getWarehouseDetails(sourceWarehouseID);
+                destWarehouse = getWarehouseDetails(destWarehouseID);
+                
+                request.setRequestID(requestID);
+                request.setName(name);
+                request.setSourceWarehouse(sourceWarehouse);
+                request.setDestWarehouse(destWarehouse);
+                request.setStartDate(startDate);
+                request.setEndDate(endDate);
+                request.setStatus(status);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return request;
     }
 
     /*
