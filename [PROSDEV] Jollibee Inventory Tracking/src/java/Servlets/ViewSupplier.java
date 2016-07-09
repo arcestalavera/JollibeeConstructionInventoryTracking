@@ -37,13 +37,21 @@ public class ViewSupplier extends HttpServlet {
         RequestDispatcher reqDispatcher = null;
         Database db = Database.getInstance();
         ArrayList<Supplier> supplierList = new ArrayList<>();
-
+        Supplier supplier;
+        
         String id = request.getParameter("id");
 
         System.out.println("id = " + id);
 
         if (id != null) {
-            // put code to view supplier details here
+            int sid = Integer.parseInt(id);
+            System.out.println("my id is " + sid);
+            supplier = db.getSupplierDetails(sid);
+            System.out.println("my supplier is = " + supplier.getName());
+            supplier.setItemList(db.getSupplierItems(sid));
+            
+            request.getSession().setAttribute("supplier", supplier);
+            reqDispatcher = request.getRequestDispatcher("supplierpage.jsp");
         } else {
             supplierList = db.getSuppliers();
             

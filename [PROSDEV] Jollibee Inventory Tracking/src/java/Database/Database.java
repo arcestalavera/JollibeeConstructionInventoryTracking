@@ -189,10 +189,10 @@ public class Database {
                 destWarehouseID = rs.getInt("destWarehouseID");
                 startDate = rs.getDate("startDate");
                 endDate = rs.getDate("endDate");
-                
+
                 sourceWarehouse = getWarehouseDetails(sourceWarehouseID);
                 destWarehouse = getWarehouseDetails(destWarehouseID);
-                
+
                 request.setRequestID(requestID);
                 request.setName(name);
                 request.setSourceWarehouse(sourceWarehouse);
@@ -210,7 +210,7 @@ public class Database {
         return requestList;
     }
 
-    public ArrayList<Delivery> getDeliveries(){
+    public ArrayList<Delivery> getDeliveries() {
         ArrayList<Delivery> deliveryList = new ArrayList<>();
         Statement stmt;
         ResultSet rs;
@@ -233,26 +233,65 @@ public class Database {
                 status = rs.getString("status");
                 supplierID = rs.getInt("supplierID");
                 requestID = rs.getInt("requestID");
-                
-                if(supplierID != 0)
+
+                if (supplierID != 0) {
                     supplier = getSupplierDetails(supplierID);
+                }
                 request = getRequestDetails(requestID);
-                
+
                 delivery.setDeliveryID(deliveryID);
                 delivery.setType(type);
                 delivery.setStatus(status);
                 delivery.setSupplier(supplier);
                 delivery.setRequest(request);
-                
+
                 deliveryList.add(delivery);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return deliveryList;
     }
-    
+
+    public ArrayList<Item> getSupplierItems(int supplierID) {
+        ArrayList<Item> itemList = new ArrayList<>();
+        ResultSet rs;
+        int itemID;
+        String name, unit, type;
+
+        try {
+            sql = "SELECT I.itemID, I.name, I.type, I.unit FROM items I "
+                    + " JOIN supplier_of_item SI ON I.itemID = SI.itemID"
+                    + " JOIN suppliers S ON SI.supplierID = S.supplierID"
+                    + " WHERE I.isDeleted = 0 AND S.supplierID = ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, supplierID);
+            
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Item item = new Item();
+                itemID = rs.getInt("itemID");
+                name = rs.getString("name");
+                type = rs.getString("type");
+                unit = rs.getString("unit");
+
+                item.setItemID(itemID);
+                item.setName(name);
+                item.setUnit(unit);
+                item.setType(type);
+
+                itemList.add(item);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return itemList;
+    }
+
     /*
      METHODS THAT WILL GET THE DETAILS OF AN OBJECT
      */
@@ -285,16 +324,16 @@ public class Database {
 
         return item;
     }
-    
-    public Supplier getSupplierDetails(int supplierID){
+
+    public Supplier getSupplierDetails(int supplierID) {
         Statement stmt;
         ResultSet rs;
         Supplier supplier = new Supplier();
-        String name, location, contactNumber, emailAddress;
+        String name, location, contactNumber, emailAddress, contactPerson;
         try {
             stmt = con.createStatement();
 
-            sql = "SELECT * FROM supplier"
+            sql = "SELECT * FROM suppliers"
                     + " WHERE supplierID = " + supplierID;
 
             rs = stmt.executeQuery(sql);
@@ -304,12 +343,14 @@ public class Database {
                 location = rs.getString("location");
                 contactNumber = rs.getString("contactNumber");
                 emailAddress = rs.getString("emailAddress");
+                contactPerson = rs.getString("contactPerson");
 
                 supplier.setSupplierID(supplierID);
                 supplier.setName(name);
                 supplier.setLocation(location);
                 supplier.setContactNumber(contactNumber);
                 supplier.setEmailAddress(emailAddress);
+                supplier.setContactPerson(contactPerson);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -317,8 +358,8 @@ public class Database {
 
         return supplier;
     }
-    
-    public Warehouse getWarehouseDetails(int warehouseID){
+
+    public Warehouse getWarehouseDetails(int warehouseID) {
         Warehouse warehouse = new Warehouse();
         Statement stmt;
         ResultSet rs;
@@ -326,7 +367,7 @@ public class Database {
         try {
             stmt = con.createStatement();
 
-            sql = "SELECT * FROM warehouse"
+            sql = "SELECT * FROM warehouses"
                     + " WHERE warehouseID = " + warehouseID;
 
             rs = stmt.executeQuery(sql);
@@ -345,7 +386,7 @@ public class Database {
 
         return warehouse;
     }
-    
+
     public Request getRequestDetails(int requestID) {
         Request request = new Request();
         Statement stmt;
@@ -370,10 +411,10 @@ public class Database {
                 destWarehouseID = rs.getInt("destWarehouseID");
                 startDate = rs.getDate("startDate");
                 endDate = rs.getDate("endDate");
-                
+
                 sourceWarehouse = getWarehouseDetails(sourceWarehouseID);
                 destWarehouse = getWarehouseDetails(destWarehouseID);
-                
+
                 request.setRequestID(requestID);
                 request.setName(name);
                 request.setSourceWarehouse(sourceWarehouse);
@@ -445,18 +486,34 @@ public class Database {
     /*
      METHODS THAT WILL EDIT THE DETAILS OF AN OBJECT
      */
-    
-    public void respondRequest(int id, String response){
+    public void respondRequest(int id, String response) {
         sql = "UPDATE requests SET status = ?"
                 + " WHERE requestID = ?";
-        
-        try{
+
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, response);
             ps.setInt(2, id);
-            
+
             ps.execute();
-        } catch(SQLException e){
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+     METHODS THAT WILL DELETE(ARCHIVE) AN OBJECT
+     */
+    public void deleteItem(int itemID) {
+        sql = "UPDATE items SET isDeleted = " + true + ""
+                + " WHERE itemID = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, itemID);
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

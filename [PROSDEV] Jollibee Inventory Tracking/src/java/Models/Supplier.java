@@ -7,6 +7,7 @@
 package Models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,6 +16,7 @@ import java.io.Serializable;
 public class Supplier implements Serializable{
     private int supplierID;
     private String name, location, contactNumber, emailAddress, contactPerson;
+    private ArrayList<Item> itemList;
 
     /**
      * @return the supplierID
@@ -98,6 +100,20 @@ public class Supplier implements Serializable{
      */
     public void setContactPerson(String contactPerson) {
         this.contactPerson = contactPerson;
+    }
+
+    /**
+     * @return the itemList
+     */
+    public ArrayList<Item> getItemList() {
+        return itemList;
+    }
+
+    /**
+     * @param itemList the itemList to set
+     */
+    public void setItemList(ArrayList<Item> itemList) {
+        this.itemList = itemList;
     }
     
     
