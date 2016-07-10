@@ -10,6 +10,7 @@ function addItem() {
             $("#add-items-div").prepend(html);
             $("#name").val("");
             $("#unitofmeasure").val("");
+            $("#description").val("");
         }
     });
     return false;
@@ -37,6 +38,18 @@ function deleteItem() {
             $("tr[id=i" + id + "]").remove();
         }
     });
+}
+
+function editItem(id){
+    $.ajax({
+        type: "POST",
+        url: "HandleItem?action=edit&id=" + id,
+        data: $(".add-items-form").serialize(),
+        success: function(html) {
+            $("#add-items-div").prepend(html);
+        }
+    });
+    return false;
 }
 
 $(document).ready(function() {
