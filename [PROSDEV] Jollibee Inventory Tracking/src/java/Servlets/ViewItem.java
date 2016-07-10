@@ -7,6 +7,8 @@ package Servlets;
 
 import Database.Database;
 import Models.Item;
+import Models.Supplier;
+import Models.Warehouse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -37,13 +39,26 @@ public class ViewItem extends HttpServlet {
         RequestDispatcher reqDispatcher = null;
         Database db = Database.getInstance();
         ArrayList<Item> itemList = new ArrayList<>();
-
+        ArrayList<Warehouse> warehouseList;
+        ArrayList<Supplier> supplierList;
+        Item item;
+        int count;
+        
         String id = request.getParameter("id");
 
-        System.out.println("id = " + id);
-
         if (id != null) {
-            // put code to view item details here
+            int iid = Integer.parseInt(id);
+            item = db.getItemDetails(iid);
+            
+            warehouseList = db.getItemWarehouses(iid);
+            supplierList = db.getItemSuppliers(iid);
+            count = db.getItemCount(iid);
+            
+            request.getSession().setAttribute("item", item);
+            request.getSession().setAttribute("item_warehouse", warehouseList);
+            request.getSession().setAttribute("item_supplier", supplierList);
+            request.getSession().setAttribute("count", count);
+            reqDispatcher = request.getRequestDispatcher("itempage.jsp");
         } else {
             itemList = db.getItems();
 

@@ -7,6 +7,7 @@
 package Models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,8 +15,7 @@ import java.io.Serializable;
  */
 public class Item implements Serializable{
     private int itemID, count;
-    private String name;
-    private String unit;
+    private String name, unit, description;
 
     /**
      * @return the itemID
@@ -72,6 +72,18 @@ public class Item implements Serializable{
     public void setCount(int count) {
         this.count = count;
     }
-    
-    
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

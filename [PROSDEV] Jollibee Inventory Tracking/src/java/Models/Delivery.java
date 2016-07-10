@@ -14,11 +14,10 @@ import java.util.Date;
  * @author Arces
  */
 public class Delivery implements Serializable{
-    private int deliveryID, count;
-    private Item item;
+    private int deliveryID;
     private Supplier supplier;
-    private String deliveryName, type, status;
-    private Date startTime, endTime;
+    private Request request;
+    private String type, status;
 
     /**
      * @return the deliveryID
@@ -32,34 +31,6 @@ public class Delivery implements Serializable{
      */
     public void setDeliveryID(int deliveryID) {
         this.deliveryID = deliveryID;
-    }
-
-    /**
-     * @return the count
-     */
-    public int getCount() {
-        return count;
-    }
-
-    /**
-     * @param count the count to set
-     */
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    /**
-     * @return the item
-     */
-    public Item getItem() {
-        return item;
-    }
-
-    /**
-     * @param item the item to set
-     */
-    public void setItem(Item item) {
-        this.item = item;
     }
 
     /**
@@ -77,17 +48,17 @@ public class Delivery implements Serializable{
     }
 
     /**
-     * @return the deliveryName
+     * @return the request
      */
-    public String getDeliveryName() {
-        return deliveryName;
+    public Request getRequest() {
+        return request;
     }
 
     /**
-     * @param deliveryName the deliveryName to set
+     * @param request the request to set
      */
-    public void setDeliveryName(String deliveryName) {
-        this.deliveryName = deliveryName;
+    public void setRequest(Request request) {
+        this.request = request;
     }
 
     /**
@@ -118,31 +89,4 @@ public class Delivery implements Serializable{
         this.status = status;
     }
 
-    /**
-     * @return the startTime
-     */
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    /**
-     * @param startTime the startTime to set
-     */
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    /**
-     * @return the endTime
-     */
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    /**
-     * @param endTime the endTime to set
-     */
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
 }

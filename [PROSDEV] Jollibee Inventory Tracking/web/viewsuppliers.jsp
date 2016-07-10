@@ -5,8 +5,11 @@
 <%@ include file="leftnav.html" %>
 
 <script type="text/javascript">
-    function redirect() {
-        location.href = "addsupplier.jsp";
+    function redirect(id) {
+        if (id === -1)
+            location.href = "addsupplier.jsp";
+        else
+            location.href = "Supplier?id=" + id;
     }
 </script>
 
@@ -15,89 +18,89 @@
     Supplier supplier;
 %>
 
-                    <!-- Page Heading -->
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h1 class="page-header">
-                                View Supplier List
-                            </h1>
-                            <ol class="breadcrumb">
-                                <li>
-                                    <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Suppliers</a>
-                                </li>
-                                <li class="active">
-                                    <i class="fa fa-edit"></i> View Supplier List
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
-                    <!-- /.row -->
+<!-- Page Heading -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            View Supplier List
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Suppliers</a>
+            </li>
+            <li class="active">
+                <i class="fa fa-edit"></i> View Supplier List
+            </li>
+        </ol>
+    </div>
+</div>
+<!-- /.row -->
 
-        <!-- Page Content -->
-        <div class="row">
-            <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
-                <button id="add-item" class="btn btn-primary" onclick="redirect()">Add Supplier</button>
+<!-- Page Content -->
+<div class="row">
+    <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
+        <button id="add-item" class="btn btn-primary" onclick="redirect(-1)">Add Supplier</button>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-lg-12">
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th style="width: 100%;">Supplier Name</th>
+                        <th style="text-align: right;">Location</th>
+                        <th style="text-align: right;">Contact #</th>
+                        <th style="text-align: right;">Email</th>
+                        <th style="text-align: right;"></th>
+                    </tr>
+                </thead>
+                <tbody id="supplierTableBody">
+                    <%
+                        for (int i = 0; i < supplierList.size(); i++) {
+                            supplier = supplierList.get(i);
+                    %>
+                    <tr>
+                        <td><%=(i + 1)%></td>
+                        <td><button type="button" class="btn btn-link name" onclick="redirect(<%=supplier.getSupplierID()%>)"><%=supplier.getName()%></button></td>
+                        <td style="text-align: right;"><%=supplier.getLocation()%></td>
+                        <td style="text-align: right;"><%=supplier.getContactNumber()%></td>
+                        <td style="text-align: right;"><%=supplier.getEmailAddress()%></td>
+                        <td style="white-space: nowrap">
+                            <a class="edit-button">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a class="delete-button" data-toggle="modal" 
+                               data-target="#suppliersmodal" data-verdict="delete">
+                                <i class="fa fa-trash-o"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <%
+                        }
+                    %>
+                </tbody>
+            </table>
+        </div><!-- end of .table-responsive -->
+
+    </div><!-- end of .col-lg-12 -->
+
+</div><!-- end of .row -->
+
+<div class="modal fade" id="suppliersmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4 class="modal-title" id="modal-message"></h4>
+            </div>
+            <div class="modal-footer">
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="row">
-
-            <div class="col-lg-12">
-
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th style="width: 100%;">Supplier Name</th>
-                                <th style="text-align: right;">Location</th>
-                                <th style="text-align: right;">Contact #</th>
-                                <th style="text-align: right;">Email</th>
-                                <th style="text-align: right;"></th>
-                            </tr>
-                        </thead>
-                        <tbody id="supplierTableBody">
-                            <%
-                                for (int i = 0; i < supplierList.size(); i++) {
-                                    supplier = supplierList.get(i);
-                            %>
-                            <tr>
-                                <td><%=(i + 1)%></td>
-                                <td><button type="button" class="btn btn-link name"><%=supplier.getName()%></button></td>
-                                <td style="text-align: right;"><%=supplier.getLocation()%></td>
-                                <td style="text-align: right;"><%=supplier.getContactNumber()%></td>
-                                <td style="text-align: right;"><%=supplier.getEmailAddress()%></td>
-                                <td style="white-space: nowrap">
-                                    <a class="edit-button">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a class="delete-button" data-toggle="modal" 
-                                       data-target="#suppliersmodal" data-verdict="delete">
-                                        <i class="fa fa-trash-o"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <%
-                                }
-                            %>
-                        </tbody>
-                    </table>
-                </div><!-- end of .table-responsive -->
-
-            </div><!-- end of .col-lg-12 -->
-
-        </div><!-- end of .row -->
-
-        <div class="modal fade" id="suppliersmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <h4 class="modal-title" id="modal-message"></h4>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
-            </div>
-        </div>
-      
 <%@ include file="footer.html"%>
