@@ -1,6 +1,7 @@
 <%@page import="Models.Item"%>
 <%@ include file="header.html"%>
 <%@ include file="topnav.html"%>
+<%@ include file="leftnav.html" %>
 
 <script type = "text/javascript" src = "js/jquery.js"></script>
 <script type = "text/javascript" src = "js/Item.js"></script>
