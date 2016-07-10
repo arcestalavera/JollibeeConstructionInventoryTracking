@@ -26,13 +26,4 @@
                     <p> You can place anything here</p>
                 </div>
 
-            </div>
-            <!-- /.container-fluid -->
-
-        </div>
-        <!-- /#page-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
-
     <%@ include file="footer.html"%>

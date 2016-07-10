@@ -3,7 +3,9 @@
 <%@ include file="leftnav.html"%>
 
 <script type = "text/javascript" src = "js/Item.js"></script>
+<div id="page-wrapper">
 
+            <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="row">
                         <div class="col-lg-12">

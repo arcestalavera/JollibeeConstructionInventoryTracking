@@ -4,6 +4,10 @@
 
 <script type = "text/javascript" src = "js/Warehouse.js">
 </script>
+
+<div id="page-wrapper">
+
+            <div class="container-fluid">
         <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-12">
