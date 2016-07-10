@@ -366,7 +366,7 @@ public class Database {
                 supplier.setEmailAddress(emailAddress);
                 supplier.setContactPerson(contactPerson);
                 supplier.setContactNumber(contactNumber);
-                
+
                 item = getItemDetails(itemID);
                 supplier.addItem(item);
                 supplierList.add(supplier);
@@ -607,8 +607,28 @@ public class Database {
     }
 
     /*
+     METHODS THAT WILL EDIT THE DETAILS OF AN OBJECT
+     */
+    public void editItem(int itemID, String name, String description, String unit) {
+        sql = "UPDATE items SET name = ?, description = ?, unit = ?"
+                + " WHERE itemID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, description);
+            ps.setString(3, unit);
+            ps.setInt(4, itemID);
+            
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    /*
      METHODS THAT WILL GENERATE A REPORT
      */
+
     public int getItemCount(int itemID) {
         int count = 0;
         ResultSet rs;
