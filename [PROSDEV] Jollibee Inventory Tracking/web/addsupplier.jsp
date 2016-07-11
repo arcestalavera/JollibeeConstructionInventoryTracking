@@ -48,6 +48,11 @@
                                     <label>Email Address</label>
                                     <input id="emailadd" class="form-control" name="emailadd" required>
                                 </div><!-- end of .form-group -->
+                                
+                                <div class="form-group">
+                                    <label>Contact Person</label>
+                                    <input id="emailadd" class="form-control" name="contactperson" required>
+                                </div><!-- end of .form-group -->
                                 <input type="submit" class="btn btn-primary" value="Add Supplier">
                             </form>
                         </div>

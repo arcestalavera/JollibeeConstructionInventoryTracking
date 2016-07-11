@@ -55,7 +55,7 @@ public class HandleSupplier extends HttpServlet {
             case "delete":
                 id = Integer.parseInt(request.getParameter("id"));
                 
-                db.deleteItem(id);
+                db.deleteSupplier(id);
                 break;
         }
     }

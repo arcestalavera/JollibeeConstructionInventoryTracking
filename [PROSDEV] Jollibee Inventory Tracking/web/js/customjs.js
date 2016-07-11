@@ -145,7 +145,7 @@ $(document).ready(function() {
         if(verdict==='delete'){
             modal.find('.modal-title').text("Are you sure you want to delete this supplier?");
             modal.find('.modal-footer').append('<button type="button" id="yes-delete" class="btn btn-primary" name="' + id
-                    +' data-dismiss="modal">Yes</button><button type="button" class="btn btn-default" data-dismiss="modal">No</button>');
+                    +'" data-dismiss="modal">Yes</button><button type="button" class="btn btn-default" data-dismiss="modal">No</button>');
             deleteyes = false;
         }
     });

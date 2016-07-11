@@ -537,7 +537,7 @@ public class Database {
     }
 
     public void addSupplier(String name, String location, String contactNumber, String emailAddress, String contactPerson) {
-        sql = "INSERT INTO supplier(name, location, contactNumber, emailAddress, contactPerson)"
+        sql = "INSERT INTO suppliers(name, location, contactNumber, emailAddress, contactPerson)"
                 + " VALUES(?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);

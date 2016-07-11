@@ -52,7 +52,8 @@
                                         <th style="width: 100%;">Supplier Name</th>
                                         <th style="text-align: right;">Location</th>
                                         <th style="text-align: right;">Contact #</th>
-                                        <th style="text-align: right;">Email</th>
+                                        <th style="text-align: right;">Email Address</th>
+                                        <th style="text-align: right;">Contact Person</th>
                                         <th style="text-align: right;"></th>
                                     </tr>
                                 </thead>
@@ -67,6 +68,7 @@
                                         <td style="text-align: right;"><%=supplier.getLocation()%></td>
                                         <td style="text-align: right;"><%=supplier.getContactNumber()%></td>
                                         <td style="text-align: right;"><%=supplier.getEmailAddress()%></td>
+                                        <td style="text-align: right;"><%=supplier.getContactPerson()%></td>
                                         <td id="supplier-actions" style="white-space: nowrap">
                                             <a class="edit-button">
                                                 <i class="fa fa-edit"></i>
