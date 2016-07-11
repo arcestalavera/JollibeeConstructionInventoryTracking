@@ -12,7 +12,6 @@
     Request req;
     String status;
     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-    String endDate;
 %>
 
 <div id="page-wrapper">
@@ -65,10 +64,6 @@
                                 for (int i = 0; i < requestList.size(); i++) {
                                     req = requestList.get(i);
                                     status = req.getStatus();
-                                    if(req.getEndDate() == null)
-                                        endDate = " - ";
-                                    else
-                                        endDate = sdf.format(req.getEndDate());
                             %>
                             <tr>
                                 <td><%=(i + 1)%></td>
@@ -76,7 +71,7 @@
                                 <td><button type="button" class="btn btn-link name"><%=req.getSourceWarehouse().getName()%></button></td>
                                 <td><button type="button" class="btn btn-link name"><%=req.getDestWarehouse().getName()%></button></td>
                                 <td><%=sdf.format(req.getStartDate())%></td>
-                                <td><%=endDate%></td>
+                                <td><%=req.getEndDate() == null ? "-": sdf.format(req.getEndDate())%></td>
                                 <td class = "s<%=req.getRequestID()%>"><%=req.getStatus()%></td>
                                 <td style="white-space: no-wrap">
                                     <a class="edit-button">
