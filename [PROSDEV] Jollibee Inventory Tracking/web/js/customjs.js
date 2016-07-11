@@ -203,14 +203,14 @@ $(document).ready(function() {
     });
         
     $(document).on('click', '#approve-yes', function(e) {
-        var passData = {"id": id, "resp": "Ongoing"};
+        var passData = {"id": id, "resp": "In Transit"};
         $.ajax({
             type: "POST",
             url: "HandleRequest?action=respond",
             data: passData,
             success: function(html) {
                 $("a[id=" + id + "]").remove();
-                $(".s" + id.substr(1, id.length)).html("Ongoing");
+                $(".s" + id.substr(1, id.length)).html("In Transit");
             }
         });
     });
