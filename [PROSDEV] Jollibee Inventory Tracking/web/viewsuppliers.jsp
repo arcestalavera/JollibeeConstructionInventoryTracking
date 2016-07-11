@@ -8,6 +8,8 @@
     ArrayList<Supplier> supplierList = (ArrayList<Supplier>) request.getSession().getAttribute("suppliers");
     Supplier supplier;
 %>
+<script type = "text/javascript" src = "js/jquery.js"></script>
+<script type = "text/javascript" src = "js/Supplier.js"></script>
 
 <div id="page-wrapper">
 
@@ -59,17 +61,17 @@
                                         for (int i = 0; i < supplierList.size(); i++) {
                                             supplier = supplierList.get(i);
                                     %>
-                                    <tr>
-                                        <td><%=(i + 1)%></td>
+                                    <tr id = "i<%= supplier.getSupplierID()%>">
+                                        <td id ="supplier-count"><%=(i + 1)%></td>
                                         <td><button type="button" class="btn btn-link name" onclick="redirect(<%=supplier.getSupplierID()%>)"><%=supplier.getName()%></button></td>
                                         <td style="text-align: right;"><%=supplier.getLocation()%></td>
                                         <td style="text-align: right;"><%=supplier.getContactNumber()%></td>
                                         <td style="text-align: right;"><%=supplier.getEmailAddress()%></td>
-                                        <td style="white-space: nowrap">
+                                        <td id="supplier-actions" style="white-space: nowrap">
                                             <a class="edit-button">
                                                 <i class="fa fa-edit"></i>
                                             </a>
-                                            <a class="delete-button" data-toggle="modal" 
+                                            <a id="d<%= supplier.getSupplierID()%>-<%=(i + 1)%>"class="delete-item delete-button" data-toggle="modal" 
                                                data-target="#suppliersmodal" data-verdict="delete">
                                                 <i class="fa fa-trash-o"></i>
                                             </a>
