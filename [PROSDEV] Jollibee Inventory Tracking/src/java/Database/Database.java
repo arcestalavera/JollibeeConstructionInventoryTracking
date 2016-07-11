@@ -605,6 +605,19 @@ public class Database {
             e.printStackTrace();
         }
     }
+    
+    public void deleteSupplier(int supplierID){
+        sql = "UPDATE suppliers SET isDeleted = " + true +
+                " WHERE supplierID = ?";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, supplierID);
+            
+            ps.executeUpdate();
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 
     /*
      METHODS THAT WILL EDIT THE DETAILS OF AN OBJECT

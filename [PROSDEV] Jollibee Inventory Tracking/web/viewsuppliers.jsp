@@ -8,6 +8,8 @@
     ArrayList<Supplier> supplierList = (ArrayList<Supplier>) request.getSession().getAttribute("suppliers");
     Supplier supplier;
 %>
+<script type = "text/javascript" src = "js/jquery.js"></script>
+<script type = "text/javascript" src = "js/Supplier.js"></script>
 
 <div id="page-wrapper">
 
@@ -69,7 +71,7 @@
                                             <a class="edit-button">
                                                 <i class="fa fa-edit"></i>
                                             </a>
-                                            <a class="delete-button" data-toggle="modal" 
+                                            <a id="d<%= supplier.getSupplierID()%>-<%=(i + 1)%>"class="delete-button" data-toggle="modal" 
                                                data-target="#suppliersmodal" data-verdict="delete">
                                                 <i class="fa fa-trash-o"></i>
                                             </a>
