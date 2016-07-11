@@ -35,7 +35,8 @@ public class HandleSupplier extends HttpServlet {
 
         Database db = Database.getInstance();
         String action, name, location, contactNo, emailAdd, contactPerson;
-
+        int id;
+        
         action = request.getParameter("action");
 
         switch (action) {
@@ -50,6 +51,11 @@ public class HandleSupplier extends HttpServlet {
                 System.out.println("name = " + name);
                 out.write("<p id = \"add-warehouse-message\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">Supplier <i>"
                         + name + "</i> has been added! </p>");
+                break;
+            case "delete":
+                id = Integer.parseInt(request.getParameter("id"));
+                
+                db.deleteItem(id);
                 break;
         }
     }
