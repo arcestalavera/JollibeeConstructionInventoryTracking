@@ -26,8 +26,16 @@ function deleteSupplier(){
         url: "HandleSupplier?action=delete",
         data: passData,
         success: function(html){
-            //arces help!
-            //$("tr[id=i" + id + "]").remove();
+            $("td[id=item-count]").each(function(e){
+                old = $(this).siblings("#item-actions").find(".delete-item");
+                oid = old.attr("id");
+                n = oid.substr(oid.indexOf("-") + 1, oid.length-1);
+                oid = oid.replace("-" + n, "-" + (n - 1));
+                old.attr("id", old);
+                if(n > count)
+                    $(this).html(n-1);
+            });
+            $("tr[id=i" + id + "]").remove();
         }
     });
 }
