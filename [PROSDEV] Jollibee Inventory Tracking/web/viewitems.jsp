@@ -2,15 +2,18 @@
 <%@page import="java.util.ArrayList"%>
 <%@ include file="header.html" %>
 <%@ include file="topnav.html" %>
-<%@ include file="leftnav.html"%>
-
+<%@ include file="leftnav.html" %>
 
 <script type ="text/javascript">
     function redirect(id) {
         if (id === -1)
-            location.href = "additem.jsp";
+            location.href = "HandleItem?action=redirect&type=add";
         else
             location.href = "Item?id=" + id;
+    }
+    
+    function edit(id){
+        location.href = "HandleItem?action=redirect&type=edit&id=" + id;
     }
 </script>
 <script type = "text/javascript" src = "js/jquery.js"></script>
@@ -19,7 +22,9 @@
     ArrayList<Item> itemList = (ArrayList<Item>) request.getSession().getAttribute("items");
     Item item;
 %>
+<div id="page-wrapper">
 
+            <div class="container-fluid">
 <!-- Page Heading -->
 <div class="row">
     <div class="col-lg-12">
@@ -70,7 +75,7 @@
                         <td><button type="button" class="btn btn-link name" onclick = "redirect(<%=item.getItemID()%>)"><%=item.getName()%></button></td>
                         <td style="text-align: right;"><%=item.getUnit()%></td>
                         <td id = "item-actions" style="white-space: nowrap">
-                            <a class="edit-button">
+                            <a class="edit-button" onclick="edit(<%=item.getItemID()%>)">
                                 <i class="fa fa-edit"></i>
                             </a>
                             <a id = "d<%=item.getItemID()%>-<%=(i + 1)%>" class="delete-item delete-button" data-toggle="modal" 

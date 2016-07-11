@@ -141,10 +141,11 @@ $(document).ready(function() {
         var verdict = trigger.data('verdict');
         var modal = $(this);
         
+        id = event.relatedTarget.id;
         if(verdict==='delete'){
             modal.find('.modal-title').text("Are you sure you want to delete this supplier?");
-            modal.find('.modal-footer').append('<button type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>'
-                    + '<button type="button" class="btn btn-default" data-dismiss="modal">No</button>');
+            modal.find('.modal-footer').append('<button type="button" id="yes-delete" class="btn btn-primary" name="' + id
+                    +'" data-dismiss="modal">Yes</button><button type="button" class="btn btn-default" data-dismiss="modal">No</button>');
             deleteyes = false;
         }
     });
@@ -203,14 +204,14 @@ $(document).ready(function() {
     });
         
     $(document).on('click', '#approve-yes', function(e) {
-        var passData = {"id": id, "resp": "Ongoing"};
+        var passData = {"id": id, "resp": "In Transit"};
         $.ajax({
             type: "POST",
             url: "HandleRequest?action=respond",
             data: passData,
             success: function(html) {
                 $("a[id=" + id + "]").remove();
-                $(".s" + id.substr(1, id.length)).html("Ongoing");
+                $(".s" + id.substr(1, id.length)).html("In Transit");
             }
         });
     });

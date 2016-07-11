@@ -1,3 +1,5 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Models.Item"%>
 <%@page import="Models.Request"%>
 <%@page import="java.util.ArrayList"%>
@@ -8,10 +10,13 @@
 <%
     ArrayList<Request> requestList = (ArrayList<Request>) request.getSession().getAttribute("requests");
     Request req;
-    Item item;
     String status;
+    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 %>
 
+<div id="page-wrapper">
+
+            <div class="container-fluid">
         <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-12">
@@ -44,32 +49,36 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th></th>
-                                <th style="width: 100%;">Request Name</th>
-                                <th style="text-align: right;">Item Name</th>
-                                <th style="text-align: right;">Count</th>
-                                <th style="text-align: right;">Status</th>
+                                <th style = "width: 5%;"></th>
+                                <th style="width: 15%;">Request Name</th>
+                                <th style="width: 15%;">Source Warehouse</th>
+                                <th style="width: 15%;">Destination Warehouse</th>
+                                <th style="width: 15%;">Start Date</th>
+                                <th style="width: 15%;">End Date</th>
+                                <th style="width: 15%;">Status</th>
+                                <th style = "width: 5%;"></th>
                             </tr>
                         </thead>
                         <tbody id="requestsTableBody">
                             <%
                                 for (int i = 0; i < requestList.size(); i++) {
                                     req = requestList.get(i);
-                                    item = req.getItem();
                                     status = req.getStatus();
                             %>
                             <tr>
                                 <td><%=(i + 1)%></td>
-                                <td><button type="button" class="btn btn-link name"><%=req.getRequestName()%></button></td>
-                                <td style="text-align: right;"><%=item.getName()%></td>
-                                <td style="text-align: right;"><%=req.getCount()%></td>
-                                <td class = "s<%=req.getRequestID()%>" style="text-align: right;"><%=req.getStatus()%></td>
+                                <td><button type="button" class="btn btn-link name"><%=req.getName()%></button></td>
+                                <td><button type="button" class="btn btn-link name"><%=req.getSourceWarehouse().getName()%></button></td>
+                                <td><button type="button" class="btn btn-link name"><%=req.getDestWarehouse().getName()%></button></td>
+                                <td><%=sdf.format(req.getStartDate())%></td>
+                                <td><%=req.getEndDate() == null ? "-": sdf.format(req.getEndDate())%></td>
+                                <td class = "s<%=req.getRequestID()%>"><%=req.getStatus()%></td>
                                 <td style="white-space: no-wrap">
                                     <a class="edit-button">
                                         <i class="fa fa-edit"></i>
                                     </a>
                                     <%
-                                        if (status.equals("Pending Approval")) {
+                                        if (status.equals("Pending")) {
                                     %>
                                     <a id = "<%=status.substring(0, 1).toLowerCase()%><%=req.getRequestID()%>" class="approve-button" data-toggle="modal" 
                                        data-target="#requestsmodal" data-verdict="approve">

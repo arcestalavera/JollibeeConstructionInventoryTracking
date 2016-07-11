@@ -10,6 +10,7 @@ function addItem() {
             $("#add-items-div").prepend(html);
             $("#name").val("");
             $("#unitofmeasure").val("");
+            $("#description").val("");
         }
     });
     return false;
@@ -28,15 +29,27 @@ function deleteItem() {
                 old = $(this).siblings("#item-actions").find(".delete-item");
                 oid = old.attr("id");
                 n = oid.substr(oid.indexOf("-") + 1, oid.length - 1);
-                oid = oid.replace("-" + n, "-" + (n - 1));
-                old.attr("id", oid);
                 if (n > count) {
+                    oid = oid.replace("-" + n, "-" + (n - 1));
+                    old.attr("id", oid);
                     $(this).html(n - 1);
                 }
             });
             $("tr[id=i" + id + "]").remove();
         }
     });
+}
+
+function editItem(id) {
+    $.ajax({
+        type: "POST",
+        url: "HandleItem?action=edit&id=" + id,
+        data: $(".add-items-form").serialize(),
+        success: function(html) {
+            $("#add-items-div").prepend(html);
+        }
+    });
+    return false;
 }
 
 $(document).ready(function() {

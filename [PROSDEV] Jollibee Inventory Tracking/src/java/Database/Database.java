@@ -366,7 +366,7 @@ public class Database {
                 supplier.setEmailAddress(emailAddress);
                 supplier.setContactPerson(contactPerson);
                 supplier.setContactNumber(contactNumber);
-                
+
                 item = getItemDetails(itemID);
                 supplier.addItem(item);
                 supplierList.add(supplier);
@@ -537,7 +537,7 @@ public class Database {
     }
 
     public void addSupplier(String name, String location, String contactNumber, String emailAddress, String contactPerson) {
-        sql = "INSERT INTO supplier(name, location, contactNumber, emailAddress, contactPerson)"
+        sql = "INSERT INTO suppliers(name, location, contactNumber, emailAddress, contactPerson)"
                 + " VALUES(?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -605,10 +605,43 @@ public class Database {
             e.printStackTrace();
         }
     }
+    
+    public void deleteSupplier(int supplierID){
+        sql = "UPDATE suppliers SET isDeleted = " + true +
+                " WHERE supplierID = ?";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, supplierID);
+            
+            ps.executeUpdate();
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 
+    /*
+     METHODS THAT WILL EDIT THE DETAILS OF AN OBJECT
+     */
+    public void editItem(int itemID, String name, String description, String unit) {
+        sql = "UPDATE items SET name = ?, description = ?, unit = ?"
+                + " WHERE itemID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, description);
+            ps.setString(3, unit);
+            ps.setInt(4, itemID);
+            
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
     /*
      METHODS THAT WILL GENERATE A REPORT
      */
+
     public int getItemCount(int itemID) {
         int count = 0;
         ResultSet rs;

@@ -4,6 +4,9 @@
 
 <script type = "text/javascript" src = "js/Supplier.js">
 </script>
+<div id="page-wrapper">
+
+            <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="row">
                         <div class="col-lg-12">
@@ -44,6 +47,11 @@
                                 <div class="form-group">
                                     <label>Email Address</label>
                                     <input id="emailadd" class="form-control" name="emailadd" required>
+                                </div><!-- end of .form-group -->
+                                
+                                <div class="form-group">
+                                    <label>Contact Person</label>
+                                    <input id="emailadd" class="form-control" name="contactperson" required>
                                 </div><!-- end of .form-group -->
                                 <input type="submit" class="btn btn-primary" value="Add Supplier">
                             </form>

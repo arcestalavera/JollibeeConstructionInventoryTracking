@@ -8,9 +8,10 @@
 <%
     ArrayList<Delivery> deliveryList = (ArrayList<Delivery>) request.getSession().getAttribute("deliveries");
     Delivery delivery;
-    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 %>
+<div id="page-wrapper">
 
+            <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="row">
                         <div class="col-lg-12">
@@ -39,10 +40,8 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th style="width: 100%;">Delivery Name</th>
+                                            <th style="width: 100%;">Request Name of Delivery</th>
                                             <th style="text-align: right;">Type</th>
-                                            <th style="text-align: right;">Date Requested</th>
-                                            <th style="text-align: right;">Date Received</th>
                                             <th style="text-align: right;">Status</th>
                                             <th style="text-align: right;"></th>
                                         </tr>
@@ -54,10 +53,8 @@
                                         %>
                                         <tr>
                                             <td><%=(i + 1)%></td>
-                                            <td><button type="button" class="btn btn-link name"><%=delivery.getDeliveryName()%></button></td>
+                                            <td><button type="button" class="btn btn-link name"><%=delivery.getRequest().getName()%></button></td>
                                             <td style="text-align: right;"><%=delivery.getType()%></td>
-                                            <td style="text-align: right;"><%=sdf.format(delivery.getStartTime())%></td>
-                                            <td style="text-align: right;"><%=delivery.getEndTime() == null ? "-" : sdf.format(delivery.getEndTime())%></td>
                                             <td style="text-align: right;"><%=delivery.getStatus()%></td>
                                             <td style="white-space: nowrap">
                                                 <a class="edit-button" data-toggle="modal"
