@@ -11,7 +11,7 @@
     String label = null;
     if (action.equals("edit")){
         supplier = (Supplier)request.getSession().getAttribute("supplier");
-        label = "Edit Supplier"
+        label = "Edit Supplier";
     } else if (action.equals("add")){
         label = "Add Supplier";
     }
