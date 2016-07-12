@@ -1,55 +1,6 @@
 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav side-nav">
-                        <!--
-                        format of pagegroup - header (this is what you click to see the subpages):
-                        <li>//start of pagegroup
-                          <a data-target="#groupNav" data-toggle="collapse" href="javascript:;">
-                              Group Nav
-                              <b class="caret" style="float: right; margin-top: 10px;"></b>
-                          </a>
-                        you have a data-target="#groupNav" in order for Bootstrap to let the submenu
-                        appear when you click the pagegroup header. Be careful! #groupNav in this
-                        example means that its submenu has an id="groupNav", so if you want
-                        to reference a submenu named with a class use data-target=".groupNav"
-                        instead.
-                        
-                        format of pagegroup - content:
-                          <ul id="groupNav" class="collapse">
-                            <li>
-                                <a href="page1.html"><i class="fa fa-fw fa-file"></i>Page 1</a>
-                                <a href="page2.html"><i class="fa fa-fw fa-file"></i>Page 2</a>
-                            </li>
-                          </ul>
-                        </li>
-                        for the submenu content, place it in a <ul> and place all links (which means
-                        use an <a> tag) inside one <li>. Don't forget to name either in id or class so that your
-                        pagegroup header can reference it!
-                        The <i> class is basically an icon placed beside page name. By default, if
-                        an i class contains "fa", it indicates a font awesome icon. To use a different
-                        font awesome icon, go first to fontawesome.bootstrapcheatsheets.com to see
-                        all icons you can use from font awesome, then find its class code. To use,
-                        enter as <i class="fa fa-fw <fontawesome icon code>"></i>. Two examples are given above.
-                        fa-fw means to set the icon to a fixed width, meaning that it responds also to changes 
-                        with the page width. More information with using font awesome icons are found at
-                        fontawesome.io/examples.
-                        -->
-                        <!--
-                        format of just a page:
-                        <li>
-                            <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-                        </li>
-                        if you don't really need a group navigation and you want to redirect the page, insert
-                        this within the <ul> tag of the left navigation bar (hint: its the tag this text is
-                        in right now). if you want two or more of these, just duplicate this code
-                        within this tag e.g.
-                        <li>
-                            <a href="bootstrap-grid1.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid 1</a>
-                        </li>
-                        <li>
-                            <a href="bootstrap-grid1.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid 2</a>
-                        </li>
-                        -->
                         <li>
                             <a data-target="#suppliersNav" data-toggle="collapse" href="javascript:;"> 
                                 Suppliers
@@ -70,7 +21,6 @@
                             <ul id="warehousesNav" class="collapse">
                                 <li>
                                     <a href="Warehouse"><i class="fa fa-fw fa-file"></i> View Warehouses</a>
-                                    <a href="addwarehouse.jsp"><i class="fa fa-fw fa-file"></i> Add Warehouse</a>
                                 </li>
                             </ul>
                         </li>
