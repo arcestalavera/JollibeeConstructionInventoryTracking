@@ -10,6 +10,13 @@
     ArrayList<Item> itemList = supplier.getItemList();
     Item item;
 %>
+<script type ="text/javascript">
+    function edit(id){
+        location.href = "HandleSupplier?action=redirect&type=edit&id=" + id;
+    }
+</script>
+<script type = "text/javascript" src = "js/jquery.js"></script>
+<script type = "text/javascript" src = "js/Supplier.js"></script>
 <div id="page-wrapper">
 
             <div class="container-fluid">
@@ -49,7 +56,7 @@
 
     <div class="row">
         <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
-            <button id="add-item" class="btn btn-primary">Edit Supplier Details</button>
+            <button id="add-item" class="btn btn-primary" onclick="edit(<%= supplier.getSupplierID()%>)">Edit Supplier Details</button>
         </div>
     </div>
     <div class ="row">
