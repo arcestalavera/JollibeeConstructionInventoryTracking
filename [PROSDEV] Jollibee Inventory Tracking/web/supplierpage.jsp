@@ -2,7 +2,7 @@
 <%@page import="Models.Item"%>
 <%@page import="java.util.ArrayList"%>
 <%@ include file="header.html"%>
-<%@ include file="topnav.html"%>
+<%@ include file="topnav.jsp"%>
 <%@ include file="leftnav.html"%>
 
 <%

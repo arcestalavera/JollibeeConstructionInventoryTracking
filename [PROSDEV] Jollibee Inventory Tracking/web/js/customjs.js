@@ -108,7 +108,7 @@ $(document).ready(function() {
         
         if(verdict==='cancel'){
             modal.find('.modal-title').text("Are you sure you want to cancel this delivery?");
-            modal.find('.modal-footer').append('<button type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>'
+            modal.find('.modal-footer').append('<button type="button" id="cancel-yes" class="btn btn-primary" data-dismiss="modal">Yes</button>'
                     + '<button type="button" class="btn btn-default" data-dismiss="modal">No</button>');
         }
     });
@@ -225,6 +225,19 @@ $(document).ready(function() {
             success: function(html) {
                 $("a[id=" + id + "]").remove();
                 $(".s" + id.substr(1, id.length)).html("Declined");
+            }
+        });
+    });
+    
+    $(document).on('click', '#cancel-yes', function(e){
+        var passData = {"id": id, "resp": "Cancelled"};
+        $.ajax({
+            type: "POST",
+            url: "HandleDelivery?action=respond",
+            data: passData,
+            success: function(html){
+                $("a[id=" + id + "]").remove();
+                $(".s" + id.substr(1, id.length)).html("Cancelled");
             }
         });
     });
