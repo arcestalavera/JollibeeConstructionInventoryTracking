@@ -6,8 +6,10 @@
 package Servlets;
 
 import Database.Database;
+import Models.Supplier;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,12 +33,14 @@ public class HandleSupplier extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        RequestDispatcher reqDispatcher = null;
         PrintWriter out = response.getWriter();
 
         Database db = Database.getInstance();
-        String action, name, location, contactNo, emailAdd, contactPerson;
+        String action, name, location, contactNo, emailAdd, contactPerson, type;
         int id;
         
+        Supplier supplier = new Supplier();
         action = request.getParameter("action");
 
         switch (action) {
@@ -69,6 +73,21 @@ public class HandleSupplier extends HttpServlet {
                 
                 out.write("<p id = \"add-warehouse-message\" style=\"font-size: 16px; color: green; margin: 0px\" align=\"center\"> Supplier<i>"
                         + "</i> has been updated!</p>");
+                break;
+            case "redirect":
+                type = request.getParameter("type");
+                
+                if(type.equals("add")){
+                    reqDispatcher = request.getRequestDispatcher("addsupplier.jsp");
+                    request.getSession().setAttribute("action", "add");
+                } else if (type.equals("edit")){
+                    reqDispatcher = request.getRequestDispatcher("addsupplier.jsp");
+                    request.getSession().setAttribute("action", "edit");
+                    id = Integer.parseInt(request.getParameter("id"));
+                    supplier = db.getSupplierDetails(id);
+                    request.getSession().setAttribute("supplier", supplier);
+                }
+                reqDispatcher.forward(request, response);
                 break;
         }
     }
