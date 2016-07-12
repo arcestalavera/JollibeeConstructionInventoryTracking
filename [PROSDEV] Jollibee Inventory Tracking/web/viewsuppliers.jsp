@@ -112,13 +112,4 @@
                         </div>
                     </div>
                 </div>
-
-                <script type="text/javascript">
-                    function redirect(id) {
-                        if (id === -1)
-                            location.href = "addsupplier.jsp";
-                        else
-                            location.href = "Supplier?id=" + id;
-                    }
-                </script>
                 <%@ include file="footer.html"%>
