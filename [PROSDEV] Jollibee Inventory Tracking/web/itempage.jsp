@@ -15,7 +15,7 @@
     Supplier supplier;
 %>
 
-<script>
+<script type="text/javascript">
     function redirect(id) {
         if (id === -1) {
             //location for edit
@@ -28,7 +28,12 @@
             }
         }
     }
+    function edit(id){
+        location.href = "HandleItem?action=redirect&type=edit&id=" + id;
+    }
 </script>
+<script type = "text/javascript" src = "js/jquery.js"></script>
+<script type = "text/javascript" src = "js/Item.js"></script>
 <div id="page-wrapper">
 
             <div class="container-fluid">
@@ -67,7 +72,7 @@
 
     <div class="row">
         <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
-            <button id="add-item" class="btn btn-primary">Edit Item Details</button>
+            <button id="add-item" class="btn btn-primary" onclick="edit(<%= item.getItemID()%>)">Edit Item Details</button>
         </div>
     </div>
     <div class = "row">
