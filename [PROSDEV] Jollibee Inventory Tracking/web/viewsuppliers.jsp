@@ -1,16 +1,27 @@
 <%@page import="Models.Supplier"%>
 <%@page import="java.util.ArrayList"%>
 <%@ include file="header.html" %>
-<%@ include file="topnav.html" %>
+<%@ include file="topnav.jsp" %>
 <%@ include file="leftnav.html" %>
 
+<script type ="text/javascript">
+    function redirect(id){
+        if (id === -1)
+            location.href = "HandleSupplier?action=redirect&type=add";
+        else
+            location.href = "Supplier?id=" + id;
+    }
+    
+    function edit(id){
+        location.href = "HandleSupplier?action=redirect&type=edit&id=" + id;
+    }
+</script>
+<script type = "text/javascript" src = "js/jquery.js"></script>
+<script type = "text/javascript" src = "js/Supplier.js"></script>
 <%
     ArrayList<Supplier> supplierList = (ArrayList<Supplier>) request.getSession().getAttribute("suppliers");
     Supplier supplier;
 %>
-<script type = "text/javascript" src = "js/jquery.js"></script>
-<script type = "text/javascript" src = "js/Supplier.js"></script>
-
 <div id="page-wrapper">
 
             <div class="container-fluid">
@@ -70,7 +81,7 @@
                                         <td style="text-align: right;"><%=supplier.getEmailAddress()%></td>
                                         <td style="text-align: right;"><%=supplier.getContactPerson()%></td>
                                         <td id="supplier-actions" style="white-space: nowrap">
-                                            <a class="edit-button">
+                                            <a class="edit-button" onclick="edit(<%= supplier.getSupplierID()%>)">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                             <a id="d<%= supplier.getSupplierID()%>-<%=(i + 1)%>"class="delete-item delete-button" data-toggle="modal" 
@@ -101,13 +112,4 @@
                         </div>
                     </div>
                 </div>
-
-                <script type="text/javascript">
-                    function redirect(id) {
-                        if (id === -1)
-                            location.href = "addsupplier.jsp";
-                        else
-                            location.href = "Supplier?id=" + id;
-                    }
-                </script>
                 <%@ include file="footer.html"%>

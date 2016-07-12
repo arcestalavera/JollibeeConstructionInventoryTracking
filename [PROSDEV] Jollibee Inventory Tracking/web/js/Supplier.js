@@ -41,6 +41,18 @@ function deleteSupplier() {
     });
 }
 
+function editSupplier(id){
+    $.ajax({
+        type: "POST",
+        url: "HandleSupplier?action=edit&id="+id,
+        data: $(".add-suppliers-form").serialize(),
+        success: function(html){
+            $("#add-suppliers-div").prepend(html);
+        }
+    });
+    return false;
+}
+
 $(document).ready(function() {
     $(document).on("click", "#yes-delete", function(e) {
         name = $(this).attr('name');

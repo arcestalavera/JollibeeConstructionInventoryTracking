@@ -9,6 +9,7 @@ import Models.Delivery;
 import Models.Item;
 import Models.Request;
 import Models.Supplier;
+import Models.User;
 import Models.Warehouse;
 import java.sql.Connection;
 import java.sql.Date;
@@ -36,7 +37,7 @@ public class Database {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             String host = "jdbc:mysql://127.0.0.1:3306/inventory_tracking?user=root";
             String uUser = "root";
-            String uPass = "admin";
+            String uPass = "";
 
             con = DriverManager.getConnection(host, uUser, uPass);
 
@@ -517,6 +518,42 @@ public class Database {
 
         return request;
     }
+    
+    //method to get list of all users
+    public ArrayList<User> getUsers() {
+        ArrayList<User> userList = new ArrayList<>();
+        Statement stmt;
+        ResultSet rs;
+        int userID, type;
+        String username, password;
+
+        try {
+            stmt = con.createStatement();
+
+            sql = "SELECT * FROM users";
+
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                User user = new User();
+                userID = rs.getInt("user_id");
+                username = rs.getString("username");
+                password = rs.getString("password");
+                type = rs.getInt("type");
+
+                user.setUserID(userID);
+                user.setUsername(username);
+                user.setPassword(password);
+                user.setType(type);
+
+                userList.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userList;
+    }    
 
     /*
      METHODS THAT WILL ADD AN OBJECT TO DB
@@ -588,6 +625,20 @@ public class Database {
             e.printStackTrace();
         }
     }
+    
+    public void respondDelivery(int id, String response){
+        sql = "UPDATE deliveries SET status = ?"
+                + " WHERE deliveryID = ?";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, response);
+            ps.setInt(2, id);
+            
+            ps.execute();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 
     /*
      METHODS THAT WILL DELETE(ARCHIVE) AN OBJECT
@@ -638,6 +689,26 @@ public class Database {
         }
 
     }
+    
+    public void editSupplier(int supplierID, String name, String location, String contactNo, String emailAdd, String contactPerson){
+        sql = "UPDATE suppliers SET name = ?, location = ?, contactNumber = ?, "
+                + "emailAddress = ?, contactPerson = ? where supplierID = ?";
+        
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, location);
+            ps.setString(3, contactNo);
+            ps.setString(4, emailAdd);
+            ps.setString(5, contactPerson);
+            ps.setInt(6, supplierID);
+            
+            ps.execute();
+        } catch(SQLException ex){
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /*
      METHODS THAT WILL GENERATE A REPORT
      */
