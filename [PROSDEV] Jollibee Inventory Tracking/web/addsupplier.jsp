@@ -39,7 +39,7 @@
                     <!-- /.row -->
 
                     <!-- Page Content -->
-                    <div id = "add-supplier-div" class="row">
+                    <div id = "add-suppliers-div" class="row">
                         <div class="col-lg-12">
                             <% 
                                 if (action.equals("add")){
@@ -72,7 +72,7 @@
                             <%
                             } else if (action.equals("edit")) {
                             %>
-                            <form class = "add-supplier-form" id="add-suppliers-form" method = "POST" onsubmit="return editItem(<%=supplier.getSupplierID()%>)">    
+                            <form class = "add-suppliers-form" id="add-supplier-form" method = "POST" onsubmit="return editSupplier(<%=supplier.getSupplierID()%>)">    
                                   <div class="form-group">
                                     <label>Name</label>
                                     <input id="name" class="form-control" name="name" value = "<%= supplier.getName()%>" required>
