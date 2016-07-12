@@ -13,7 +13,7 @@
     }
     
     function edit(id){
-        location.href = "HandleItem?action=redirect&type=edit&id=" + id;
+        location.href = "HandleSupplier?action=redirect&type=edit&id=" + id;
     }
 </script>
 <script type = "text/javascript" src = "js/jquery.js"></script>
