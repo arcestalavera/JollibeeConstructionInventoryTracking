@@ -51,25 +51,12 @@
                                         <%
                                             for (int i = 0; i < deliveryList.size(); i++) {
                                                 delivery = deliveryList.get(i);
-                                                status = delivery.getStatus();
                                         %>
                                         <tr>
                                             <td><%=(i + 1)%></td>
                                             <td><button type="button" class="btn btn-link name"><%=delivery.getRequest().getName()%></button></td>
                                             <td style="text-align: right;"><%=delivery.getType()%></td>
                                             <td style="text-align: right;"><%=delivery.getStatus()%></td>
-                                            <td style="white-space: nowrap">
-                                                <%
-                                                    if (status.equals("Pending") || status.equals("In Transit")) {
-                                                %>
-                                                <a id = "<%= status.substring(0,1).toLowerCase()%><%= delivery.getDeliveryID()%>" class="cancel-button" data-toggle="modal"
-                                                   data-target="#deliveriesmodal" data-verdict="cancel">
-                                                    <i class="fa fa-times-circle"></i>
-                                                </a>
-                                                <%
-                                                    }
-                                                %>
-                                            </td>
                                         </tr>
                                         <%
                                             }
