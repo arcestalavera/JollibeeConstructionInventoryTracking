@@ -57,6 +57,19 @@ public class HandleSupplier extends HttpServlet {
                 
                 db.deleteSupplier(id);
                 break;
+            case "edit":
+                id = Integer.parseInt(request.getParameter("id"));
+                name = request.getParameter("name");
+                location = request.getParameter("location");
+                contactNo = request.getParameter("contactno");
+                emailAdd = request.getParameter("emailadd");
+                contactPerson = request.getParameter("contactperson");
+                
+                db.editSupplier(id, name, location, contactNo, emailAdd, contactPerson);
+                
+                out.write("<p id = \"add-warehouse-message\" style=\"font-size: 16px; color: green; margin: 0px\" align=\"center\"> Supplier<i>"
+                        + "</i> has been updated!</p>");
+                break;
         }
     }
 

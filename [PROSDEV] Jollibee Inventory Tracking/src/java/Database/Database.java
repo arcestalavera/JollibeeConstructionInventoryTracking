@@ -36,7 +36,7 @@ public class Database {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             String host = "jdbc:mysql://127.0.0.1:3306/inventory_tracking?user=root";
             String uUser = "root";
-            String uPass = "admin";
+            String uPass = "";
 
             con = DriverManager.getConnection(host, uUser, uPass);
 
@@ -638,6 +638,26 @@ public class Database {
         }
 
     }
+    
+    public void editSupplier(int supplierID, String name, String location, String contactNo, String emailAdd, String contactPerson){
+        sql = "UPDATE suppliers SET name = ?, location = ?, contactNumber = ?, "
+                + "emailAddress = ?, contactPerson = ? where supplierID = ?";
+        
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, location);
+            ps.setString(3, contactNo);
+            ps.setString(4, emailAdd);
+            ps.setString(5, contactPerson);
+            ps.setInt(6, supplierID);
+            
+            ps.execute();
+        } catch(SQLException ex){
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /*
      METHODS THAT WILL GENERATE A REPORT
      */
