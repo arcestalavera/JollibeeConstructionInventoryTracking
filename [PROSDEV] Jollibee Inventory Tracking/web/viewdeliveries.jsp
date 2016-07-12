@@ -62,7 +62,7 @@
                                                 <%
                                                     if (status.equals("Pending") || status.equals("In Transit")) {
                                                 %>
-                                                <a class="cancel-button" data-toggle="modal"
+                                                <a id = "<%= status.substring(0,1).toLowerCase()%><%= delivery.getDeliveryID()%>" class="cancel-button" data-toggle="modal"
                                                    data-target="#deliveriesmodal" data-verdict="cancel">
                                                     <i class="fa fa-times-circle"></i>
                                                 </a>

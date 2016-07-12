@@ -36,6 +36,18 @@
         <servlet-name>ViewDelivery</servlet-name>
         <servlet-class>Servlets.ViewDelivery</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HandleDelivery</servlet-name>
+        <servlet-class>Servlets.HandleDelivery</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HandleLogout</servlet-name>
+        <servlet-class>Servlets.HandleLogout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HandleLogin</servlet-name>
+        <servlet-class>Servlets.HandleLogin</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewWarehouse</servlet-name>
         <url-pattern>/Warehouse</url-pattern>
@@ -71,6 +83,18 @@
     <servlet-mapping>
         <servlet-name>ViewDelivery</servlet-name>
         <url-pattern>/Delivery</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HandleDelivery</servlet-name>
+        <url-pattern>/HandleDelivery</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HandleLogout</servlet-name>
+        <url-pattern>/HandleLogout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HandleLogin</servlet-name>
+        <url-pattern>/HandleLogin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
