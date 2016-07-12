@@ -9,6 +9,7 @@ import Models.Delivery;
 import Models.Item;
 import Models.Request;
 import Models.Supplier;
+import Models.User;
 import Models.Warehouse;
 import java.sql.Connection;
 import java.sql.Date;
@@ -517,6 +518,42 @@ public class Database {
 
         return request;
     }
+    
+    //method to get list of all users
+    public ArrayList<User> getUsers() {
+        ArrayList<User> userList = new ArrayList<>();
+        Statement stmt;
+        ResultSet rs;
+        int userID, type;
+        String username, password;
+
+        try {
+            stmt = con.createStatement();
+
+            sql = "SELECT * FROM users";
+
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                User user = new User();
+                userID = rs.getInt("user_id");
+                username = rs.getString("username");
+                password = rs.getString("password");
+                type = rs.getInt("type");
+
+                user.setUserID(userID);
+                user.setUsername(username);
+                user.setPassword(password);
+                user.setType(type);
+
+                userList.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userList;
+    }    
 
     /*
      METHODS THAT WILL ADD AN OBJECT TO DB
@@ -585,6 +622,20 @@ public class Database {
 
             ps.execute();
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void respondDelivery(int id, String response){
+        sql = "UPDATE deliveries SET status = ?"
+                + " WHERE deliveryID = ?";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, response);
+            ps.setInt(2, id);
+            
+            ps.execute();
+        } catch (SQLException e){
             e.printStackTrace();
         }
     }

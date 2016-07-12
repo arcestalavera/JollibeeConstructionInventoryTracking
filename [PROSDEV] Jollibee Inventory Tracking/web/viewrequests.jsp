@@ -5,7 +5,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="header.html" %>
-<%@ include file="topnav.html" %>
+<%@ include file="topnav.jsp" %>
 <%@ include file="leftnav.html" %>
 <%
     ArrayList<Request> requestList = (ArrayList<Request>) request.getSession().getAttribute("requests");
