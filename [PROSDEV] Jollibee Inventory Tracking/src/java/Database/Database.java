@@ -330,7 +330,7 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        
         return warehouseList;
     }
 
@@ -377,6 +377,44 @@ public class Database {
         }
 
         return supplierList;
+    }
+    
+    public ArrayList<Item> getRequestItems(int requestID) {
+        ArrayList<Item> itemList = new ArrayList<>();
+        ResultSet rs;
+        int itemID;
+        String name, unit, description;
+
+        try {
+            sql = "SELECT I.itemID, I.name, I.description, I.unit FROM items I "
+                    + " JOIN item_of_request IR ON I.itemID = IR.itemID"
+                    + " JOIN requests R ON IR.requestID = R.requestID"
+                    + " WHERE I.isDeleted = 0 AND R.requestID = ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, requestID);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Item item = new Item();
+                itemID = rs.getInt("itemID");
+                name = rs.getString("name");
+                description = rs.getString("description");
+                unit = rs.getString("unit");
+
+                item.setItemID(itemID);
+                item.setName(name);
+                item.setUnit(unit);
+                item.setDescription(description);
+
+                itemList.add(item);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return itemList;
     }
 
     /*
@@ -511,6 +549,7 @@ public class Database {
                 request.setStartDate(startDate);
                 request.setEndDate(endDate);
                 request.setStatus(status);
+                request.setItemList(getRequestItems(requestID));
             }
         } catch (SQLException e) {
             e.printStackTrace();

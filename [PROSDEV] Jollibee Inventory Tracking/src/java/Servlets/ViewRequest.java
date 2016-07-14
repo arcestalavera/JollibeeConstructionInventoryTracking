@@ -37,6 +37,7 @@ public class ViewRequest extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         RequestDispatcher reqDispatcher = null;
         Database db = Database.getInstance();
+        Request req;
         ArrayList<Request> requestList = new ArrayList<>();
 
         String id = request.getParameter("id");
@@ -44,7 +45,9 @@ public class ViewRequest extends HttpServlet {
         System.out.println("id = " + id);
 
         if (id != null) {
-            // put code to view request details here
+            req = db.getRequestDetails(Integer.parseInt(id));
+            request.getSession().setAttribute("request", req);
+            reqDispatcher = request.getRequestDispatcher("requestpage.jsp");
         } else {
             requestList = db.getRequests();
 

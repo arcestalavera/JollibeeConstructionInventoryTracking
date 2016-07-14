@@ -7,6 +7,7 @@
 package Models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -18,7 +19,8 @@ public class Request implements Serializable{
     private Warehouse sourceWarehouse, destWarehouse;
     private String status, name;
     private Date startDate, endDate;
-
+    private ArrayList<Item> itemList;
+    
     /**
      * @return the requestID
      */
@@ -115,6 +117,20 @@ public class Request implements Serializable{
      */
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    /**
+     * @return the itemList
+     */
+    public ArrayList<Item> getItemList() {
+        return itemList;
+    }
+
+    /**
+     * @param itemList the itemList to set
+     */
+    public void setItemList(ArrayList<Item> itemList) {
+        this.itemList = itemList;
     }
     
 }

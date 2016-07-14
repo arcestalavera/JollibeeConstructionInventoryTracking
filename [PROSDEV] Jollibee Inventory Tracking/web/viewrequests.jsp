@@ -14,6 +14,15 @@
     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 %>
 
+<script>
+    function redirect(id){
+        var type = id.substr(0,1);
+        if(type === 'r'){
+            location.href = "Request?id=" + id.substr(1, id.length - 1);
+        }
+    }
+</script>
+    
 <div id="page-wrapper">
 
             <div class="container-fluid">
@@ -67,7 +76,7 @@
                             %>
                             <tr>
                                 <td><%=(i + 1)%></td>
-                                <td><button type="button" class="btn btn-link name"><%=req.getName()%></button></td>
+                                <td><button type="button" class="btn btn-link name" onclick="redirect('r<%=req.getRequestID()%>')"><%=req.getName()%></button></td>
                                 <td><button type="button" class="btn btn-link name"><%=req.getSourceWarehouse().getName()%></button></td>
                                 <td><button type="button" class="btn btn-link name"><%=req.getDestWarehouse().getName()%></button></td>
                                 <td><%=sdf.format(req.getStartDate())%></td>
@@ -95,7 +104,6 @@
                         </tbody>
                     </table>
                 </div><!-- end of .table-responsive -->
-
             </div><!-- end of .col-lg-12 -->
         </div><!-- end of .row -->
 
