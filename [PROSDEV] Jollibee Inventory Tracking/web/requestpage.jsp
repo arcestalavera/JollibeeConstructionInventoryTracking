@@ -1,3 +1,4 @@
+<%@page import="Models.Delivery"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Models.Request"%>
 <%@page import="Models.Warehouse"%>
@@ -10,10 +11,11 @@
 
 <%
     Request req = (Request) request.getSession().getAttribute("request");
-    ArrayList<Item> itemList = req.getItemList();
+    ArrayList<Delivery> deliveryList = req.getDeliveryList();
     Warehouse sourceWarehouse = req.getSourceWarehouse();
     Warehouse destWarehouse = req.getDestWarehouse();
     Item item;
+    Delivery delivery;
     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 %>
 
@@ -84,24 +86,26 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th style="width: 100%;">Item Name</th>
-                                <th style="width: 100%;">Description</th>
-                                <th style="text-align: right;">Unit Measure</th>
-                                <th style="text-align: right;"></th>
+                                <th style="width: 25%;">Item Name</th>
+                                <th style="width: 25%;">Description</th>
+                                <th style="width: 25%">Unit Measure</th>
+                                <th style="width: 25%">Delivery Status</th>
                             </tr>
                         </thead>
 
                         <tbody id="itemTableBody">
                             <%
-                                for (int i = 0; i < itemList.size(); i++) {
-                                    item = itemList.get(i);
+                                for (int i = 0; i < deliveryList.size(); i++) {
+                                    delivery = deliveryList.get(i);
+                                    item = delivery.getItem();
                             %>
                             <tr>
-                                <td><%=(i + 1)%></td>
+                                <td style="text-align: right;"><%=(i + 1)%></td>
 
-                                <td><button type="button" class="btn btn-link name" onclick = "redirect('i<%=item.getItemID()%>')"><s><%=item.getName()%></s></button></td>
-                                <td style="text-align: right;"><s><%=item.getDescription()%></s></td>
-                    <td style="text-align: right;"><s><%=item.getUnit()%></s></td>
+                                <td style="width: 25%;"><button type="button" class="btn btn-link name" onclick = "redirect('i<%=item.getItemID()%>')"><%=item.getName()%></button></td>
+                                <td style="width: 25%;"><%=item.getDescription()%></td>
+                                <td style="width: 25%;"><%=item.getUnit()%></td>
+                                <td style="width: 25%;"><%=delivery.getStatus()%></td>
                             </tr>
                             <%
                                 }

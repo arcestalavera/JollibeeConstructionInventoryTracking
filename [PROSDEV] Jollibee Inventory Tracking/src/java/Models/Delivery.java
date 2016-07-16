@@ -7,6 +7,7 @@
 package Models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -15,6 +16,7 @@ import java.util.Date;
  */
 public class Delivery implements Serializable{
     private int deliveryID;
+    private Item item;
     private Supplier supplier;
     private Request request;
     private String type, status;
@@ -48,20 +50,6 @@ public class Delivery implements Serializable{
     }
 
     /**
-     * @return the request
-     */
-    public Request getRequest() {
-        return request;
-    }
-
-    /**
-     * @param request the request to set
-     */
-    public void setRequest(Request request) {
-        this.request = request;
-    }
-
-    /**
      * @return the type
      */
     public String getType() {
@@ -87,6 +75,34 @@ public class Delivery implements Serializable{
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    /**
+     * @return the item
+     */
+    public Item getItem() {
+        return item;
+    }
+
+    /**
+     * @param item the item to set
+     */
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    /**
+     * @return the request
+     */
+    public Request getRequest() {
+        return request;
+    }
+
+    /**
+     * @param request the request to set
+     */
+    public void setRequest(Request request) {
+        this.request = request;
     }
 
 }

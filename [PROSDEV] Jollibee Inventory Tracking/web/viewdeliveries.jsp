@@ -1,3 +1,4 @@
+<%@page import="Models.Item"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Models.Delivery"%>
 <%@page import="java.util.ArrayList"%>
@@ -8,7 +9,7 @@
 <%
     ArrayList<Delivery> deliveryList = (ArrayList<Delivery>) request.getSession().getAttribute("deliveries");
     Delivery delivery;
-    String status;
+    Item item;
 %>
 <div id="page-wrapper">
 
@@ -41,22 +42,26 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th style="width: 100%;">Request Name of Delivery</th>
-                                            <th style="text-align: right;">Type</th>
-                                            <th style="text-align: right;">Status</th>
-                                            <th style="text-align: right;"></th>
+                                            <th style="width: 20%;">Request Name of Delivery</th>
+                                            <th style="width: 20%;">Type</th>
+                                            <th style="width: 20%;">Item Being Delivered</th>
+                                            <th style="width: 20%;">Count</th>
+                                            <th style="width: 20%;">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody id="deliveryTableBody">
                                         <%
                                             for (int i = 0; i < deliveryList.size(); i++) {
                                                 delivery = deliveryList.get(i);
+                                                item = delivery.getItem();
                                         %>
                                         <tr>
                                             <td><%=(i + 1)%></td>
-                                            <td><button type="button" class="btn btn-link name"><%=delivery.getRequest().getName()%></button></td>
-                                            <td style="text-align: right;"><%=delivery.getType()%></td>
-                                            <td style="text-align: right;"><%=delivery.getStatus()%></td>
+                                            <td style="width: 20%;"><button type="button" class="btn btn-link name"><%=delivery.getRequest().getName()%></button></td>
+                                            <td style="width: 20%;"><%=delivery.getType()%></td>
+                                            <td style="width: 20%;"><button type="button" class="btn btn-link name"><%=item.getName()%></button></td>
+                                            <td style="width: 20%;"><%=item.getCount()%></td>
+                                            <td style="width: 20%;"><%=delivery.getStatus()%></td>
                                         </tr>
                                         <%
                                             }

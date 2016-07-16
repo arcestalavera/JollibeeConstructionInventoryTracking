@@ -215,38 +215,22 @@ public class Database {
         ArrayList<Delivery> deliveryList = new ArrayList<>();
         Statement stmt;
         ResultSet rs;
-        int deliveryID, supplierID, requestID;
-        Request request;
-        Supplier supplier = null;
-        String type, status;
+        int deliveryID;
 
         try {
             stmt = con.createStatement();
 
-            sql = "SELECT * FROM deliveries";
+            sql = "SELECT deliveryID FROM deliveries";
 
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                Delivery delivery = new Delivery();
+                Delivery delivery;
                 deliveryID = rs.getInt("deliveryID");
-                type = rs.getString("type");
-                status = rs.getString("status");
-                supplierID = rs.getInt("supplierID");
-                requestID = rs.getInt("requestID");
-
-                if (supplierID != 0) {
-                    supplier = getSupplierDetails(supplierID);
-                }
-                request = getRequestDetails(requestID);
-
-                delivery.setDeliveryID(deliveryID);
-                delivery.setType(type);
-                delivery.setStatus(status);
-                delivery.setSupplier(supplier);
-                delivery.setRequest(request);
+                delivery = getDeliveryDetails(deliveryID);
 
                 deliveryList.add(delivery);
+                System.out.println("ewww");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -330,7 +314,7 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return warehouseList;
     }
 
@@ -378,17 +362,17 @@ public class Database {
 
         return supplierList;
     }
-    
-    public ArrayList<Item> getRequestItems(int requestID) {
-        ArrayList<Item> itemList = new ArrayList<>();
+
+    public ArrayList<Delivery> getRequestDeliveries(int requestID) {
+        ArrayList<Delivery> deliveryList = new ArrayList<>();
         ResultSet rs;
-        int itemID;
-        String name, unit, description;
+        int itemID, deliveryID;
 
         try {
-            sql = "SELECT I.itemID, I.name, I.description, I.unit FROM items I "
+            sql = "SELECT D.deliveryID, I.itemID FROM items I "
                     + " JOIN item_of_request IR ON I.itemID = IR.itemID"
                     + " JOIN requests R ON IR.requestID = R.requestID"
+                    + " JOIN deliveries D ON IR.deliveryID = D.deliveryID"
                     + " WHERE I.isDeleted = 0 AND R.requestID = ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
@@ -397,24 +381,19 @@ public class Database {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Item item = new Item();
+                Delivery delivery;
+                deliveryID = rs.getInt("deliveryID");
                 itemID = rs.getInt("itemID");
-                name = rs.getString("name");
-                description = rs.getString("description");
-                unit = rs.getString("unit");
 
-                item.setItemID(itemID);
-                item.setName(name);
-                item.setUnit(unit);
-                item.setDescription(description);
-
-                itemList.add(item);
+                delivery = getDeliveryDetails(deliveryID);
+                delivery.setItem(getItemDetails(itemID));
+                deliveryList.add(delivery);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return itemList;
+        return deliveryList;
     }
 
     /*
@@ -514,7 +493,7 @@ public class Database {
         return warehouse;
     }
 
-    public Request getRequestDetails(int requestID) {
+    public Request getRequestDetails(int requestID, boolean needDeliveries) {
         Request request = new Request();
         Statement stmt;
         ResultSet rs;
@@ -549,7 +528,9 @@ public class Database {
                 request.setStartDate(startDate);
                 request.setEndDate(endDate);
                 request.setStatus(status);
-                request.setItemList(getRequestItems(requestID));
+                if (needDeliveries) {
+                    request.setDeliveryList(getRequestDeliveries(requestID));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -557,7 +538,57 @@ public class Database {
 
         return request;
     }
-    
+
+    public Delivery getDeliveryDetails(int deliveryID) {
+        Delivery delivery = new Delivery();
+        Supplier supplier = new Supplier();
+        int supplierID, itemID, requestID, count;
+        String type, status;
+        ResultSet rs;
+
+        sql = "SELECT D.type, D.status, D.supplierID, R.requestID, I.itemID, count"
+                + " FROM deliveries D"
+                + " JOIN item_of_request IR ON D.deliveryID = IR.deliveryID"
+                + " JOIN requests R ON R.requestID = IR.requestID"
+                + " JOIN items I ON I.itemID = IR.itemID"
+                + " WHERE D.deliveryID = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, deliveryID);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                type = rs.getString("type");
+                status = rs.getString("status");
+                supplierID = rs.getInt("supplierID");
+                itemID = rs.getInt("itemID");
+                count = rs.getInt("count");
+                requestID = rs.getInt("requestID");
+
+                if (supplierID != 0) {
+                    supplier = getSupplierDetails(supplierID);
+                }
+
+                delivery.setDeliveryID(deliveryID);
+                delivery.setType(type);
+                delivery.setStatus(status);
+                delivery.setSupplier(supplier);
+                
+                delivery.setRequest(getRequestDetails(requestID, false));
+                
+                Item item = getItemDetails(itemID);
+                item.setCount(count);
+                delivery.setItem(item);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return delivery;
+    }
+
     //method to get list of all users
     public ArrayList<User> getUsers() {
         ArrayList<User> userList = new ArrayList<>();
@@ -592,7 +623,7 @@ public class Database {
         }
 
         return userList;
-    }    
+    }
 
     /*
      METHODS THAT WILL ADD AN OBJECT TO DB
@@ -664,17 +695,17 @@ public class Database {
             e.printStackTrace();
         }
     }
-    
-    public void respondDelivery(int id, String response){
+
+    public void respondDelivery(int id, String response) {
         sql = "UPDATE deliveries SET status = ?"
                 + " WHERE deliveryID = ?";
-        try{
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, response);
             ps.setInt(2, id);
-            
+
             ps.execute();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -695,16 +726,16 @@ public class Database {
             e.printStackTrace();
         }
     }
-    
-    public void deleteSupplier(int supplierID){
-        sql = "UPDATE suppliers SET isDeleted = " + true +
-                " WHERE supplierID = ?";
-        try{
+
+    public void deleteSupplier(int supplierID) {
+        sql = "UPDATE suppliers SET isDeleted = " + true
+                + " WHERE supplierID = ?";
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, supplierID);
-            
+
             ps.executeUpdate();
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -721,19 +752,19 @@ public class Database {
             ps.setString(2, description);
             ps.setString(3, unit);
             ps.setInt(4, itemID);
-            
+
             ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-    
-    public void editSupplier(int supplierID, String name, String location, String contactNo, String emailAdd, String contactPerson){
+
+    public void editSupplier(int supplierID, String name, String location, String contactNo, String emailAdd, String contactPerson) {
         sql = "UPDATE suppliers SET name = ?, location = ?, contactNumber = ?, "
                 + "emailAddress = ?, contactPerson = ? where supplierID = ?";
-        
-        try{
+
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, name);
             ps.setString(2, location);
@@ -741,9 +772,9 @@ public class Database {
             ps.setString(4, emailAdd);
             ps.setString(5, contactPerson);
             ps.setInt(6, supplierID);
-            
+
             ps.execute();
-        } catch(SQLException ex){
+        } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -751,7 +782,6 @@ public class Database {
     /*
      METHODS THAT WILL GENERATE A REPORT
      */
-
     public int getItemCount(int itemID) {
         int count = 0;
         ResultSet rs;

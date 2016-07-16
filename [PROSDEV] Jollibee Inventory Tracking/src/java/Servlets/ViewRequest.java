@@ -45,7 +45,7 @@ public class ViewRequest extends HttpServlet {
         System.out.println("id = " + id);
 
         if (id != null) {
-            req = db.getRequestDetails(Integer.parseInt(id));
+            req = db.getRequestDetails(Integer.parseInt(id), true);
             request.getSession().setAttribute("request", req);
             reqDispatcher = request.getRequestDispatcher("requestpage.jsp");
         } else {

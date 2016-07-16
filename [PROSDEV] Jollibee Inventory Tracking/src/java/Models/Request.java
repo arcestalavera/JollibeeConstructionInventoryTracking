@@ -19,7 +19,7 @@ public class Request implements Serializable{
     private Warehouse sourceWarehouse, destWarehouse;
     private String status, name;
     private Date startDate, endDate;
-    private ArrayList<Item> itemList;
+    private ArrayList<Delivery> deliveryList;
     
     /**
      * @return the requestID
@@ -120,17 +120,17 @@ public class Request implements Serializable{
     }
 
     /**
-     * @return the itemList
+     * @return the deliveryList
      */
-    public ArrayList<Item> getItemList() {
-        return itemList;
+    public ArrayList<Delivery> getDeliveryList() {
+        return deliveryList;
     }
 
     /**
-     * @param itemList the itemList to set
+     * @param deliveryList the deliveryList to set
      */
-    public void setItemList(ArrayList<Item> itemList) {
-        this.itemList = itemList;
+    public void setDeliveryList(ArrayList<Delivery> deliveryList) {
+        this.deliveryList = deliveryList;
     }
     
 }

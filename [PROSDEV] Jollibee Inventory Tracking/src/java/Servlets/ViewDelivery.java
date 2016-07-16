@@ -46,6 +46,7 @@ public class ViewDelivery extends HttpServlet {
             // put code to view delivery details here
         } else {
             deliveryList = db.getDeliveries();
+            System.out.println("hehez");
 
             request.getSession().setAttribute("deliveries", deliveryList);
             reqDispatcher = request.getRequestDispatcher("viewdeliveries.jsp");
