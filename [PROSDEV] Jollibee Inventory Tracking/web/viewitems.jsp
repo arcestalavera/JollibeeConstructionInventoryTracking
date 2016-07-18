@@ -44,7 +44,7 @@
 <!-- /.row -->
 
 <!-- Page Content -->
-<div class="row">
+<div class="row viewitemcontent">
 
     <div class="row">
         <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">

@@ -54,12 +54,22 @@ public class HandleItem extends HttpServlet {
                         + name + "</i> has been added! </p>");
                 break;
                 
-            case "delete":
+            case "deleteFrmList":
                 id = Integer.parseInt(request.getParameter("id"));
 
                 db.deleteItem(id);
                 break;
-            
+                
+            case "deleteFrmView":
+                id = Integer.parseInt(request.getParameter("id"));
+
+                db.deleteItem(id);
+                reqDispatcher = request.getRequestDispatcher("Item");
+                request.getSession().setAttribute("iddelete", id);
+                reqDispatcher.forward(request, response);
+                out.write("<p id = \"deleteitemmessage\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">An item"
+                        + "has been deleted!</p>");
+                break;
             case "edit":
                 id = Integer.parseInt(request.getParameter("id"));
                 name = request.getParameter("name");

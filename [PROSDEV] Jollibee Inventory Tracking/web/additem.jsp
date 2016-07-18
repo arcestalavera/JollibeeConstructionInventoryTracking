@@ -6,7 +6,12 @@
 <script type = "text/javascript" src = "js/jquery.js"></script>
 <script type = "text/javascript" src = "js/Item.js"></script>
 <%
-    String action = request.getSession().getAttribute("action").toString();
+    String action = "";
+    try {
+        action = request.getSession().getAttribute("action").toString();
+    } catch (NullPointerException ex){
+        action = "add";
+    }
     Item item = new Item();
     String label = null;
     if (action.equals("edit")) {

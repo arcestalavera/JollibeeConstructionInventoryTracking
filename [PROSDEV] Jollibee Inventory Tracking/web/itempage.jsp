@@ -73,6 +73,8 @@
 
     <div class="row">
         <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
+            <button id="d<%= item.getItemID()%>" class="delete-item delete-button btn btn-primary" data-toggle="modal"
+                    data-target="#viewitemsmodal" data-verdict="delete">Delete Item</button>
             <button id="add-item" class="btn btn-primary" onclick="edit(<%= item.getItemID()%>)">Edit Item Details</button>
         </div>
     </div>
@@ -157,6 +159,18 @@
             </div> <!-- end of .tab-content -->
         </div>
     </div> <!-- end of .row-->
+    
+    <div class="modal fade" id="viewitemsmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4 class="modal-title" id="modal-message"></h4>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 <%@ include file="footer.html"%>

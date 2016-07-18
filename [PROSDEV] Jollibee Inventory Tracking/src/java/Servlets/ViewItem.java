@@ -38,6 +38,7 @@ public class ViewItem extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         RequestDispatcher reqDispatcher = null;
         Database db = Database.getInstance();
+        PrintWriter out = response.getWriter();
         ArrayList<Item> itemList = new ArrayList<>();
         ArrayList<Warehouse> warehouseList;
         ArrayList<Supplier> supplierList;
@@ -60,6 +61,13 @@ public class ViewItem extends HttpServlet {
             request.getSession().setAttribute("count", count);
             reqDispatcher = request.getRequestDispatcher("itempage.jsp");
         } else {
+            itemList = db.getItems();
+
+            request.getSession().setAttribute("items", itemList);
+            reqDispatcher = request.getRequestDispatcher("viewitems.jsp");
+        }
+        
+        if(request.getParameter("iddelete")!=null){
             itemList = db.getItems();
 
             request.getSession().setAttribute("items", itemList);
