@@ -6,7 +6,12 @@
 <script type ="text/javascript" src="js/jquery.js"></script>
 <script type = "text/javascript" src = "js/Supplier.js"></script>
 <%
-    String action = request.getSession().getAttribute("action").toString();
+    String action;
+    try {
+        action = request.getSession().getAttribute("action").toString();
+    } catch (NullPointerException ex){
+        action = "add";
+    }
     Supplier supplier = new Supplier();
     String label = null;
     if (action.equals("edit")){
