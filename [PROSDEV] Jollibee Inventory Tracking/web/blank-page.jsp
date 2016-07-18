@@ -95,7 +95,7 @@
                         </h1>
                         <ol class="breadcrumb">
                             <li class="active">
-                                <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
+                                <i class="fa fa-dashboard"></i>  <a href="blank-page.jsp">Dashboard</a>
                             </li>
                         </ol>
                     </div>

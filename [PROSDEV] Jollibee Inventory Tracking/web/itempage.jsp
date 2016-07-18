@@ -46,7 +46,7 @@
 
         <ol class="breadcrumb">
             <li>
-                <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Items</a>
+                <i class="fa fa-dashboard"></i>  <a href="blank-page.jsp">Items</a>
             </li>
             <li>
                 <i class="fa fa-edit"></i> <a href="Item">View Item List</a>

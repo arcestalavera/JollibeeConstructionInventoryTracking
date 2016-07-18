@@ -55,7 +55,7 @@
                             <ul id="requestsNav" class="collapse">
                                 <li>
                                     <a href="Request"><i class="fa fa-fw fa-file"></i> View Requests</a>
-                                    <a href="addrequest.jsp"><i class="fa fa-fw fa-file"></i> Add Request</a>
+<!--                                    <a href="addrequest.jsp"><i class="fa fa-fw fa-file"></i> Add Request</a>-->
                                 </li>
                             </ul>
                         </li>

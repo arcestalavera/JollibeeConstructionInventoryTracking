@@ -37,7 +37,7 @@ public class Database {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             String host = "jdbc:mysql://127.0.0.1:3306/inventory_tracking?user=root";
             String uUser = "root";
-            String uPass = "admin";
+            String uPass = "";
 
             con = DriverManager.getConnection(host, uUser, uPass);
 
@@ -237,6 +237,66 @@ public class Database {
         }
 
         return deliveryList;
+    }
+    
+        //method to get list of all users
+    public ArrayList<User> getUsers() {
+        ArrayList<User> userList = new ArrayList<>();
+        Statement stmt;
+        ResultSet rs;
+        int userID, type;
+        String username, password;
+
+        try {
+            stmt = con.createStatement();
+
+            sql = "SELECT * FROM users";
+
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                User user = new User();
+                userID = rs.getInt("user_id");
+                username = rs.getString("username");
+                password = rs.getString("password");
+                type = rs.getInt("type");
+
+                user.setUserID(userID);
+                user.setUsername(username);
+                user.setPassword(password);
+                user.setType(type);
+
+                userList.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userList;
+    }
+    
+    public int getUserID(String username){
+        int userID = -1;
+        ArrayList<User> users = getUsers();
+        for(int i=0; i<users.size(); i++){
+            if(users.get(i).getUsername()==username){
+                userID = users.get(i).getUserID();
+                break;
+            }
+        }
+        return userID;
+    }
+    
+    public User getUserInfo(int userID){
+        User u = null;
+        ArrayList<User> users = getUsers();
+        for(int i=0; i<users.size(); i++){
+            if(users.get(i).getUserID()==userID){
+                u = users.get(i);
+                break;
+            }
+        }
+        return u;
     }
 
     public ArrayList<Item> getSupplierItems(int supplierID) {
@@ -587,42 +647,6 @@ public class Database {
         }
 
         return delivery;
-    }
-
-    //method to get list of all users
-    public ArrayList<User> getUsers() {
-        ArrayList<User> userList = new ArrayList<>();
-        Statement stmt;
-        ResultSet rs;
-        int userID, type;
-        String username, password;
-
-        try {
-            stmt = con.createStatement();
-
-            sql = "SELECT * FROM users";
-
-            rs = stmt.executeQuery(sql);
-
-            while (rs.next()) {
-                User user = new User();
-                userID = rs.getInt("user_id");
-                username = rs.getString("username");
-                password = rs.getString("password");
-                type = rs.getInt("type");
-
-                user.setUserID(userID);
-                user.setUsername(username);
-                user.setPassword(password);
-                user.setType(type);
-
-                userList.add(user);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return userList;
     }
 
     /*

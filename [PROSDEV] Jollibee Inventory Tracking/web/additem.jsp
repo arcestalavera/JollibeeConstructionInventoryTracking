@@ -26,7 +26,7 @@
                         </h1>
                         <ol class="breadcrumb">
                             <li>
-                                <i class="fa fa-dashboard"></i>  <a href="index.html">Items</a>
+                                <i class="fa fa-dashboard"></i>  <a href="blank-page.jsp">Items</a>
                             </li>
                             <li class="active">
                                 <i class="fa fa-pencil-square-o"></i> 

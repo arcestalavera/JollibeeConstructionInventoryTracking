@@ -13,7 +13,7 @@
                             </h1>
                             <ol class="breadcrumb">
                                 <li>
-                                    <i class="fa fa-dashboard"></i>  <a href="index.html">Requests</a>
+                                    <i class="fa fa-dashboard"></i>  <a href="blank-page.jsp">Requests</a>
                                 </li>
                                 <li class="active">
                                     <i class="fa fa-pencil-square-o"></i> Add Request

@@ -27,7 +27,7 @@
                             </h1>
                             <ol class="breadcrumb">
                                 <li>
-                                    <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Suppliers</a>
+                                    <i class="fa fa-dashboard"></i>  <a href="blank-page.jsp">Suppliers</a>
                                 </li>
                                 <li class="active">
                                     <i class="fa fa-sign-in"></i>

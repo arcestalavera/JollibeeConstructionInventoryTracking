@@ -16,7 +16,7 @@
                 </h1>
                 <ol class="breadcrumb">
                     <li>
-                        <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Warehouse</a>
+                        <i class="fa fa-dashboard"></i>  <a href="blank-page.jsp">Warehouse</a>
                     </li>
                     <li class="active">
                         <i class="fa fa-pencil-square-o"></i> Add Warehouse
