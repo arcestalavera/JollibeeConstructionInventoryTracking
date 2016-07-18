@@ -16,13 +16,13 @@ function addItem() {
     return false;
 }
 
-function deleteItem() {
+function deleteItemFromList() {
     var old, oid, n;
     var passData = {"id": id};
 
     $.ajax({
         type: "POST",
-        url: "HandleItem?action=delete",
+        url: "HandleItem?action=deleteFrmList",
         data: passData,
         success: function(html) {
             $("td[id=item-count]").each(function(e) {
@@ -40,6 +40,20 @@ function deleteItem() {
     });
 }
 
+function deleteItemFromView(){
+    var old, oid, n;
+    var passData = {"id": id};
+    
+    $.ajax({
+        type: "POST",
+        url: "HandleItem?action=deleteFrmView",
+        data: passData,
+        success: function(html) {
+            $(".viewitemcontent").prepend(html);
+        }
+    });
+}
+
 function editItem(id) {
     $.ajax({
         type: "POST",
@@ -53,11 +67,18 @@ function editItem(id) {
 }
 
 $(document).ready(function() {
+    $(document).on("click", "#yes-delete-item", function(e){
+        name = $(this).attr('name');
+        id = name.substr(1, name.indexOf("d")+1);
+        
+        deleteItemFromView(id);
+    });
+    
     $(document).on("click", "#yes-delete", function(e) {
         name = $(this).attr('name');
         id = name.substr(1, name.indexOf("-") - 1);
         count = name.substr(name.indexOf("-") + 1, name.length - 1);
 
-        deleteItem(id, count);
+        deleteItemFromList(id, count);
     });
 });
