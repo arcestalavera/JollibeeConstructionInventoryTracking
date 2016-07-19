@@ -6,6 +6,7 @@
 package Servlets;
 
 import Database.Database;
+import Models.Item;
 import Models.Warehouse;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,6 +37,8 @@ public class ViewWarehouse extends HttpServlet {
         RequestDispatcher reqDispatcher = null;
         Database db = Database.getInstance();
         ArrayList<Warehouse> warehouseList = new ArrayList<>();
+        ArrayList<Item> itemList = new ArrayList<>();
+        Warehouse warehouse;
 
         String id = request.getParameter("id");
 
@@ -43,6 +46,13 @@ public class ViewWarehouse extends HttpServlet {
 
         if (id != null) {
             // put code to view warehouse details here
+            int iid = Integer.parseInt(id);
+            warehouse = db.getWarehouseDetails(iid);
+            
+            itemList = db.getWarehouseItems(iid);
+            request.getSession().setAttribute("warehouse", warehouse);
+            request.getSession().setAttribute("item_warehouse", itemList);
+            reqDispatcher = request.getRequestDispatcher("warehousepage.jsp");
         } else {
             warehouseList = db.getWarehouses();
             

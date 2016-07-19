@@ -6,8 +6,8 @@
 <%@ include file="leftnav.html" %>
 
 <script type="text/javascript">
-    function redirect(){
-        location.href = "addwarehouse.jsp";
+    function redirect(id){
+        location.href = "Warehouse?id=" + id;
     }
 </script>
 <%
@@ -60,7 +60,7 @@
                                         %>
                                         <tr>
                                             <td><%=(i + 1)%></td>
-                                            <td><button type="button" class="btn btn-link name"><%=warehouse.getName()%></button></td>
+                                            <td><button type="button" class="btn btn-link name" onclick = "redirect(<%= warehouse.getWarehouseID()%>)"><%=warehouse.getName()%></button></td>
                                             <td style="text-align: right;"><%=warehouse.getLocation()%></td>
                                         </tr>
                                         <%

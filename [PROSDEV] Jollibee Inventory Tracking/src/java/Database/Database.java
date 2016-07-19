@@ -455,6 +455,44 @@ public class Database {
 
         return deliveryList;
     }
+    
+    public ArrayList<Item> getWarehouseItems(int warehouseID) {
+        ArrayList<Item> itemList = new ArrayList<>();
+        ResultSet rs;
+        int itemID;
+        String name, unit, description;
+
+        try {
+            sql = "SELECT I.itemID, I.name, I.description, I.unit FROM items I "
+                    + " JOIN place_of_item PI ON I.itemID = PI.itemID"
+                    + " JOIN warehouses W ON PI.warehouseID = W.warehouseID"
+                    + " WHERE I.isDeleted = 0 AND W.warehouseID = ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, warehouseID);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Item item = new Item();
+                itemID = rs.getInt("itemID");
+                name = rs.getString("name");
+                description = rs.getString("description");
+                unit = rs.getString("unit");
+
+                item.setItemID(itemID);
+                item.setName(name);
+                item.setUnit(unit);
+                item.setDescription(description);
+
+                itemList.add(item);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return itemList;
+    }
 
     /*
      METHODS THAT WILL GET THE DETAILS OF AN OBJECT
