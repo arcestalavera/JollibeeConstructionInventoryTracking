@@ -62,11 +62,28 @@
                     <li class = "list-group-item"><b class = "text-info">Source Warehouse: </b><button type="button" class="btn btn-link name"><%=sourceWarehouse.getName()%></button></li>
                     <li class = "list-group-item"><b class = "text-info">Destination Warehouse: </b><button type="button" class="btn btn-link name"><%=destWarehouse.getName()%></button></li>
                     <br/>
-                    <li class = "list-group-item">
+                    <li class = "request-status list-group-item">
                         <b class = "text-info">Status: </b><%=req.getStatus()%>
                         <a class="edit-button" title = "Change the Status of <%=req.getName()%>">
                             <i class="fa fa-edit"></i>
                         </a>
+                        <form id = "status-options" role = "form" style="float: right;">
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio">Option 1
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio">Option 2
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio">Option 3
+                            </label>
+                            <a>
+                                <i class="fa fa-check"></i>
+                            </a>
+                            <a>
+                                <i class="fa fa-close"></i>
+                            </a>
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -115,6 +132,5 @@
                 </div><!-- end of .table-responsive -->
             </div><!-- end of .col-md-12 -->
         </div><!-- end of .row-->
-
 
         <%@ include file="footer.html"%>

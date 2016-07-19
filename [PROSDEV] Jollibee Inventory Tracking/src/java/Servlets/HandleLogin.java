@@ -63,6 +63,7 @@ public class HandleLogin extends HttpServlet {
             reqDispatcher = request.getRequestDispatcher("login.html");
         }
         else {
+            request.getSession().setAttribute("loggedUser", userList.get(i));
             request.getSession().setAttribute("type", userList.get(i).getType());
             reqDispatcher = request.getRequestDispatcher("blank-page.jsp");
         }
