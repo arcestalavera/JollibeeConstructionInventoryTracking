@@ -26,6 +26,10 @@
             location.href = "Item?id=" + id.substr(1, id.length - 1);
         }
     }
+    
+    function sendReport(id){
+        location.href = "HandleRequest?action=report&id=" + id;
+    }
 </script>
 <div id="page-wrapper">
     <div class="container-fluid">
@@ -91,7 +95,7 @@
 
         <div class="row">
             <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
-                <button class="btn btn-primary">Send Progress Report</button>
+                <button class="btn btn-primary" onclick = "sendReport(<%=req.getRequestID()%>)">Send Progress Report</button>
             </div>
         </div>
 

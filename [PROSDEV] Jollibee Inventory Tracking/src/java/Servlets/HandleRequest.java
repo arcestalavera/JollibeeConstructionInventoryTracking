@@ -7,8 +7,10 @@
 package Servlets;
 
 import Database.Database;
+import Models.Request;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,10 +35,10 @@ public class HandleRequest extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-
+        RequestDispatcher reqDispatcher = null;
         Database db = Database.getInstance();
         String action, resp;
+        Request req;
         int id;
         
         action = request.getParameter("action");
@@ -48,6 +50,14 @@ public class HandleRequest extends HttpServlet {
                 
                 resp = request.getParameter("resp");
                 db.respondRequest(id, resp);
+                break;
+            case "report":
+                id = Integer.parseInt(request.getParameter("id"));
+                req = db.getRequestDetails(id, true);
+                request.getSession().setAttribute("request", req);
+                
+                reqDispatcher = request.getRequestDispatcher("reportpage.jsp");
+                reqDispatcher.forward(request, response);
                 break;
         }
     }
