@@ -840,6 +840,21 @@ public class Database {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void changeRequestStatus(int requestID, String status){
+        sql = "UPDATE requests SET status = ?"
+                + " WHERE requestID = ?";
+        
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, status);
+            ps.setInt(2, requestID);
+            
+            ps.execute();
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
 
     /*
      METHODS THAT WILL GENERATE A REPORT

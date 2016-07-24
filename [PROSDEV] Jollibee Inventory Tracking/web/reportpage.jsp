@@ -14,7 +14,7 @@
     }
 </script>
 <script type = "text/javascript" src = "js/jquery.js"></script>
-<script type = "text/javascript" src = "js/report.js"></script>
+<script type = "text/javascript" src = "js/Report.js"></script>
 <%
     Request req = (Request) request.getSession().getAttribute("request");
     ArrayList<Delivery> deliveryList = req.getDeliveryList();

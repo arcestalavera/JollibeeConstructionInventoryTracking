@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Servlets;
 
 import Database.Database;
@@ -34,20 +33,21 @@ public class HandleRequest extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         RequestDispatcher reqDispatcher = null;
         Database db = Database.getInstance();
         String action, resp;
         Request req;
         int id;
-        
+        String status, statusWord = null;
+
         action = request.getParameter("action");
-        
+
         System.out.println("a = " + action);
         switch (action) {
             case "respond":
-                id = Integer.parseInt(request.getParameter("id").substring(1,2));
-                
+                id = Integer.parseInt(request.getParameter("id").substring(1, 2));
+
                 resp = request.getParameter("resp");
                 db.respondRequest(id, resp);
                 break;
@@ -55,9 +55,24 @@ public class HandleRequest extends HttpServlet {
                 id = Integer.parseInt(request.getParameter("id"));
                 req = db.getRequestDetails(id, true);
                 request.getSession().setAttribute("request", req);
-                
+
                 reqDispatcher = request.getRequestDispatcher("reportpage.jsp");
                 reqDispatcher.forward(request, response);
+                break;
+            case "status":
+                id = Integer.parseInt(request.getParameter("id"));
+                status = request.getParameter("optradio");
+                
+                switch (status) {
+                    case "1": statusWord = "In Transit - Incomplete";
+                        break;
+                    case "2": statusWord = "In Transit";
+                        break;
+                    case "3": statusWord = "Finished";
+                        break;
+                }
+                db.changeRequestStatus(id, statusWord);
+                out.write(statusWord);
                 break;
         }
     }

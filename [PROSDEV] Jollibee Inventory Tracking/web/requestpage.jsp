@@ -19,6 +19,8 @@
     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 %>
 
+<script type = "text/javascript" src = "js/jquery.js"></script>
+<script type = "text/javascript" src = "js/Request.js"></script>
 <script>
     function redirect(id) {
         var type = id.substr(0, 1);
@@ -26,8 +28,8 @@
             location.href = "Item?id=" + id.substr(1, id.length - 1);
         }
     }
-    
-    function sendReport(id){
+
+    function sendReport(id) {
         location.href = "HandleRequest?action=report&id=" + id;
     }
 </script>
@@ -66,27 +68,25 @@
                     <li class = "list-group-item"><b class = "text-info">Source Warehouse: </b><button type="button" class="btn btn-link name"><%=sourceWarehouse.getName()%></button></li>
                     <li class = "list-group-item"><b class = "text-info">Destination Warehouse: </b><button type="button" class="btn btn-link name"><%=destWarehouse.getName()%></button></li>
                     <br/>
-                    <li class = "request-status list-group-item">
-                        <b class = "text-info">Status: </b><%=req.getStatus()%>
-                        <a class="edit-button" title = "Change the Status of <%=req.getName()%>">
+                    <li class = "list-group-item">
+                        <b class = "text-info" style="display: inline;">Status: </b><p id = "request-status" style="display:inline;"><%=req.getStatus()%></p>
+                        <a class="edit-button" title = "Change the Status of <%=req.getName()%>" style="display: inline;">
                             <i class="fa fa-edit"></i>
                         </a>
-                        <form id = "status-options" role = "form" style="float: right;">
+                        <form id = "status-options" role = "form" style="display: inline;">
                             <label class="radio-inline">
-                                <input type="radio" name="optradio">Option 1
+                                <input type="radio" name="optradio" value = "1"><i>In Transit (Incomplete)</i>
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="optradio">Option 2
+                                <input type="radio" name="optradio" value = "2"><i>In Transit</i>
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="optradio">Option 3
+                                <input type="radio" name="optradio" value = "3"><i>Finished</i>
                             </label>
-                            <a>
+                            <a id = "change-status" title = "Apply Changes to Request" id="activate-modal" class="activate-modal" data-toggle="modal" data-target="#requestmodal" data-verdict="question">
                                 <i class="fa fa-check"></i>
                             </a>
-                            <a>
-                                <i class="fa fa-close"></i>
-                            </a>
+                            <input type = "hidden" name="id" id = "req-id" value ="<%=req.getRequestID()%>"/>
                         </form>
                     </li>
                 </ul>
@@ -137,4 +137,15 @@
             </div><!-- end of .col-md-12 -->
         </div><!-- end of .row-->
 
+        <div class="modal fade" id="requestmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4 class="modal-title" id="modal-message"></h4>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
         <%@ include file="footer.html"%>
