@@ -46,7 +46,7 @@ function deleteItemFromView(){
     
     $.ajax({
         type: "POST",
-        url: "HandleItem?action=deleteFrmView&id=" + id,
+        url: "HandleItem?action=deleteFrmView",
         data: passData,
         success: function(html) {
             $(".viewitemcontent").prepend(html);
