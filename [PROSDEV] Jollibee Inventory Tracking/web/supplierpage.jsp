@@ -14,6 +14,10 @@
     function edit(id){
         location.href = "HandleSupplier?action=redirect&type=edit&id=" + id;
     }
+    
+    function delete(id){
+        location.href = "HandleSupplier?actiondeleteFrmView&id=" + id;
+    }
 </script>
 <script type = "text/javascript" src = "js/jquery.js"></script>
 <script type = "text/javascript" src = "js/Supplier.js"></script>
@@ -57,6 +61,8 @@
     
     <div class="row">
         <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
+            <button id="d<%= supplier.getSupplierID()%>" class="delete-supplier delete-button btn btn-primary" data-toggle="modal"
+                    data-target="#viewsuppliersmodal" data-verdict="delete">Delete Item</button>
             <button id="add-item" class="btn btn-primary" onclick="edit(<%= supplier.getSupplierID()%>)">Edit Supplier Details</button>
         </div>
     </div>
@@ -96,6 +102,18 @@
             </div><!-- end of .table-responsive -->
         </div><!-- end of .col-md-12 -->
     </div><!-- end of .row-->
+    
+    <div class="modal fade" id="viewsuppliersmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4 class="modal-title" id="modal-message"></h4>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 <%@ include file="footer.html"%>

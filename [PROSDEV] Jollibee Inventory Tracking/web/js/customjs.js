@@ -205,6 +205,24 @@ $(document).ready(function() {
         modal.find('.modal-footer').empty();
     });
     
+    $('#viewsuppliersmodal').on('show.bs.modal', function(event){
+        var trigger = $(event.relatedTarget);
+        var verdict = trigger.data('verdict');
+        var modal = $(this);
+        
+        id = event.relatedTarget.id;
+        if(verdict==='delete'){
+            modal.find('.modal-title').text("Are you sure you want to delete this supplier?");
+            modal.find('.modal-footer').append('<button type="button" id="yes-delete-supplier" class="btn btn-primary" name="' + id + '" data-dismiss="modal">Yes</button>'
+                    + '<button type="button" class="btn btn-default" data-dismiss="modal">No</button>');
+        }
+    });
+    
+    $('#viewsuppliersmodal').on('hide.bs.modal', function(event) {
+        var modal = $(this);
+        modal.find('.modal-footer').empty();
+    });
+    
 //    $(document).on('click', '.delete-button', function(event){
 ////        var index = parseInt($(this).attr('data-item'));
 //        var table = document.getElementById('itemlist');
