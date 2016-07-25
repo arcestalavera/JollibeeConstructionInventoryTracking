@@ -31,6 +31,10 @@
     function edit(id){
         location.href = "HandleItem?action=redirect&type=edit&id=" + id;
     }
+    
+    function delete(id){
+        location.href = "HandleItem?action=deleteFrmView&id=" + id;
+    }
 </script>
 <script type = "text/javascript" src = "js/jquery.js"></script>
 <script type = "text/javascript" src = "js/Item.js"></script>
