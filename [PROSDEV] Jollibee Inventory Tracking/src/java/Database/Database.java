@@ -37,7 +37,7 @@ public class Database {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             String host = "jdbc:mysql://127.0.0.1:3306/inventory_tracking?user=root";
             String uUser = "root";
-            String uPass = "";
+            String uPass = "admin";
 
             con = DriverManager.getConnection(host, uUser, uPass);
 
@@ -423,17 +423,21 @@ public class Database {
         return supplierList;
     }
 
-    public ArrayList<Delivery> getRequestDeliveries(int requestID) {
+    public ArrayList<Delivery> getRequestDeliveries(int requestID, boolean wantAll) {
         ArrayList<Delivery> deliveryList = new ArrayList<>();
         ResultSet rs;
         int itemID, deliveryID;
+        String filter = "";
+        
+        if(!wantAll)
+            filter = " AND D.status NOT LIKE 'Finished' AND D.status NOT LIKE 'Cancelled'";
 
         try {
             sql = "SELECT D.deliveryID, I.itemID FROM items I "
                     + " JOIN item_of_request IR ON I.itemID = IR.itemID"
                     + " JOIN requests R ON IR.requestID = R.requestID"
                     + " JOIN deliveries D ON IR.deliveryID = D.deliveryID"
-                    + " WHERE I.isDeleted = 0 AND R.requestID = ?";
+                    + " WHERE I.isDeleted = 0 AND R.requestID = ?" + filter;
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, requestID);
@@ -627,7 +631,7 @@ public class Database {
                 request.setEndDate(endDate);
                 request.setStatus(status);
                 if (needDeliveries) {
-                    request.setDeliveryList(getRequestDeliveries(requestID));
+                    request.setDeliveryList(getRequestDeliveries(requestID, true));
                 }
             }
         } catch (SQLException e) {
@@ -857,13 +861,28 @@ public class Database {
     }
     
     public void changeDeliveryStatus(int deliveryID, String status){
-        sql = "UPDATE requests SET status = ?"
-                + " WHERE requestID = ?";
+        sql = "UPDATE deliveries SET status = ?"
+                + " WHERE deliveryID = ?";
         
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, status);
             ps.setInt(2, deliveryID);
+            
+            ps.execute();
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    
+    public void changeRequestEndDate(int requestID, Date endDate){
+        sql = "UPDATE requests SET endDate = ?"
+                + " WHERE requestID = ?";
+        
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDate(1, endDate);
+            ps.setInt(2, requestID);
             
             ps.execute();
         } catch(SQLException ex){

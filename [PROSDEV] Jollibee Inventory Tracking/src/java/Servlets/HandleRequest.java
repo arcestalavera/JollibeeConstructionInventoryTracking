@@ -59,21 +59,6 @@ public class HandleRequest extends HttpServlet {
                 reqDispatcher = request.getRequestDispatcher("reportpage.jsp");
                 reqDispatcher.forward(request, response);
                 break;
-            case "status":
-                id = Integer.parseInt(request.getParameter("id"));
-                status = request.getParameter("optradio");
-                
-                switch (status) {
-                    case "1": statusWord = "In Transit - Incomplete";
-                        break;
-                    case "2": statusWord = "In Transit";
-                        break;
-                    case "3": statusWord = "Finished";
-                        break;
-                }
-                db.changeRequestStatus(id, statusWord);
-                out.write(statusWord);
-                break;
         }
     }
 

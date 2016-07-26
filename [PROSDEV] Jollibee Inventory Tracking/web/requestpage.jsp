@@ -26,6 +26,8 @@
         var type = id.substr(0, 1);
         if (type === 'i') {
             location.href = "Item?id=" + id.substr(1, id.length - 1);
+        }else if (type === 'w') {
+            location.href = "Warehouse?id=" + id.substr(1, id.length - 1);
         }
     }
 
@@ -64,9 +66,9 @@
                 <h4 class = "text-info">Details of <%=req.getName()%></h4>
                 <ul class = "list-group">
                     <li class = "list-group-item"><b class = "text-info">Start Date: </b><%=sdf.format(req.getStartDate())%></li>
-                    <li class = "list-group-item"><b class = "text-info">End Date: </b><%=req.getEndDate() == null ? " - " : sdf.format(req.getEndDate())%></li>
-                    <li class = "list-group-item"><b class = "text-info">Source Warehouse: </b><button type="button" class="btn btn-link name"><%=sourceWarehouse.getName()%></button></li>
-                    <li class = "list-group-item"><b class = "text-info">Destination Warehouse: </b><button type="button" class="btn btn-link name"><%=destWarehouse.getName()%></button></li>
+                    <li class = "list-group-item"><b class = "text-info">End Date: </b><p id = "request-enddate" style="display:inline;"><%=req.getEndDate() == null ? " - " : sdf.format(req.getEndDate())%></p></li>
+                    <li class = "list-group-item"><b class = "text-info">Source Warehouse: </b><button type="button" class="btn btn-link name" onClick="redirect('w<%=sourceWarehouse.getWarehouseID()%>')"><%=sourceWarehouse.getName()%></button></li>
+                    <li class = "list-group-item"><b class = "text-info">Destination Warehouse: </b><button type="button" class="btn btn-link name" onClick="redirect('w<%=destWarehouse.getWarehouseID()%>')"><%=destWarehouse.getName()%></button></li>
                     <br/>
                     <li class = "list-group-item"><b class = "text-info" style="display: inline;">Status: </b><p id = "request-status" style="display:inline;"><%=req.getStatus()%></p></li>
                 </ul>
@@ -87,11 +89,12 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th style="width: 25%;">Item Name</th>
-                                <th style="width: 25%;">Description</th>
-                                <th style="width: 25%">Unit Measure</th>
-                                <th style="width: 25%">Delivery Status</th>
-                                <th></th>
+                                <th style="width: 18%;">Item Name</th>
+                                <th style="width: 18%;">Description</th>
+                                <th style="width: 18%">Unit Measure</th>
+                                <th style="width: 18%">Delivery Status</th>
+                                <th style="width: 18%">Delivery Type</th>
+                                <th style="width: 5%"></th>
                             </tr>
                         </thead>
 
@@ -104,15 +107,31 @@
                             <tr>
                                 <td style="text-align: right;"><%=(i + 1)%></td>
 
-                                <td style="width: 25%;"><button type="button" class="btn btn-link name" onclick = "redirect('i<%=item.getItemID()%>')"><%=item.getName()%></button></td>
-                                <td style="width: 25%;"><%=item.getDescription()%></td>
-                                <td style="width: 25%;"><%=item.getUnit()%></td>
-                                <td style="width: 25%;"><%=delivery.getStatus()%></td>
+                                <td style="width: 18%;"><button type="button" class="btn btn-link name" onclick = "redirect('i<%=item.getItemID()%>')"><%=item.getName()%></button></td>
+                                <td style="width: 18%;"><%=item.getDescription()%></td>
+                                <td style="width: 18%;"><%=item.getUnit()%></td>
+                                <td id = "d<%=delivery.getDeliveryID()%>-status" style="width: 18%;"><%=delivery.getStatus()%></td>
+                                <td id = "d<%=delivery.getDeliveryID()%>-status" style="width: 18%;"><%=delivery.getType()%></td>
 
-                                <td>                            
-                                    <a class = "edit-button" title="Change the Status of This Item"  id="activate-modal" class="activate-modal" data-toggle="modal" data-target="#requestmodal" data-verdict="question">
-                                        <i class="fa fa-edit"></i>
+                                <td id = "d<%=delivery.getDeliveryID()%>-actions" style="width: 5%;">
+                                    <%
+                                        if (delivery.getType().equals("Incoming") && !delivery.getStatus().equals("Finished")) {
+                                    %>
+                                    <a class = "edit-button" name="d<%=delivery.getDeliveryID()%>" title="Cancel Delivery"  id="activate-modal" class="activate-modal" data-toggle="modal" data-target="#requestmodal" data-verdict="cancel">
+                                        <i class="fa fa-ban"></i>
                                     </a>
+                                    <%
+                                        }
+                                    %>
+                                    <%
+                                        if (!delivery.getStatus().equals("Finished")) {
+                                    %>
+                                    <a class = "edit-button" name="d<%=delivery.getDeliveryID()%>" title="Mark Delivery of <%=delivery.getItem().getName()%> as Finished"  id="activate-modal" class="activate-modal" data-toggle="modal" data-target="#requestmodal" data-verdict="finish">
+                                        <i class="fa fa-check-circle"></i>
+                                    </a>
+                                    <%
+                                        }
+                                    %>
                                 </td>
                             </tr>
                             <%
@@ -127,22 +146,10 @@
         <div class="modal fade" id="requestmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class ="modal-header">
-                        <h4 class="modal-title text-info" id="modal-message">Change Delivery Status of Item</h4>
-                    </div>
                     <div class="modal-body">
-                        <form style="font-size: 16px;">
-                            <div class="radio">
-                                <label><input type="radio" name="optradio">In Transit</label>
-                            </div>
-                            <div class="radio">
-                                <label><input type="radio" name="optradio">Finished</label>
-                            </div>
-                        </form>
+                        <h4 class="modal-title" id="modal-message"></h4>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Update Status</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
                     </div>
                 </div>
             </div>

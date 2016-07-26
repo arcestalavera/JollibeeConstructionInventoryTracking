@@ -6,8 +6,13 @@
 package Servlets;
 
 import Database.Database;
+import Models.Delivery;
+import Models.Request;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,23 +37,60 @@ public class HandleDelivery extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        Delivery delivery;
+        Request req;
         Database db = Database.getInstance();
         String action, resp;
         int id;
-        
+
         action = request.getParameter("action");
-        
+
         System.out.println("a = " + action);
-        switch (action){
+        switch (action) {
             case "respond":
-                id = Integer.parseInt(request.getParameter("id").substring(1,2));
-                
+                id = Integer.parseInt(request.getParameter("id").substring(1, 2));
+
                 resp = request.getParameter("resp");
                 db.respondDelivery(id, resp);
                 break;
+            case "cancel":
+                id = Integer.parseInt(request.getParameter("id"));
+
+                db.changeDeliveryStatus(id, "Cancelled");
+                delivery = db.getDeliveryDetails(id);
+                req = delivery.getRequest();
+
+                //if request has no more deliveries, change its status
+                if (db.getRequestDeliveries(req.getRequestID(), false).isEmpty()) {
+                    Date endDate = new Date();
+                    db.changeRequestStatus(req.getRequestID(), "Finished");
+                    db.changeRequestEndDate(req.getRequestID(), new java.sql.Date(endDate.getTime()));
+                    out.write("Finished-" + sdf.format(endDate));
+                }
+                break;
+            case "finish":
+                id = Integer.parseInt(request.getParameter("id"));
+
+                db.changeDeliveryStatus(id, "Finished");
+                delivery = db.getDeliveryDetails(id);
+                req = delivery.getRequest();
+
+                //if request has no more deliveries, change its status
+                if (db.getRequestDeliveries(req.getRequestID(), false).isEmpty()) {
+                    Date endDate = new Date();
+                    db.changeRequestStatus(req.getRequestID(), "Finished");
+                    db.changeRequestEndDate(req.getRequestID(), new java.sql.Date(endDate.getTime()));
+                    out.write("Finished-" + sdf.format(endDate));
+                } else {
+                    if (req.getStatus().equals("In Transit")) {
+                        db.changeRequestStatus(req.getRequestID(), "In Transit - Incomplete");
+                        out.write("Incomplete");
+                    }
+                }
+                break;
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
