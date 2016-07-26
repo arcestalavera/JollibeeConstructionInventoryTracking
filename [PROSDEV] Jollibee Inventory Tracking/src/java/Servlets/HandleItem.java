@@ -65,7 +65,7 @@ public class HandleItem extends HttpServlet {
 
                 db.deleteItem(id);
                 reqDispatcher = request.getRequestDispatcher("Item");
-                request.getSession().setAttribute("iddelete", id);
+//                request.getSession().setAttribute("iddelete", id);
                 reqDispatcher.forward(request, response);
                 out.write("<p id = \"deleteitemmessage\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">An item"
                         + "has been deleted!</p>");

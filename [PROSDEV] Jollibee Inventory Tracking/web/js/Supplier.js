@@ -17,13 +17,13 @@ function addSupplier() {
     return false;
 }
 
-function deleteSupplier() {
+function deleteSupplierFromList() {
     var old, oid, n;
     var passData = {"id": id};
 
     $.ajax({
         type: "POST",
-        url: "HandleSupplier?action=delete",
+        url: "HandleSupplier?action=deleteFrmList",
         data: passData,
         success: function(html) {
             $("td[id=supplier-count]").each(function(e) {
@@ -37,6 +37,19 @@ function deleteSupplier() {
                 }
             });
             $("tr[id=i" + id + "]").remove();
+        }
+    });
+}
+
+function deleteItemFromView(){
+    var passData = {"id": id};
+    
+    $.ajax({
+        type: "POST",
+        url: "HandleSupplier?action=deleteFrmView",
+        data: passData,
+        success: function(html){
+            $(".viewsuppliercontent").prepend(html);
         }
     });
 }
@@ -59,6 +72,12 @@ $(document).ready(function() {
         id = name.substr(1, name.indexOf("-") - 1);
         count = name.substr(name.indexOf("-") + 1, name.length - 1);
 
-        deleteSupplier(id, count);
+        deleteSupplierFromList(id, count);
+    });
+    
+    $(document).on("click", "#yes-delete-supplier", function(e){
+        name = $(this).attr('name');
+        id = name.substr(1, name.indexOf("d")+1);
+        deleteItemFromView(id);
     });
 });

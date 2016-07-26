@@ -56,10 +56,19 @@ public class HandleSupplier extends HttpServlet {
                 out.write("<p id = \"add-warehouse-message\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">Supplier <i>"
                         + name + "</i> has been added! </p>");
                 break;
-            case "delete":
+            case "deleteFrmList":
                 id = Integer.parseInt(request.getParameter("id"));
                 
                 db.deleteSupplier(id);
+                break;
+            case "deleteFrmView":
+                id = Integer.parseInt(request.getParameter("id"));
+                
+                db.deleteSupplier(id);
+                reqDispatcher = request.getRequestDispatcher("Item");
+                reqDispatcher.forward(request, response);
+                out.write("<p id = \"deletesuppliermessage\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">A supplier"
+                        + "has been deleted!</p>");
                 break;
             case "edit":
                 id = Integer.parseInt(request.getParameter("id"));
