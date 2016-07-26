@@ -238,8 +238,8 @@ public class Database {
 
         return deliveryList;
     }
-    
-        //method to get list of all users
+
+    //method to get list of all users
     public ArrayList<User> getUsers() {
         ArrayList<User> userList = new ArrayList<>();
         Statement stmt;
@@ -274,24 +274,24 @@ public class Database {
 
         return userList;
     }
-    
-    public int getUserID(String username){
+
+    public int getUserID(String username) {
         int userID = -1;
         ArrayList<User> users = getUsers();
-        for(int i=0; i<users.size(); i++){
-            if(users.get(i).getUsername()==username){
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUsername() == username) {
                 userID = users.get(i).getUserID();
                 break;
             }
         }
         return userID;
     }
-    
-    public User getUserInfo(int userID){
+
+    public User getUserInfo(int userID) {
         User u = null;
         ArrayList<User> users = getUsers();
-        for(int i=0; i<users.size(); i++){
-            if(users.get(i).getUserID()==userID){
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUserID() == userID) {
                 u = users.get(i);
                 break;
             }
@@ -428,9 +428,10 @@ public class Database {
         ResultSet rs;
         int itemID, deliveryID;
         String filter = "";
-        
-        if(!wantAll)
+
+        if (!wantAll) {
             filter = " AND D.status NOT LIKE 'Finished' AND D.status NOT LIKE 'Cancelled'";
+        }
 
         try {
             sql = "SELECT D.deliveryID, I.itemID FROM items I "
@@ -459,7 +460,7 @@ public class Database {
 
         return deliveryList;
     }
-    
+
     public ArrayList<Item> getWarehouseItems(int warehouseID) {
         ArrayList<Item> itemList = new ArrayList<>();
         ResultSet rs;
@@ -677,9 +678,9 @@ public class Database {
                 delivery.setType(type);
                 delivery.setStatus(status);
                 delivery.setSupplier(supplier);
-                
+
                 delivery.setRequest(getRequestDetails(requestID, false));
-                
+
                 Item item = getItemDetails(itemID);
                 item.setCount(count);
                 delivery.setItem(item);
@@ -738,6 +739,21 @@ public class Database {
             ps.setString(3, unit);
             ps.setBoolean(4, false);
 
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void addWarehouseItem(int warehouseID, int itemID){
+        sql = "INSERT INTO place_of_item(warehouseID, itemID, count)"
+                + " VALUES(?, ?, ?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, warehouseID);
+            ps.setInt(2, itemID);
+            ps.setInt(3, 0);
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -844,49 +860,86 @@ public class Database {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void changeRequestStatus(int requestID, String status){
+
+    public void changeRequestStatus(int requestID, String status) {
         sql = "UPDATE requests SET status = ?"
                 + " WHERE requestID = ?";
-        
-        try{
+
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, status);
             ps.setInt(2, requestID);
-            
+
             ps.execute();
-        } catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
-    
-    public void changeDeliveryStatus(int deliveryID, String status){
+
+    public void changeDeliveryStatus(int deliveryID, String status) {
         sql = "UPDATE deliveries SET status = ?"
                 + " WHERE deliveryID = ?";
-        
-        try{
+
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, status);
             ps.setInt(2, deliveryID);
-            
+
             ps.execute();
-        } catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
-    
-    public void changeRequestEndDate(int requestID, Date endDate){
+
+    public void changeRequestEndDate(int requestID, Date endDate) {
         sql = "UPDATE requests SET endDate = ?"
                 + " WHERE requestID = ?";
-        
-        try{
+
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setDate(1, endDate);
             ps.setInt(2, requestID);
+
+            ps.execute();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void changeItemCount(int warehouseID, int itemID, int count) {
+        int current = 0;
+        ResultSet rs;
+        PreparedStatement ps;
+        
+        //get count in warehouse
+        sql = "SELECT count FROM place_of_item"
+                + " WHERE warehouseID = ? AND itemID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, warehouseID);
+            ps.setInt(2, itemID);
+            
+            rs = ps.executeQuery();
+            
+            if(rs.next()){
+                current = rs.getInt("count");
+            } else{
+                //if warehouse doesn't have item yet, add item to warehouse
+                addWarehouseItem(warehouseID, itemID);
+            }
+            
+            //update item count in warehouse
+            sql = "UPDATE place_of_item SET count = ?"
+                    + " WHERE warehouseID = ? AND itemID = ?";
+            ps = con.prepareStatement(sql);
+            
+            ps.setInt(1, current + count);
+            ps.setInt(2, warehouseID);
+            ps.setInt(3, itemID);
             
             ps.execute();
-        } catch(SQLException ex){
-            ex.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

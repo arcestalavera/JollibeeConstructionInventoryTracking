@@ -88,6 +88,11 @@ public class HandleDelivery extends HttpServlet {
                         out.write("Incomplete");
                     }
                 }
+
+                //update also the item count in warehouses
+                db.changeItemCount(req.getSourceWarehouse().getWarehouseID(), delivery.getItem().getItemID(), delivery.getItem().getCount() * -1);
+                db.changeItemCount(req.getDestWarehouse().getWarehouseID(), delivery.getItem().getItemID(), delivery.getItem().getCount());
+
                 break;
         }
 

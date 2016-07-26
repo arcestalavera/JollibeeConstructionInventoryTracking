@@ -95,11 +95,10 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th style="width:5%;"></th>
+                                    <th style="width: 3%;"></th>
                                     <th style="width: 40%; text-align: center;">Warehouse Name</th>
                                     <th style="width: 40%; text-align: center;">Location</th>
-                                    <th style="width: 10%; text-align: center;">Stock in Warehouse</th>
-                                    <th style="width: 5%"></th>
+                                    <th style="width: 20%; text-align: center;">Stock in Warehouse</th>
                                 </tr>
                             </thead>
 
@@ -113,11 +112,6 @@
                                     <td style="text-align: center;"><button type="button" class="btn btn-link name" onclick="redirect('w<%=warehouse.getWarehouseID()%>')"><%=warehouse.getName()%></button></td>
                                     <td style="text-align: center;"><%=warehouse.getLocation()%></td>
                                     <td style="text-align: center;"><%=warehouse.getItem(item.getItemID()).getCount()%></td>
-                                    <td id = "item-actions" style="white-space: nowrap">
-                                        <a class="edit-button" title="Edit Item Count In Warehouse">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                    </td>
                                 </tr>
                                 <%
                                     }
