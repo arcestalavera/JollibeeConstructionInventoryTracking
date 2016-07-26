@@ -23,7 +23,7 @@ function deleteSupplierFromList() {
 
     $.ajax({
         type: "POST",
-        url: "HandleSupplier?action=delete",
+        url: "HandleSupplier?action=deleteFrmList",
         data: passData,
         success: function(html) {
             $("td[id=supplier-count]").each(function(e) {
