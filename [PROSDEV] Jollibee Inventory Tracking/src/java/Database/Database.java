@@ -855,6 +855,21 @@ public class Database {
             ex.printStackTrace();
         }
     }
+    
+    public void changeDeliveryStatus(int deliveryID, String status){
+        sql = "UPDATE requests SET status = ?"
+                + " WHERE requestID = ?";
+        
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, status);
+            ps.setInt(2, deliveryID);
+            
+            ps.execute();
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
 
     /*
      METHODS THAT WILL GENERATE A REPORT

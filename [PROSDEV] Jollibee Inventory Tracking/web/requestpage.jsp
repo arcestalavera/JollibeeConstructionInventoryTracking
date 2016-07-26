@@ -68,27 +68,7 @@
                     <li class = "list-group-item"><b class = "text-info">Source Warehouse: </b><button type="button" class="btn btn-link name"><%=sourceWarehouse.getName()%></button></li>
                     <li class = "list-group-item"><b class = "text-info">Destination Warehouse: </b><button type="button" class="btn btn-link name"><%=destWarehouse.getName()%></button></li>
                     <br/>
-                    <li class = "list-group-item">
-                        <b class = "text-info" style="display: inline;">Status: </b><p id = "request-status" style="display:inline;"><%=req.getStatus()%></p>
-                        <a class="edit-button" title = "Change the Status of <%=req.getName()%>" style="display: inline;">
-                            <i class="fa fa-edit"></i>
-                        </a>
-                        <form id = "status-options" role = "form" style="display: inline;">
-                            <label class="radio-inline">
-                                <input type="radio" name="optradio" value = "1"><i>In Transit (Incomplete)</i>
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="optradio" value = "2"><i>In Transit</i>
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="optradio" value = "3"><i>Finished</i>
-                            </label>
-                            <a id = "change-status" title = "Apply Changes to Request" id="activate-modal" class="activate-modal" data-toggle="modal" data-target="#requestmodal" data-verdict="question">
-                                <i class="fa fa-check"></i>
-                            </a>
-                            <input type = "hidden" name="id" id = "req-id" value ="<%=req.getRequestID()%>"/>
-                        </form>
-                    </li>
+                    <li class = "list-group-item"><b class = "text-info" style="display: inline;">Status: </b><p id = "request-status" style="display:inline;"><%=req.getStatus()%></p></li>
                 </ul>
             </div>
         </div><!-- end of .row -->      
@@ -111,6 +91,7 @@
                                 <th style="width: 25%;">Description</th>
                                 <th style="width: 25%">Unit Measure</th>
                                 <th style="width: 25%">Delivery Status</th>
+                                <th></th>
                             </tr>
                         </thead>
 
@@ -127,6 +108,12 @@
                                 <td style="width: 25%;"><%=item.getDescription()%></td>
                                 <td style="width: 25%;"><%=item.getUnit()%></td>
                                 <td style="width: 25%;"><%=delivery.getStatus()%></td>
+
+                                <td>                            
+                                    <a class = "edit-button" title="Change the Status of This Item"  id="activate-modal" class="activate-modal" data-toggle="modal" data-target="#requestmodal" data-verdict="question">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </td>
                             </tr>
                             <%
                                 }
@@ -140,10 +127,22 @@
         <div class="modal fade" id="requestmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
+                    <div class ="modal-header">
+                        <h4 class="modal-title text-info" id="modal-message">Change Delivery Status of Item</h4>
+                    </div>
                     <div class="modal-body">
-                        <h4 class="modal-title" id="modal-message"></h4>
+                        <form style="font-size: 16px;">
+                            <div class="radio">
+                                <label><input type="radio" name="optradio">In Transit</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="optradio">Finished</label>
+                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Update Status</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
                     </div>
                 </div>
             </div>
