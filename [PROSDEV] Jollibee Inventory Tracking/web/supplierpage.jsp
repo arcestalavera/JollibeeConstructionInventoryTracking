@@ -15,7 +15,7 @@
         location.href = "HandleSupplier?action=redirect&type=edit&id=" + id;
     }
     
-    function delete(id){
+    function deleteSupplier(id){
         location.href = "HandleSupplier?actiondeleteFrmView&id=" + id;
     }
 </script>
@@ -62,7 +62,7 @@
     <div class="row">
         <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
             <button id="d<%= supplier.getSupplierID()%>" class="delete-supplier delete-button btn btn-primary" data-toggle="modal"
-                    data-target="#viewsuppliersmodal" data-verdict="delete">Delete Item</button>
+                    data-target="#viewsuppliersmodal" data-verdict="delete">Delete Supplier</button>
             <button id="add-item" class="btn btn-primary" onclick="edit(<%= supplier.getSupplierID()%>)">Edit Supplier Details</button>
         </div>
     </div>

@@ -41,19 +41,6 @@ function deleteSupplierFromList() {
     });
 }
 
-function deleteItemFromView(){
-    var passData = {"id": id};
-    
-    $.ajax({
-        type: "POST",
-        url: "HandleSupplier?action=deleteFrmView",
-        data: passData,
-        success: function(html){
-            $(".viewsuppliercontent").prepend(html);
-        }
-    });
-}
-
 function editSupplier(id){
     $.ajax({
         type: "POST",
@@ -78,6 +65,6 @@ $(document).ready(function() {
     $(document).on("click", "#yes-delete-supplier", function(e){
         name = $(this).attr('name');
         id = name.substr(1, name.indexOf("d")+1);
-        deleteItemFromView(id);
+        location.href = "HandleSupplier?action=deleteFrmView&id=" + id;
     });
 });

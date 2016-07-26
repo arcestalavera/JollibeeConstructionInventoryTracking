@@ -40,20 +40,6 @@ function deleteItemFromList() {
     });
 }
 
-function deleteItemFromView(){
-    var old, oid, n;
-    var passData = {"id": id};
-    
-    $.ajax({
-        type: "POST",
-        url: "HandleItem?action=deleteFrmView",
-        data: passData,
-        success: function(html) {
-            $(".viewitemcontent").prepend(html);
-        }
-    });
-}
-
 function editItem(id) {
     $.ajax({
         type: "POST",
@@ -70,8 +56,8 @@ $(document).ready(function() {
     $(document).on("click", "#yes-delete-item", function(e){
         name = $(this).attr('name');
         id = name.substr(1, name.indexOf("d")+1);
-        
-        deleteItemFromView(id);
+ 
+        location.href="HandleItem?action=deleteFrmView&id=" + id;
     });
     
     $(document).on("click", "#yes-delete", function(e) {

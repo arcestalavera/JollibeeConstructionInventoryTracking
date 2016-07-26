@@ -50,7 +50,7 @@ public class ViewItem extends HttpServlet {
         if (id != null) {
             int iid = Integer.parseInt(id);
             item = db.getItemDetails(iid);
-            
+            System.out.println("ID = " + id);
             warehouseList = db.getItemWarehouses(iid);
             supplierList = db.getItemSuppliers(iid);
             count = db.getItemCount(iid);
@@ -67,12 +67,6 @@ public class ViewItem extends HttpServlet {
             reqDispatcher = request.getRequestDispatcher("viewitems.jsp");
         }
         
-        if(request.getParameter("iddelete")!=null){
-            itemList = db.getItems();
-
-            request.getSession().setAttribute("items", itemList);
-            reqDispatcher = request.getRequestDispatcher("viewitems.jsp");
-        }
         reqDispatcher.forward(request, response);
     }
 

@@ -64,12 +64,9 @@ public class HandleItem extends HttpServlet {
                 id = Integer.parseInt(request.getParameter("id"));
 
                 db.deleteItem(id);
-                reqDispatcher = request.getRequestDispatcher("Item");
-//                request.getSession().setAttribute("iddelete", id);
-                reqDispatcher.forward(request, response);
-                out.write("<p id = \"deleteitemmessage\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">An item"
-                        + "has been deleted!</p>");
+                response.sendRedirect("Item");
                 break;
+                
             case "edit":
                 id = Integer.parseInt(request.getParameter("id"));
                 name = request.getParameter("name");
