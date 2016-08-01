@@ -59,6 +59,18 @@
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <a data-target="#usersNav" data-toggle="collapse" href="javascript:;"> 
+                                Users
+                                <b class="caret" style="float: right; margin-top: 10px;"></b>
+                            </a>
+                            <ul id="usersNav" class="collapse">
+                                <li>
+                                    <a href="User"><i class="fa fa-fw fa-file"></i> View Users</a>
+                                    <!--<a href="User"><i class="fa fa-fw fa-file"></i> Add Users</a>-->
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->

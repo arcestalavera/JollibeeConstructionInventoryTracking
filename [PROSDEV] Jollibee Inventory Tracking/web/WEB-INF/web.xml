@@ -68,6 +68,10 @@
         <servlet-name>HandleUser</servlet-name>
         <servlet-class>Servlets.HandleUser</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>User</servlet-name>
+        <servlet-class>Servlets.ViewUser</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewWarehouse</servlet-name>
         <url-pattern>/Warehouse</url-pattern>
@@ -135,6 +139,14 @@
     <servlet-mapping>
         <servlet-name>HandleUser</servlet-name>
         <url-pattern>/HandleUser</url-pattern>
+    </servlet-mapping>
+    <!--    <servlet-mapping>
+        <servlet-name>User</servlet-name>
+        <url-pattern>/User</url-pattern>
+    </servlet-mapping>-->
+    <servlet-mapping>
+        <servlet-name>User</servlet-name>
+        <url-pattern>/ViewUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
