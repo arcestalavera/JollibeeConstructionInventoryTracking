@@ -37,7 +37,7 @@ public class Database {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             String host = "jdbc:mysql://127.0.0.1:3306/inventory_tracking?user=root";
             String uUser = "root";
-            String uPass = "admin";
+            String uPass = "";
 
             con = DriverManager.getConnection(host, uUser, uPass);
 
@@ -315,6 +315,40 @@ public class Database {
         }
         return u;
     }
+    
+    public User getUserDetails(int userID) {
+        Statement stmt;
+        ResultSet rs;
+        User user = new User();
+
+        String username, password;
+        int type;
+
+        try {
+            stmt = con.createStatement();
+
+            sql = "SELECT * FROM users"
+                    + " WHERE userID = " + userID;
+
+            rs = stmt.executeQuery(sql);
+
+            if (rs.next()) {
+                username = rs.getString("username");
+                password = rs.getString("password");
+                type = rs.getInt("type");
+
+                user.setUserID(userID);
+                user.setUsername(username);
+                user.setPassword(password);
+                user.setType(type);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
 
     public ArrayList<Item> getSupplierItems(int supplierID) {
         ArrayList<Item> itemList = new ArrayList<>();
@@ -785,6 +819,22 @@ public class Database {
             e.printStackTrace();
         }
     }
+    
+    public void addUser(String username, String password, int type) {
+        sql = "INSERT INTO users(username, password, type)"
+                + " VALUES(?, ?, ?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ps.setInt(3, type);
+
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     /*
      METHODS THAT WILL EDIT THE DETAILS OF AN OBJECT
@@ -847,6 +897,20 @@ public class Database {
             e.printStackTrace();
         }
     }
+    
+    public void deleteUser(int userID) {
+        sql = "UPDATE items SET isDeleted = " + true + ""
+                + " WHERE userID = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, userID);
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     /*
      METHODS THAT WILL EDIT THE DETAILS OF AN OBJECT
@@ -885,6 +949,23 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void editUser(int userID, String username, String password, int type) {
+        sql = "UPDATE users SET username = ?, password = ?, type = ?"
+                + " WHERE user_id = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ps.setInt(3, type);
+            ps.setInt(4, userID);
+            
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     public void changeRequestStatus(int requestID, String status) {

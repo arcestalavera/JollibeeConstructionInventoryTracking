@@ -64,6 +64,10 @@
         <servlet-name>ViewRequests</servlet-name>
         <servlet-class>API.ViewRequests</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HandleUser</servlet-name>
+        <servlet-class>Servlets.HandleUser</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewWarehouse</servlet-name>
         <url-pattern>/Warehouse</url-pattern>
@@ -127,6 +131,10 @@
     <servlet-mapping>
         <servlet-name>ViewRequests</servlet-name>
         <url-pattern>/ViewRequests</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HandleUser</servlet-name>
+        <url-pattern>/HandleUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
