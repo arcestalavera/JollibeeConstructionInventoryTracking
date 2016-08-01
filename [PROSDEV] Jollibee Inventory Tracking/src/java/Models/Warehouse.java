@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class Warehouse implements Serializable {
     private Integer warehouseID;
-    private String location, name;
+    private String name, location;
     private ArrayList<Item> itemList;
 
     /**

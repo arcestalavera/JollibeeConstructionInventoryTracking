@@ -73,13 +73,13 @@ public class Database {
                 Warehouse warehouse = new Warehouse();
                 if (!isForAPI) {
                     warehouseID = rs.getInt("warehouseID");
+                    location = rs.getString("location");
+
                     warehouse.setWarehouseID(warehouseID);
+                    warehouse.setLocation(location);
                 }
 
-                location = rs.getString("location");
                 name = rs.getString("name");
-
-                warehouse.setLocation(location);
                 warehouse.setName(name);
 
                 warehouseList.add(warehouse);
@@ -204,8 +204,8 @@ public class Database {
                     startDate = rs.getDate("startDate");
                     endDate = rs.getDate("endDate");
 
-                    sourceWarehouse = getWarehouseDetails(sourceWarehouseID);
-                    destWarehouse = getWarehouseDetails(destWarehouseID);
+                    sourceWarehouse = getWarehouseDetails(sourceWarehouseID, false);
+                    destWarehouse = getWarehouseDetails(destWarehouseID, false);
 
                     request.setRequestID(requestID);
                     request.setSourceWarehouse(sourceWarehouse);
@@ -594,7 +594,7 @@ public class Database {
         return supplier;
     }
 
-    public Warehouse getWarehouseDetails(int warehouseID) {
+    public Warehouse getWarehouseDetails(int warehouseID, boolean isForAPI) {
         Warehouse warehouse = new Warehouse();
         Statement stmt;
         ResultSet rs;
@@ -611,7 +611,9 @@ public class Database {
                 name = rs.getString("name");
                 location = rs.getString("location");
 
-                warehouse.setWarehouseID(warehouseID);
+                if (!isForAPI) {
+                    warehouse.setWarehouseID(warehouseID);
+                }
                 warehouse.setName(name);
                 warehouse.setLocation(location);
             }
@@ -647,8 +649,8 @@ public class Database {
                 startDate = rs.getDate("startDate");
                 endDate = rs.getDate("endDate");
 
-                sourceWarehouse = getWarehouseDetails(sourceWarehouseID);
-                destWarehouse = getWarehouseDetails(destWarehouseID);
+                sourceWarehouse = getWarehouseDetails(sourceWarehouseID, false);
+                destWarehouse = getWarehouseDetails(destWarehouseID, false);
 
                 request.setRequestID(requestID);
                 request.setName(name);
