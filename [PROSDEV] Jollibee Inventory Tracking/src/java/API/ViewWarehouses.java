@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 
-package Servlets;
+package API;
 
 import Database.Database;
-import Models.Supplier;
+import Models.Warehouse;
+import com.google.gson.Gson;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Arces
  */
-public class ViewSupplier extends HttpServlet {
+public class ViewWarehouses extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,32 +34,15 @@ public class ViewSupplier extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher reqDispatcher = null;
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
         Database db = Database.getInstance();
-        ArrayList<Supplier> supplierList = new ArrayList<>();
-        Supplier supplier;
+        ArrayList<Warehouse> warehouseList = db.getWarehouses(true);
+        Gson gson = new Gson();
+        String json;
         
-        String id = request.getParameter("id");
-
-        System.out.println("id = " + id);
-
-        if (id != null) {
-            int sid = Integer.parseInt(id);
-            System.out.println("my id is " + sid);
-            supplier = db.getSupplierDetails(sid, false);
-            System.out.println("my supplier is = " + supplier.getName());
-            supplier.setItemList(db.getSupplierItems(sid));
-            
-            request.getSession().setAttribute("supplier", supplier);
-            reqDispatcher = request.getRequestDispatcher("supplierpage.jsp");
-        } else {
-            supplierList = db.getSuppliers(false);
-            
-            request.getSession().setAttribute("suppliers", supplierList);
-            reqDispatcher = request.getRequestDispatcher("viewsuppliers.jsp");
-        }
-        reqDispatcher.forward(request, response);
+        json = gson.toJson(warehouseList);
+        out.write(json);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

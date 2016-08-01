@@ -48,6 +48,22 @@
         <servlet-name>HandleLogin</servlet-name>
         <servlet-class>Servlets.HandleLogin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewItems</servlet-name>
+        <servlet-class>API.ViewItems</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewSuppliers</servlet-name>
+        <servlet-class>API.ViewSuppliers</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewWarehouses</servlet-name>
+        <servlet-class>API.ViewWarehouses</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewRequests</servlet-name>
+        <servlet-class>API.ViewRequests</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewWarehouse</servlet-name>
         <url-pattern>/Warehouse</url-pattern>
@@ -95,6 +111,22 @@
     <servlet-mapping>
         <servlet-name>HandleLogin</servlet-name>
         <url-pattern>/HandleLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewItems</servlet-name>
+        <url-pattern>/ViewItems</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewSuppliers</servlet-name>
+        <url-pattern>/ViewSuppliers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewWarehouses</servlet-name>
+        <url-pattern>/ViewWarehouses</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewRequests</servlet-name>
+        <url-pattern>/ViewRequests</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

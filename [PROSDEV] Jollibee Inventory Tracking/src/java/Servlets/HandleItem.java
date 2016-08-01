@@ -89,7 +89,7 @@ public class HandleItem extends HttpServlet {
                     reqDispatcher = request.getRequestDispatcher("additem.jsp");
                     request.getSession().setAttribute("action", "edit");
                     id = Integer.parseInt(request.getParameter("id"));
-                    item = db.getItemDetails(id);
+                    item = db.getItemDetails(id, false);
                     request.getSession().setAttribute("item", item);
                 }
                 reqDispatcher.forward(request, response);

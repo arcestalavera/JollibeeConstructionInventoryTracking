@@ -15,9 +15,9 @@ import java.util.Date;
  * @author Arces
  */
 public class Request implements Serializable{
-    private int requestID;
+    private Integer requestID;
     private Warehouse sourceWarehouse, destWarehouse;
-    private String status, name;
+    private String name, status;
     private Date startDate, endDate;
     private ArrayList<Delivery> deliveryList;
     

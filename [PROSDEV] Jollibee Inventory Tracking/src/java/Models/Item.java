@@ -7,15 +7,14 @@
 package Models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  *
  * @author Arces
  */
 public class Item implements Serializable{
-    private int itemID, count;
     private String name, unit, description;
+    private Integer itemID, count;
 
     /**
      * @return the itemID

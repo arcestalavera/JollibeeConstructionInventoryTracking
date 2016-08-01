@@ -49,7 +49,7 @@ public class ViewRequest extends HttpServlet {
             request.getSession().setAttribute("request", req);
             reqDispatcher = request.getRequestDispatcher("requestpage.jsp");
         } else {
-            requestList = db.getRequests();
+            requestList = db.getRequests(false);
 
             request.getSession().setAttribute("requests", requestList);
             reqDispatcher = request.getRequestDispatcher("viewrequests.jsp");

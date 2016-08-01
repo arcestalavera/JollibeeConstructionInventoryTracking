@@ -14,13 +14,9 @@ import java.util.ArrayList;
  * @author Arces
  */
 public class Supplier implements Serializable{
-    private int supplierID;
+    private Integer supplierID;
     private String name, location, contactNumber, emailAddress, contactPerson;
     private ArrayList<Item> itemList;
-
-    public Supplier(){
-        this.itemList = new ArrayList<>();
-    }
     
     /**
      * @return the supplierID

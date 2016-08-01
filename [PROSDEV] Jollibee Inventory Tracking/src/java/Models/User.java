@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class User implements Serializable{
     private int userID, type;
-    private String username, password;
+    private String username, password, token;
 
     /**
      * @return the userID

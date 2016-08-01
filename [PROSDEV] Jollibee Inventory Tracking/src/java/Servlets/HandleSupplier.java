@@ -91,7 +91,7 @@ public class HandleSupplier extends HttpServlet {
                     reqDispatcher = request.getRequestDispatcher("addsupplier.jsp");
                     request.getSession().setAttribute("action", "edit");
                     id = Integer.parseInt(request.getParameter("id"));
-                    supplier = db.getSupplierDetails(id);
+                    supplier = db.getSupplierDetails(id, false);
                     request.getSession().setAttribute("supplier", supplier);
                 }
                 reqDispatcher.forward(request, response);

@@ -55,7 +55,7 @@ public class Database {
      METHODS THAT WILL GET THE LIST OF OBJECTS
      */
     //method to get list of all warehouses
-    public ArrayList<Warehouse> getWarehouses() {
+    public ArrayList<Warehouse> getWarehouses(boolean isForAPI) {
         ArrayList<Warehouse> warehouseList = new ArrayList<>();
         Statement stmt;
         ResultSet rs;
@@ -71,11 +71,14 @@ public class Database {
 
             while (rs.next()) {
                 Warehouse warehouse = new Warehouse();
-                warehouseID = rs.getInt("warehouseID");
+                if (!isForAPI) {
+                    warehouseID = rs.getInt("warehouseID");
+                    warehouse.setWarehouseID(warehouseID);
+                }
+
                 location = rs.getString("location");
                 name = rs.getString("name");
 
-                warehouse.setWarehouseID(warehouseID);
                 warehouse.setLocation(location);
                 warehouse.setName(name);
 
@@ -89,31 +92,39 @@ public class Database {
     }
 
     //method to get list of all items
-    public ArrayList<Item> getItems() {
+    public ArrayList<Item> getItems(boolean isForAPI) {
         ArrayList<Item> itemList = new ArrayList<>();
         Statement stmt;
         ResultSet rs;
-        int itemID;
+        int itemID, count;
         String name, unit, description;
 
         try {
             stmt = con.createStatement();
 
-            sql = "SELECT * FROM items WHERE isDeleted = 0";
+            sql = "SELECT SUM(count), I.itemID, name, description, unit"
+                    + " FROM items I NATURAL JOIN place_of_item PI"
+                    + " WHERE I.isDeleted = 0"
+                    + " GROUP BY PI.itemID;";
 
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
                 Item item = new Item();
-                itemID = rs.getInt("itemID");
-                name = rs.getString("name");
-                description = rs.getString("description");
-                unit = rs.getString("unit");
+                if (!isForAPI) {
+                    itemID = rs.getInt("itemID");
+                    description = rs.getString("description");
+                    unit = rs.getString("unit");
 
-                item.setItemID(itemID);
+                    item.setItemID(itemID);
+                    item.setUnit(unit);
+                    item.setDescription(description);
+                } else {
+                    count = rs.getInt("SUM(count)");
+                    item.setCount(count);
+                }
+                name = rs.getString("name");
                 item.setName(name);
-                item.setUnit(unit);
-                item.setDescription(description);
 
                 itemList.add(item);
             }
@@ -125,7 +136,7 @@ public class Database {
     }
 
     //method to get list of all suppliers
-    public ArrayList<Supplier> getSuppliers() {
+    public ArrayList<Supplier> getSuppliers(boolean isForAPI) {
         ArrayList<Supplier> supplierList = new ArrayList<>();
         Statement stmt;
         ResultSet rs;
@@ -141,19 +152,22 @@ public class Database {
 
             while (rs.next()) {
                 Supplier supplier = new Supplier();
-                supplierID = rs.getInt("supplierID");
-                name = rs.getString("name");
-                location = rs.getString("location");
-                contactNumber = rs.getString("contactNumber");
-                emailAddress = rs.getString("emailAddress");
-                contactPerson = rs.getString("contactPerson");
+                if (!isForAPI) {
+                    supplierID = rs.getInt("supplierID");
+                    location = rs.getString("location");
+                    contactNumber = rs.getString("contactNumber");
+                    emailAddress = rs.getString("emailAddress");
+                    contactPerson = rs.getString("contactPerson");
 
-                supplier.setSupplierID(supplierID);
+                    supplier.setSupplierID(supplierID);
+                    supplier.setLocation(location);
+                    supplier.setContactNumber(contactNumber);
+                    supplier.setEmailAddress(emailAddress);
+                    supplier.setContactPerson(contactPerson);
+                }
+
+                name = rs.getString("name");
                 supplier.setName(name);
-                supplier.setLocation(location);
-                supplier.setContactNumber(contactNumber);
-                supplier.setEmailAddress(emailAddress);
-                supplier.setContactPerson(contactPerson);
 
                 supplierList.add(supplier);
             }
@@ -165,7 +179,7 @@ public class Database {
     }
 
     //method to get list of all requests
-    public ArrayList<Request> getRequests() {
+    public ArrayList<Request> getRequests(boolean isForAPI) {
         ArrayList<Request> requestList = new ArrayList<>();
         Statement stmt;
         ResultSet rs;
@@ -183,24 +197,28 @@ public class Database {
 
             while (rs.next()) {
                 Request request = new Request();
-                requestID = rs.getInt("requestID");
+                if (!isForAPI) {
+                    requestID = rs.getInt("requestID");
+                    sourceWarehouseID = rs.getInt("sourceWarehouseID");
+                    destWarehouseID = rs.getInt("destWarehouseID");
+                    startDate = rs.getDate("startDate");
+                    endDate = rs.getDate("endDate");
+
+                    sourceWarehouse = getWarehouseDetails(sourceWarehouseID);
+                    destWarehouse = getWarehouseDetails(destWarehouseID);
+
+                    request.setRequestID(requestID);
+                    request.setSourceWarehouse(sourceWarehouse);
+                    request.setDestWarehouse(destWarehouse);
+                    request.setStartDate(startDate);
+                    request.setEndDate(endDate);
+                }
+
                 status = rs.getString("status");
                 name = rs.getString("name");
-                sourceWarehouseID = rs.getInt("sourceWarehouseID");
-                destWarehouseID = rs.getInt("destWarehouseID");
-                startDate = rs.getDate("startDate");
-                endDate = rs.getDate("endDate");
 
-                sourceWarehouse = getWarehouseDetails(sourceWarehouseID);
-                destWarehouse = getWarehouseDetails(destWarehouseID);
-
-                request.setRequestID(requestID);
-                request.setName(name);
-                request.setSourceWarehouse(sourceWarehouse);
-                request.setDestWarehouse(destWarehouse);
-                request.setStartDate(startDate);
-                request.setEndDate(endDate);
                 request.setStatus(status);
+                request.setName(name);
 
                 requestList.add(request);
             }
@@ -230,7 +248,6 @@ public class Database {
                 delivery = getDeliveryDetails(deliveryID);
 
                 deliveryList.add(delivery);
-                System.out.println("ewww");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -365,7 +382,7 @@ public class Database {
                 warehouse.setWarehouseID(warehouseID);
                 warehouse.setLocation(location);
                 warehouse.setName(name);
-                item = getItemDetails(itemID);
+                item = getItemDetails(itemID, false);
                 item.setCount(count);
 
                 warehouse.addItem(item);
@@ -412,7 +429,7 @@ public class Database {
                 supplier.setContactPerson(contactPerson);
                 supplier.setContactNumber(contactNumber);
 
-                item = getItemDetails(itemID);
+                item = getItemDetails(itemID, false);
                 supplier.addItem(item);
                 supplierList.add(supplier);
             }
@@ -451,7 +468,7 @@ public class Database {
                 itemID = rs.getInt("itemID");
 
                 delivery = getDeliveryDetails(deliveryID);
-                delivery.setItem(getItemDetails(itemID));
+                delivery.setItem(getItemDetails(itemID, false));
                 deliveryList.add(delivery);
             }
         } catch (SQLException e) {
@@ -502,18 +519,21 @@ public class Database {
     /*
      METHODS THAT WILL GET THE DETAILS OF AN OBJECT
      */
-    public Item getItemDetails(int itemID) {
+    public Item getItemDetails(int itemID, boolean isForAPI) {
         Statement stmt;
         ResultSet rs;
         Item item = new Item();
 
         String name, description, unit;
+        int count;
+        boolean isDeleted;
 
         try {
             stmt = con.createStatement();
 
-            sql = "SELECT * FROM items"
-                    + " WHERE itemID = " + itemID;
+            sql = "SELECT SUM(count), I.itemID, name, description, unit, isDeleted"
+                    + " FROM items I NATURAL JOIN place_of_item PI"
+                    + " WHERE itemID = " + itemID + ";";
 
             rs = stmt.executeQuery(sql);
 
@@ -521,11 +541,15 @@ public class Database {
                 name = rs.getString("name");
                 unit = rs.getString("unit");
                 description = rs.getString("description");
+                count = rs.getInt("SUM(count)");
 
-                item.setItemID(itemID);
+                if (!isForAPI) {
+                    item.setItemID(itemID);
+                }
                 item.setName(name);
                 item.setDescription(description);
                 item.setUnit(unit);
+                item.setCount(count);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -534,7 +558,7 @@ public class Database {
         return item;
     }
 
-    public Supplier getSupplierDetails(int supplierID) {
+    public Supplier getSupplierDetails(int supplierID, boolean isForAPI) {
         Statement stmt;
         ResultSet rs;
         Supplier supplier = new Supplier();
@@ -554,7 +578,9 @@ public class Database {
                 emailAddress = rs.getString("emailAddress");
                 contactPerson = rs.getString("contactPerson");
 
-                supplier.setSupplierID(supplierID);
+                if (!isForAPI) {
+                    supplier.setSupplierID(supplierID);
+                }
                 supplier.setName(name);
                 supplier.setLocation(location);
                 supplier.setContactNumber(contactNumber);
@@ -671,7 +697,7 @@ public class Database {
                 requestID = rs.getInt("requestID");
 
                 if (supplierID != 0) {
-                    supplier = getSupplierDetails(supplierID);
+                    supplier = getSupplierDetails(supplierID, false);
                 }
 
                 delivery.setDeliveryID(deliveryID);
@@ -681,7 +707,7 @@ public class Database {
 
                 delivery.setRequest(getRequestDetails(requestID, false));
 
-                Item item = getItemDetails(itemID);
+                Item item = getItemDetails(itemID, false);
                 item.setCount(count);
                 delivery.setItem(item);
             }
@@ -744,8 +770,8 @@ public class Database {
             e.printStackTrace();
         }
     }
-    
-    public void addWarehouseItem(int warehouseID, int itemID){
+
+    public void addWarehouseItem(int warehouseID, int itemID) {
         sql = "INSERT INTO place_of_item(warehouseID, itemID, count)"
                 + " VALUES(?, ?, ?)";
         try {
@@ -910,7 +936,7 @@ public class Database {
         int current = 0;
         ResultSet rs;
         PreparedStatement ps;
-        
+
         //get count in warehouse
         sql = "SELECT count FROM place_of_item"
                 + " WHERE warehouseID = ? AND itemID = ?";
@@ -918,25 +944,25 @@ public class Database {
             ps = con.prepareStatement(sql);
             ps.setInt(1, warehouseID);
             ps.setInt(2, itemID);
-            
+
             rs = ps.executeQuery();
-            
-            if(rs.next()){
+
+            if (rs.next()) {
                 current = rs.getInt("count");
-            } else{
+            } else {
                 //if warehouse doesn't have item yet, add item to warehouse
                 addWarehouseItem(warehouseID, itemID);
             }
-            
+
             //update item count in warehouse
             sql = "UPDATE place_of_item SET count = ?"
                     + " WHERE warehouseID = ? AND itemID = ?";
             ps = con.prepareStatement(sql);
-            
+
             ps.setInt(1, current + count);
             ps.setInt(2, warehouseID);
             ps.setInt(3, itemID);
-            
+
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -49,7 +49,7 @@ public class ViewItem extends HttpServlet {
 
         if (id != null) {
             int iid = Integer.parseInt(id);
-            item = db.getItemDetails(iid);
+            item = db.getItemDetails(iid, false);
             System.out.println("ID = " + id);
             warehouseList = db.getItemWarehouses(iid);
             supplierList = db.getItemSuppliers(iid);
@@ -61,7 +61,7 @@ public class ViewItem extends HttpServlet {
             request.getSession().setAttribute("count", count);
             reqDispatcher = request.getRequestDispatcher("itempage.jsp");
         } else {
-            itemList = db.getItems();
+            itemList = db.getItems(false);
 
             request.getSession().setAttribute("items", itemList);
             reqDispatcher = request.getRequestDispatcher("viewitems.jsp");

@@ -54,7 +54,7 @@ public class ViewWarehouse extends HttpServlet {
             request.getSession().setAttribute("item_warehouse", itemList);
             reqDispatcher = request.getRequestDispatcher("warehousepage.jsp");
         } else {
-            warehouseList = db.getWarehouses();
+            warehouseList = db.getWarehouses(false);
             
             request.getSession().setAttribute("warehouses", warehouseList);
             reqDispatcher = request.getRequestDispatcher("viewwarehouses.jsp");

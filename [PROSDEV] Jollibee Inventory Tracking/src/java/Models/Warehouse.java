@@ -13,14 +13,9 @@ import java.util.ArrayList;
  * @author Arces
  */
 public class Warehouse implements Serializable {
-
-    private int warehouseID;
+    private Integer warehouseID;
     private String location, name;
     private ArrayList<Item> itemList;
-
-    public Warehouse() {
-        this.itemList = new ArrayList<>();
-    }
 
     /**
      * @return the warehouseID
