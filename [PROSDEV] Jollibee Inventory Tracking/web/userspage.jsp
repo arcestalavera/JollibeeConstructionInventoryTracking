@@ -5,18 +5,18 @@
 <%@ include file="leftnav.jsp"%>
 
 <%
-    User user = (User) request.getSession().getAttribute("user");
+    User seluser = (User) request.getSession().getAttribute("seluser");
 %>
 
-<script type="text/javascript">
+<script>
     function redirect(id) {
-//        if (id === -1) {
-//            //location for edit
-//        } else {
-//            if (id.substr(0, 1) === 'u') {
-//                location.href = "User?id=" + id.substr(1, id.length - 1);
-//            }
-//        }
+        if (id === -1) {
+            //location for edit
+        } else {
+            if (id.substr(0, 1) === 'u') {
+                location.href = "User?id=" + id.substr(1, id.length - 1);
+            }
+        }
     }
 </script>
 <div id="page-wrapper">
@@ -34,7 +34,7 @@
                 <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Users</a>
             </li>
             <li>
-                <i class="fa fa-edit"></i> <a href="Item">View User List</a>
+                <i class="fa fa-edit"></i> <a href="User">View User List</a>
             </li>
             <li class="active">
                 <i class="fa fa-edit"></i> View User Information
@@ -50,12 +50,13 @@
         <button id="add-item" class="btn btn-primary">Edit User Details</button>
     </div>
 </div>
+
 <div class="row">
     <div class ="col-md-12">
-        <h4 class = "text-info">Details of <%=user.getUsername()%></h4>
+        <h4 class = "text-info">Details of <%=seluser.getUsername()%></h4>
         <ul class = "list-group">
-            <li class = "list-group-item"><b class = "text-info">Password: </b><%=user.getPassword()%></li>
-            <li class = "list-group-item"><b class = "text-info">Type: </b><%=user.getType()%></li>
+            <li class = "list-group-item"><b class = "text-info">Password: </b><%=seluser.getPassword()%></li>
+            <li class = "list-group-item"><b class = "text-info">Type: </b><%=seluser.getType()%></li>
         </ul>
     </div>
 </div><!-- end of .row -->

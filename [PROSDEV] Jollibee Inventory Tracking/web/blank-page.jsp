@@ -1,6 +1,11 @@
 <%@include file="header.html"%>
 <%@include file="topnav.jsp"%>
 <%@include file="leftnav.jsp"%>
+<script type="text/javascript">
+    $(document).ready(function() {
+        location.href="/blank-page.jsp";
+    });
+</script>
 <!--<!DOCTYPE html>
 <html lang="en">
 
@@ -91,7 +96,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Blank Page
+                            Home Page
                         </h1>
                         <ol class="breadcrumb">
                             <li class="active">
@@ -101,10 +106,6 @@
                     </div>
                 </div>
                 <!-- /.row -->
-
-                <div class="row col-sm-1">
-                    <p> You can place anything here</p>
-                </div>
 
             </div>
             <!-- /.container-fluid -->
