@@ -5,18 +5,18 @@
 <%@ include file="leftnav.html"%>
 
 <%
-    User user = (User) request.getSession().getAttribute("users");
+    User user = (User) request.getSession().getAttribute("user");
 %>
 
-<script>
+<script type="text/javascript">
     function redirect(id) {
-        if (id === -1) {
-            //location for edit
-        } else {
-            if (id.substr(0, 1) === 'u') {
-                location.href = "User?id=" + id.substr(1, id.length - 1);
-            }
-        }
+//        if (id === -1) {
+//            //location for edit
+//        } else {
+//            if (id.substr(0, 1) === 'u') {
+//                location.href = "User?id=" + id.substr(1, id.length - 1);
+//            }
+//        }
     }
 </script>
 <div id="page-wrapper">
@@ -46,18 +46,17 @@
 <!-- /.row -->
 <!-- Page Content -->
 <div class="row">
-    <div class ="row">
+    <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
+        <button id="add-item" class="btn btn-primary">Edit User Details</button>
+    </div>
+</div>
+<div class="row">
+    <div class ="col-md-12">
         <h4 class = "text-info">Details of <%=user.getUsername()%></h4>
         <ul class = "list-group">
             <li class = "list-group-item"><b class = "text-info">Password: </b><%=user.getPassword()%></li>
             <li class = "list-group-item"><b class = "text-info">Type: </b><%=user.getType()%></li>
         </ul>
-    </div>
-
-    <div class="row">
-        <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
-            <button id="add-item" class="btn btn-primary">Edit User Details</button>
-        </div>
     </div>
 </div><!-- end of .row -->
 

@@ -40,12 +40,22 @@ public class ViewUser extends HttpServlet {
         User user;
         int count;
         
-        String id = request.getParameter("id");
-        userList = db.getUsers();
-
-        request.getSession().setAttribute("users", userList);
-        reqDispatcher = request.getRequestDispatcher("viewusers.jsp");
         
+        String id = request.getParameter("id");
+        if(id != null){
+            int iid = Integer.parseInt(id);
+            user = db.getUserDetails(iid);
+            System.out.println("ID = " + id);
+            
+            request.getSession().setAttribute("user", user);
+            reqDispatcher = request.getRequestDispatcher("userspage.jsp");
+        } else {
+            userList = db.getUsers();
+
+            request.getSession().setAttribute("users", userList);
+            reqDispatcher = request.getRequestDispatcher("viewusers.jsp");
+
+        }
         reqDispatcher.forward(request, response);
     }
 

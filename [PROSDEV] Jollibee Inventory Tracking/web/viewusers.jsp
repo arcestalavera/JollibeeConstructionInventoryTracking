@@ -19,7 +19,7 @@
 <script type = "text/javascript" src = "js/jquery.js"></script>
 <script type = "text/javascript" src = "js/Item.js"></script>
 <%
-    ArrayList<User> userList = (ArrayList<User>) request.getSession().getAttribute("user");
+    ArrayList<User> userList = (ArrayList<User>) request.getSession().getAttribute("users");
     User user;
 %>
 <div id="page-wrapper">

@@ -140,13 +140,9 @@
         <servlet-name>HandleUser</servlet-name>
         <url-pattern>/HandleUser</url-pattern>
     </servlet-mapping>
-    <!--    <servlet-mapping>
-        <servlet-name>User</servlet-name>
-        <url-pattern>/User</url-pattern>
-    </servlet-mapping>-->
     <servlet-mapping>
         <servlet-name>User</servlet-name>
-        <url-pattern>/ViewUser</url-pattern>
+        <url-pattern>/User</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
