@@ -4,10 +4,6 @@
 <%@ include file="topnav.jsp"%>
 <%@ include file="leftnav.jsp"%>
 
-<%
-    User user = (User) request.getSession().getAttribute("user");
-%>
-
 <script type="text/javascript">
     function redirect(id) {
 //        if (id === -1) {

@@ -91,7 +91,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Blank Page
+                            Home Page
                         </h1>
                         <ol class="breadcrumb">
                             <li class="active">
@@ -102,8 +102,8 @@
                 </div>
                 <!-- /.row -->
 
-                <div class="row col-sm-1">
-                    <p> You can place anything here</p>
+                <div class="row col-sm-12">
+                    <p><marquee>W E L C O M E ! ! !</marquee></p>
                 </div>
 
             </div>
