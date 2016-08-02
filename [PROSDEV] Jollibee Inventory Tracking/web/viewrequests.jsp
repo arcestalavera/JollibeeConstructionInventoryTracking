@@ -45,12 +45,6 @@
         <!-- /.row -->
 
         <!-- Page Content -->
-        <div class="row">
-            <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
-                <button id="add-item" class="btn btn-primary">Add Request</button>
-            </div>
-        </div>
-        <div class="row">
 
             <div class="col-lg-12">
 
@@ -83,11 +77,11 @@
                                 <td><%=req.getEndDate() == null ? "-": sdf.format(req.getEndDate())%></td>
                                 <td class = "s<%=req.getRequestID()%>"><%=req.getStatus()%></td>
                                 <td style="white-space: no-wrap">
-                                    <a class="edit-button">
+                                    <!--<a class="edit-button">
                                         <i class="fa fa-edit"></i>
-                                    </a>
+                                    </a>-->
                                     <%
-                                        if (status.equals("Pending")) {
+                                        if (status.equals("Pending") && type==1) {
                                     %>
                                     <a id = "<%=status.substring(0, 1).toLowerCase()%><%=req.getRequestID()%>" class="approve-button" data-toggle="modal" 
                                        data-target="#requestsmodal" data-verdict="approve">

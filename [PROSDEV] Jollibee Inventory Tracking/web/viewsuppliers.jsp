@@ -45,11 +45,17 @@
                 <!-- /.row -->
 
                 <!-- Page Content -->
+                <% 
+                    if (type==1){
+                %>
                 <div class="row">
                     <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
                         <button id="add-item" class="btn btn-primary" onclick="redirect(-1)">Add Supplier</button>
                     </div>
                 </div>
+                <% 
+                    }
+                %>
 
                 <div class="row">
 
@@ -80,6 +86,9 @@
                                         <td style="text-align: right;"><%=supplier.getContactNumber()%></td>
                                         <td style="text-align: right;"><%=supplier.getEmailAddress()%></td>
                                         <td style="text-align: right;"><%=supplier.getContactPerson()%></td>
+                                        <% 
+                                            if(type==1){
+                                        %>
                                         <td id="supplier-actions" style="white-space: nowrap">
                                             <a class="edit-button" onclick="edit(<%= supplier.getSupplierID()%>)">
                                                 <i class="fa fa-edit"></i>
@@ -89,6 +98,9 @@
                                                 <i class="fa fa-trash-o"></i>
                                             </a>
                                         </td>
+                                        <% 
+                                            }
+                                        %>
                                     </tr>
                                     <%
                                         }

@@ -46,11 +46,17 @@
 <!-- Page Content -->
 <div class="row viewitemcontent">
 
+    <% 
+        if (type==1){
+    %>
     <div class="row">
         <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
             <button id="add-item" class="btn btn-primary" onclick="redirect(-1)">Add Item</button>
         </div>
     </div>
+    <% 
+        }
+    %>
 
     <div class="col-lg-12">
 
@@ -74,6 +80,9 @@
 
                         <td><button type="button" class="btn btn-link name" onclick = "redirect(<%=item.getItemID()%>)"><%=item.getName()%></button></td>
                         <td style="text-align: right;"><%=item.getUnit()%></td>
+                        <% 
+                            if (type==1){
+                        %>
                         <td id = "item-actions" style="white-space: nowrap">
                             <a class="edit-button" onclick="edit(<%=item.getItemID()%>)">
                                 <i class="fa fa-edit"></i>
@@ -83,6 +92,9 @@
                                 <i class="fa fa-trash-o"></i>
                             </a>
                         </td>
+                        <% 
+                            }
+                        %>
                     </tr>
                     <%
                         }

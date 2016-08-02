@@ -20,7 +20,7 @@
 <script type = "text/javascript" src = "js/Item.js"></script>
 <%
     ArrayList<User> userList = (ArrayList<User>) request.getSession().getAttribute("users");
-    User user;
+//    User user;
 %>
 <div id="page-wrapper">
 
@@ -44,12 +44,17 @@
 
 <!-- Page Content -->
 <div class="row">
-
+    <% 
+        if (type==0){
+    %>
     <div class="row">
         <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
             <button id="add-item" class="btn btn-primary" onclick="redirect(-1)">Add User</button>
         </div>
     </div>
+    <% 
+        }
+    %>
 
     <div class="col-lg-12">
 
@@ -73,6 +78,9 @@
 
                         <td><button type="button" class="btn btn-link name" onclick = "redirect(<%=user.getUserID()%>)"><%=user.getUsername()%></button></td>
                         <td style="text-align: right;"><%=user.getType()%></td> <!--getUnit-->
+                        <% 
+                            if (type==0){
+                        %>
                         <td id = "item-actions" style="white-space: nowrap">
                             <a class="edit-button" onclick="edit(<%=user.getUserID()%>)">
                                 <i class="fa fa-edit"></i>
@@ -82,6 +90,9 @@
                                 <i class="fa fa-trash-o"></i>
                             </a>
                         </td>
+                        <% 
+                            }
+                        %>
                     </tr>
                     <%
                         }
