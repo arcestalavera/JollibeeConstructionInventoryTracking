@@ -4,7 +4,7 @@
 <%@page import="Models.Item"%>
 <%@ include file="header.html"%>
 <%@ include file="topnav.jsp"%>
-<%@ include file="leftnav.html"%>
+<%@ include file="leftnav.jsp"%>
 
 <%
     Item item = (Item) request.getSession().getAttribute("item");

@@ -1,6 +1,6 @@
 <%@ include file="header.html" %>
 <%@ include file="topnav.jsp" %>
-<%@ include file="leftnav.html" %>
+<%@ include file="leftnav.jsp" %>
 
 <div id="page-wrapper">
 

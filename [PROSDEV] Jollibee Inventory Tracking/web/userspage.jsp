@@ -1,8 +1,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="Models.User"%>
 <%@ include file="header.html"%>
-<%@ include file="topnav.html"%>
-<%@ include file="leftnav.html"%>
+<%@ include file="topnav.jsp"%>
+<%@ include file="leftnav.jsp"%>
 
 <%
     User user = (User) request.getSession().getAttribute("user");

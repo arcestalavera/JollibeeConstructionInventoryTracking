@@ -6,8 +6,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="Models.Item"%>
 <%@ include file="header.html"%>
-<%@ include file="topnav.html"%>
-<%@ include file="leftnav.html"%>
+<%@ include file="topnav.jsp"%>
+<%@ include file="leftnav.jsp"%>
 
 <%
     Request req = (Request) request.getSession().getAttribute("request");

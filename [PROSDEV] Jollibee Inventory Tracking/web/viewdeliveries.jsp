@@ -4,7 +4,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@include file="header.html"%>
 <%@include file="topnav.jsp"%>
-<%@include file="leftnav.html"%>
+<%@include file="leftnav.jsp"%>
 
 <%    ArrayList<Delivery> deliveryList = (ArrayList<Delivery>) request.getSession().getAttribute("deliveries");
     Delivery delivery;

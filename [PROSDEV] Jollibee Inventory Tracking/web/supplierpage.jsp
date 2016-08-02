@@ -3,7 +3,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ include file="header.html"%>
 <%@ include file="topnav.jsp"%>
-<%@ include file="leftnav.html"%>
+<%@ include file="leftnav.jsp"%>
 
 <%
     Supplier supplier = (Supplier) request.getSession().getAttribute("supplier");

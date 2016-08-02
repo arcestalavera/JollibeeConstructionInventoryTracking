@@ -1,7 +1,7 @@
 <%@page import="Models.Item"%>
 <%@ include file="header.html"%>
 <%@ include file="topnav.jsp"%>
-<%@ include file="leftnav.html" %>
+<%@ include file="leftnav.jsp" %>
 
 <script type = "text/javascript" src = "js/jquery.js"></script>
 <script type = "text/javascript" src = "js/Item.js"></script>

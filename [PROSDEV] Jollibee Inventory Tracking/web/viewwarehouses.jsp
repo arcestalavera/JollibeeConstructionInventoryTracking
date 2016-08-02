@@ -3,7 +3,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ include file="header.html" %>
 <%@ include file="topnav.jsp" %>
-<%@ include file="leftnav.html" %>
+<%@ include file="leftnav.jsp" %>
 
 <script type="text/javascript">
     function redirect(id){

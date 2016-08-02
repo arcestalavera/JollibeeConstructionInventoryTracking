@@ -10,7 +10,7 @@
 <%@page import="Models.Warehouse"%>
 <%@ include file="header.html"%>
 <%@ include file="topnav.jsp"%>
-<%@ include file="leftnav.html"%>
+<%@ include file="leftnav.jsp"%>
 
 <%
     Warehouse warehouse = (Warehouse) request.getSession().getAttribute("warehouse");
