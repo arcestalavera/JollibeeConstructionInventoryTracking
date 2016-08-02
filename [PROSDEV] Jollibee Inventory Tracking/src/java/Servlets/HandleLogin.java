@@ -7,6 +7,8 @@ package Servlets;
 
 import Database.Database;
 import Models.User;
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -14,8 +16,8 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 import javax.servlet.http.HttpServletResponse;
-
 
 /**
  *
@@ -38,33 +40,45 @@ public class HandleLogin extends HttpServlet {
         RequestDispatcher reqDispatcher = null;
         Database db = Database.getInstance();
         ArrayList<User> userList = new ArrayList();
-        
+        User user = null;
+
         boolean pass = false;
         int i = 0;
-        
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        
+
         userList = db.getUsers();
-        
+
         for (i = 0; i < userList.size(); i++) {
             if (username.equals(userList.get(i).getUsername())) {
                 if (password.equals(userList.get(i).getPassword())) {
+                    user = userList.get(i);
                     pass = true;
                     break;
-                }
-                else {
+                } else {
                     break;
                 }
             }
         }
-        
+
         if (pass == false) {
             reqDispatcher = request.getRequestDispatcher("login.html");
-        }
-        else {
-            request.getSession().setAttribute("loggedUser", userList.get(i));
-            request.getSession().setAttribute("type", userList.get(i).getType());
+        } else {
+            request.getSession().setAttribute("loggedUser", user);
+            request.getSession().setAttribute("type", user.getType());
+            if (user.getType() == 3) {
+                //generate token
+                UUID uid = UUID.randomUUID();
+                String token = uid.toString().replaceAll("-", "");
+                byte[] tokenBytes = token.getBytes();
+                //store token
+                DataOutputStream dos = new DataOutputStream(new FileOutputStream("token.dat"));
+                dos.write(tokenBytes);
+                dos.flush();
+                dos.close();
+                request.getSession().setAttribute("token", token);
+            }
             reqDispatcher = request.getRequestDispatcher("blank-page.jsp");
         }
         reqDispatcher.forward(request, response);

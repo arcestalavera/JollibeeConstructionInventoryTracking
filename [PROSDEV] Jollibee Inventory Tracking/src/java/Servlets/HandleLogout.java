@@ -5,6 +5,7 @@
  */
 package Servlets;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -31,10 +32,13 @@ public class HandleLogout extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher reqDispatcher = null;
+        request.getSession().removeAttribute("token");
         request.getSession().invalidate();
-        reqDispatcher = request.getRequestDispatcher("index.html");
-        reqDispatcher.forward(request, response);
+        
+        //delete token file
+        File file = new File("token.dat");
+        file.delete();
+        response.sendRedirect("index.html");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

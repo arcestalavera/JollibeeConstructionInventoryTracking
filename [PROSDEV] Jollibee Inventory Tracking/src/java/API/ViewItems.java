@@ -8,9 +8,15 @@ package API;
 import Database.Database;
 import Models.Item;
 import com.google.gson.Gson;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Arces
  */
-public class ViewItems extends HttpServlet {
+public class ViewItems extends HttpServlet implements TokenChecker {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,21 +39,26 @@ public class ViewItems extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json");
         String id = request.getParameter("id");
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
         Database db = Database.getInstance();
         String json;
-        if (id == null) {
-            ArrayList<Item> itemList = db.getItems(true);
-            json = gson.toJson(itemList);
-        } else{
-            Item item = db.getItemDetails(Integer.parseInt(id), true);
-            json = gson.toJson(item);
-        }
 
-        out.write(json);
+        if (checkToken(request)) {
+            response.setContentType("application/json");
+            if (id == null) {
+                ArrayList<Item> itemList = db.getItems(true);
+                json = gson.toJson(itemList);
+            } else {
+                Item item = db.getItemDetails(Integer.parseInt(id), true);
+                json = gson.toJson(item);
+            }
+            out.write(json);
+        } else {
+            response.setContentType("text/html;charset=UTF-8");
+            out.write("<h2>Access Denied For Non-API Clients.</h2>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -88,5 +99,30 @@ public class ViewItems extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    @Override
+    public boolean checkToken(HttpServletRequest req) {
+        boolean canPass = false;
+        DataInputStream dis = null;
+        String sToken, bToken;
+        try {
+            File f = new File("token.dat");
+            byte[] a = new byte[(int) f.length()];
+            dis = new DataInputStream(new FileInputStream(f));
+            dis.readFully(a);
+            dis.close();
+
+            sToken = (String) req.getSession().getAttribute("token");
+            bToken = new String(a);
+            if (sToken != null && sToken.equals(bToken)) {
+                canPass = true;
+            }
+        } catch (FileNotFoundException ex) {
+            canPass = false;
+        } catch (IOException ex) {
+            Logger.getLogger(ViewItems.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return canPass;
+    }
 
 }
