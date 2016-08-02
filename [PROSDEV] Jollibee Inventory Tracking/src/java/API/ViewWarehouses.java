@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package API;
 
 import Database.Database;
@@ -37,11 +36,17 @@ public class ViewWarehouses extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         Database db = Database.getInstance();
-        ArrayList<Warehouse> warehouseList = db.getWarehouses(true);
         Gson gson = new Gson();
+        String id = request.getParameter("id");
         String json;
-        
-        json = gson.toJson(warehouseList);
+
+        if (id == null) {
+            ArrayList<Warehouse> warehouseList = db.getWarehouses(true);
+            json = gson.toJson(warehouseList);
+        } else {
+            Warehouse warehouse = db.getWarehouseDetails(Integer.parseInt(id), true);
+            json = gson.toJson(warehouse);
+        }
         out.write(json);
     }
 

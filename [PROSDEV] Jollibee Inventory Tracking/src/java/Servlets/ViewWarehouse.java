@@ -47,7 +47,7 @@ public class ViewWarehouse extends HttpServlet {
         if (id != null) {
             // put code to view warehouse details here
             int iid = Integer.parseInt(id);
-            warehouse = db.getWarehouseDetails(iid);
+            warehouse = db.getWarehouseDetails(iid, false);
             
             itemList = db.getWarehouseItems(iid);
             request.getSession().setAttribute("warehouse", warehouse);
