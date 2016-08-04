@@ -79,7 +79,7 @@ public class HandleLogin extends HttpServlet {
                 dos.close();
                 request.getSession().setAttribute("token", token);
             }
-            reqDispatcher = request.getRequestDispatcher("blank-page.jsp");
+            reqDispatcher = request.getRequestDispatcher("homepage.jsp");
         }
         reqDispatcher.forward(request, response);
     }
