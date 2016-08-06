@@ -40,12 +40,15 @@
         <!-- /.row -->
 
         <!-- Page Content -->
+        <div id="error" class="alert alert-warning">
+        </div>
+        
         <div id = "add-items-div" class="row">
             <div class="col-lg-12">
                 <%
                     if (action.equals("add")) {
                 %>
-                <form id="add-item-form" class = "add-items-form" onsubmit = "return addItem()" method = "POST">
+                <form id="add-item-form" class = "add-items-form" onsubmit = "return addItem(-1)" method = "POST">
                     <%
                     } else if (action.equals("edit")) {
                     %>
@@ -92,7 +95,7 @@
                                 }
                             %>
                         </div><!-- end of .form-group -->
-                        <input type="submit" class="btn btn-primary" value="<%=label%>">
+                        <input type="submit" class="btn btn-primary" value="<%=label%>" id="submit">
                     </form>
             </div>
         </div>

@@ -52,7 +52,49 @@ function editItem(id) {
     return false;
 }
 
+function checkInput(id){
+    if($("#description").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
+        $.ajax({
+            type: "POST",
+            url: "HandleItem?action=error",
+            data: $(".add-items-form").serialize(),
+            success: function(html){
+                $("#description").value = "";
+                $("#error").show();
+                $("#error").text("Special characters not allowed in description. Please rewrite.");
+            }
+        });
+    } else if ($("#name").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
+        $.ajax({
+            type: "POST",
+            url: "HandleItem?action=error",
+            data: $(".add-items-form").serialize(),
+            success: function(html){
+                $("#name").value = "";
+                $("#error").show();
+                $("#error").text("Special characters not allowed in name. Please rewrite.");
+            }
+        });
+    } else if ($("#unitofmeasure").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
+        $.ajax({
+            type: "POST",
+            url: "HandleItem?action=error",
+            data: $(".add-items-form").serialize(),
+            success: function(html){
+                $("#unitofmeasure").value = "";
+                $("#error").show();
+                $("#error").text("Special characters not allowed in unit of measure. Please rewrite.");
+            }
+        });
+    } else if (id>=0){
+        editItem(id);   
+    } else if (id==-1){
+        addItem();
+    }
+}
+
 $(document).ready(function() {
+    $("#error").hide();
     $(document).on("click", "#yes-delete-item", function(e){
         name = $(this).attr('name');
         id = name.substr(1, name.indexOf("d")+1);
@@ -67,4 +109,5 @@ $(document).ready(function() {
 
         deleteItemFromList(id, count);
     });
+    
 });

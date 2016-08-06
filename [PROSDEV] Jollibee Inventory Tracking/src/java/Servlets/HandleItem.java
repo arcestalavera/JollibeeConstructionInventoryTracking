@@ -94,6 +94,10 @@ public class HandleItem extends HttpServlet {
                 }
                 reqDispatcher.forward(request, response);
                 break;
+            case "error":
+                reqDispatcher = request.getRequestDispatcher("additem.jsp");
+                request.getSession().setAttribute("error", "yes");
+                break;
         }
     }
 
