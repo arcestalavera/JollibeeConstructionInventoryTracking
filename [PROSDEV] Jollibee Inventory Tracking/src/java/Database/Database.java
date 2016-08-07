@@ -11,6 +11,8 @@ import Models.Request;
 import Models.Supplier;
 import Models.User;
 import Models.Warehouse;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -27,23 +29,24 @@ import java.util.logging.Logger;
  * @author Arces
  */
 public class Database {
-
     private Connection con;
     private String sql;
     private static Database databaseInstance = new Database();
+    private Security sec;
 
     private Database() {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             String host = "jdbc:mysql://127.0.0.1:3306/inventory_tracking?user=root";
             String uUser = "root";
-            String uPass = "";
+            String uPass = "admin";
 
             con = DriverManager.getConnection(host, uUser, uPass);
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
+        sec = Security.getInstance();
     }
 
     public static Database getInstance() {
@@ -262,7 +265,7 @@ public class Database {
         Statement stmt;
         ResultSet rs;
         int userID, type;
-        String username, password;
+        String username, password, s1, s2, fullName;
 
         try {
             stmt = con.createStatement();
@@ -275,13 +278,17 @@ public class Database {
                 User user = new User();
                 userID = rs.getInt("user_id");
                 username = rs.getString("username");
+                s1 = rs.getString("salt1");
                 password = rs.getString("password");
+                s2 = rs.getString("salt2");
                 type = rs.getInt("type");
+                fullName = rs.getString("fullName");
 
                 user.setUserID(userID);
                 user.setUsername(username);
-                user.setPassword(password);
+                user.setPassword(s1 + password + s2);
                 user.setType(type);
+                user.setFullName(fullName);
 
                 userList.add(user);
             }
@@ -315,13 +322,13 @@ public class Database {
         }
         return u;
     }
-    
+
     public User getUserDetails(int userID) {
         Statement stmt;
         ResultSet rs;
         User user = new User();
 
-        String username, password;
+        String fullName, username, password;
         int type;
 
         try {
@@ -335,11 +342,13 @@ public class Database {
             if (rs.next()) {
                 username = rs.getString("username");
                 password = rs.getString("password");
+                fullName = rs.getString("fullName");
                 type = rs.getInt("type");
 
                 user.setUserID(userID);
                 user.setUsername(username);
                 user.setPassword(password);
+                user.setPassword(fullName);
                 user.setType(type);
             }
         } catch (SQLException e) {
@@ -348,7 +357,6 @@ public class Database {
 
         return user;
     }
-
 
     public ArrayList<Item> getSupplierItems(int supplierID) {
         ArrayList<Item> itemList = new ArrayList<>();
@@ -821,16 +829,21 @@ public class Database {
             e.printStackTrace();
         }
     }
-    
+
     public void addUser(String username, String password, int type) {
-        sql = "INSERT INTO users(username, password, type)"
-                + " VALUES(?, ?, ?)";
+        String s1, s2;
+        s1 = sec.createSalt(username, 1);
+        s2 = sec.createSalt(username, 2);
+        sql = "INSERT INTO users(username, salt1, password, salt2, type)"
+                + " VALUES(?, ?, ?, ?, ?);";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setString(1, username);
-            ps.setString(2, password);
-            ps.setInt(3, type);
+            ps.setString(2, s1);
+            ps.setString(3, sec.encryptString(password));
+            ps.setString(4, s2);
+            ps.setInt(5, type);
 
             ps.execute();
         } catch (SQLException e) {
@@ -899,7 +912,7 @@ public class Database {
             e.printStackTrace();
         }
     }
-    
+
     public void deleteUser(int userID) {
         sql = "UPDATE items SET isDeleted = " + true + ""
                 + " WHERE userID = ?";
@@ -952,7 +965,7 @@ public class Database {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void editUser(int userID, String username, String password, int type) {
         sql = "UPDATE users SET username = ?, password = ?, type = ?"
                 + " WHERE user_id = ?";
@@ -962,7 +975,7 @@ public class Database {
             ps.setString(2, password);
             ps.setInt(3, type);
             ps.setInt(4, userID);
-            
+
             ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);

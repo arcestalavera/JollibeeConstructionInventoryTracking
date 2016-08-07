@@ -6,6 +6,7 @@
 package Servlets;
 
 import Database.Database;
+import Database.Security;
 import Models.User;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
@@ -39,6 +40,7 @@ public class HandleLogin extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         RequestDispatcher reqDispatcher = null;
         Database db = Database.getInstance();
+        Security sec = Security.getInstance();
         ArrayList<User> userList = new ArrayList();
         User user = null;
 
@@ -46,8 +48,12 @@ public class HandleLogin extends HttpServlet {
         int i = 0;
 
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
-
+        String tempPass = request.getParameter("password");
+        
+        String s1, s2, password;
+        s1 = sec.createSalt(username, 1);
+        s2 = sec.createSalt(username, 2);
+        password = s1 + sec.encryptString(tempPass) + s2;
         userList = db.getUsers();
 
         for (i = 0; i < userList.size(); i++) {
