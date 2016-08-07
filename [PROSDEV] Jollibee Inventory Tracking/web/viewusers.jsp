@@ -36,7 +36,8 @@
                 <i class="fa fa-dashboard"></i>  <a href="blank-page.html">Users</a>
             </li>
             <li class="active">
-                <i class="fa fa-edit"></i> View User
+                <i class="fa fa-edit"></i> <a href="User">View User</a>
+            </li>
         </ol>
     </div>
 </div>

@@ -47,7 +47,7 @@ public class ViewUser extends HttpServlet {
             user = db.getUserDetails(iid);
             System.out.println("ID = " + id);
             
-            request.getSession().setAttribute("user", user);
+            request.getSession().setAttribute("seluser", user);
             reqDispatcher = request.getRequestDispatcher("userspage.jsp");
         } else {
             userList = db.getUsers();

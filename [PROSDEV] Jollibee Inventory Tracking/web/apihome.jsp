@@ -1,6 +1,10 @@
 <%@include file="header.html"%>
 <%@include file="topnav.jsp"%>
-<%@include file="leftnav.jsp"%>
+<script type="text/javascript">
+    $(document).ready(function() {
+        location.href="/blank-page.jsp";
+    });
+</script>
 <!--<!DOCTYPE html>
 <html lang="en">
 
@@ -95,16 +99,12 @@
                         </h1>
                         <ol class="breadcrumb">
                             <li class="active">
-                                <i class="fa fa-dashboard"></i>  <a href="blank-page.jsp">Dashboard</a>
+                                <i class="fa fa-dashboard"></i>  <a href="homepage.jsp">Dashboard</a>
                             </li>
                         </ol>
                     </div>
                 </div>
                 <!-- /.row -->
-
-                <div class="row col-sm-12">
-                    <p><marquee>W E L C O M E ! ! !</marquee></p>
-                </div>
 
             </div>
             <!-- /.container-fluid -->

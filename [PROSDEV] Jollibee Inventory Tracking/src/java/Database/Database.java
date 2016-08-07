@@ -37,7 +37,7 @@ public class Database {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             String host = "jdbc:mysql://127.0.0.1:3306/inventory_tracking?user=root";
             String uUser = "root";
-            String uPass = "admin";
+            String uPass = "";
 
             con = DriverManager.getConnection(host, uUser, uPass);
 
@@ -328,7 +328,7 @@ public class Database {
             stmt = con.createStatement();
 
             sql = "SELECT * FROM users"
-                    + " WHERE userID = " + userID;
+                    + " WHERE user_id = " + userID;
 
             rs = stmt.executeQuery(sql);
 
