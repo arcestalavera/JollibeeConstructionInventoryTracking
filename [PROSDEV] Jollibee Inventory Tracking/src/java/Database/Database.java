@@ -830,12 +830,12 @@ public class Database {
         }
     }
 
-    public void addUser(String username, String password, int type) {
+    public void addUser(String username, String password, int type, String fname) {
         String s1, s2;
         s1 = sec.createSalt(username, 1);
         s2 = sec.createSalt(username, 2);
-        sql = "INSERT INTO users(username, salt1, password, salt2, type)"
-                + " VALUES(?, ?, ?, ?, ?);";
+        sql = "INSERT INTO users(username, salt1, password, salt2, type, fname)"
+                + " VALUES(?, ?, ?, ?, ?, ?);";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -844,6 +844,7 @@ public class Database {
             ps.setString(3, sec.encryptString(password));
             ps.setString(4, s2);
             ps.setInt(5, type);
+            ps.setString(6, fname);
 
             ps.execute();
         } catch (SQLException e) {
@@ -966,15 +967,16 @@ public class Database {
         }
     }
 
-    public void editUser(int userID, String username, String password, int type) {
-        sql = "UPDATE users SET username = ?, password = ?, type = ?"
+    public void editUser(int userID, String username, String password, int type, String fname) {
+        sql = "UPDATE users SET username = ?, password = ?, type = ?, fullName = ?"
                 + " WHERE user_id = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, password);
             ps.setInt(3, type);
-            ps.setInt(4, userID);
+            ps.setString(4, fname);
+            ps.setInt(5, userID);
 
             ps.execute();
         } catch (SQLException ex) {

@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class User implements Serializable{
     private int userID, type;
-    private String username, password, fullName;
+    private String username, password, name;
 
     /**
      * @return the userID
@@ -46,6 +46,20 @@ public class User implements Serializable{
     }
 
     /**
+     * @return the name
+     */
+    public String getFullname() {
+        return name;
+    }
+    
+    /**
+     * @param name the username to set
+     */
+    public void setFullname(String name) {
+        this.name = name;
+    }
+    
+    /**
      * @return the password
      */
     public String getPassword() {
@@ -71,19 +85,5 @@ public class User implements Serializable{
      */
     public void setType(int type) {
         this.type = type;
-    }
-
-    /**
-     * @return the fullName
-     */
-    public String getFullName() {
-        return fullName;
-    }
-
-    /**
-     * @param fullName the fullName to set
-     */
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 }

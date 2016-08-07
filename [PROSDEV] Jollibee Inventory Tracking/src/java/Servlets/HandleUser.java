@@ -6,7 +6,6 @@
 package Servlets;
 
 import Database.Database;
-import Database.Security;
 import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Stella
  */
 public class HandleUser extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,7 +37,7 @@ public class HandleUser extends HttpServlet {
         RequestDispatcher reqDispatcher = null;
         PrintWriter out = response.getWriter();
         Database db = Database.getInstance();
-        String action, username, password;
+        String action, username, password, name;
         int type;
         int id;
         User user;
@@ -49,8 +49,9 @@ public class HandleUser extends HttpServlet {
                 username = request.getParameter("uname");
                 password = request.getParameter("upass");
                 type = Integer.parseInt(request.getParameter("utype"));
+                name = request.getParameter("ufname");
 
-                db.addUser(username, password, type);
+                db.addUser(username, password, type, name);
                 System.out.println("name = " + username);
                 out.write("<p id = \"add-user-message\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">User <i>"
                         + username + "</i> has been added! </p>");
@@ -67,15 +68,16 @@ public class HandleUser extends HttpServlet {
                 username = request.getParameter("username");
                 password = request.getParameter("password");
                 type = Integer.parseInt(request.getParameter("type"));
+                name = request.getParameter("ufname");
                 
-                db.editUser(id, username, password, type);
+                db.editUser(id, username, password, type, name);
                 
                 out.write("<p id = \"add-user-message\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">User <i>"
                         + username + "</i> has been updated! </p>");
                 
                 break;
             case "redirect":
-                action = request.getParameter("type");
+                action = request.getParameter("action");
 
                 if (action.equals("add")) {
                     reqDispatcher = request.getRequestDispatcher("adduser.jsp");
