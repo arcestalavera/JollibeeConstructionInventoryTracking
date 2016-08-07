@@ -39,7 +39,6 @@
                     </li>
                 </ol>
             </div>
-
         </div>
         <!-- /.row -->
         <!-- Page Content -->
