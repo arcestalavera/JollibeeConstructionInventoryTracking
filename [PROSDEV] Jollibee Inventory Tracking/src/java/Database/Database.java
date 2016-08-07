@@ -265,7 +265,7 @@ public class Database {
         Statement stmt;
         ResultSet rs;
         int userID, type;
-        String username, password, s1, s2;
+        String username, password, s1, s2, fullName;
 
         try {
             stmt = con.createStatement();
@@ -282,11 +282,13 @@ public class Database {
                 password = rs.getString("password");
                 s2 = rs.getString("salt2");
                 type = rs.getInt("type");
+                fullName = rs.getString("fullName");
 
                 user.setUserID(userID);
                 user.setUsername(username);
                 user.setPassword(s1 + password + s2);
                 user.setType(type);
+                user.setFullName(fullName);
 
                 userList.add(user);
             }
@@ -326,7 +328,7 @@ public class Database {
         ResultSet rs;
         User user = new User();
 
-        String username, password;
+        String fullName, username, password;
         int type;
 
         try {
@@ -340,11 +342,13 @@ public class Database {
             if (rs.next()) {
                 username = rs.getString("username");
                 password = rs.getString("password");
+                fullName = rs.getString("fullName");
                 type = rs.getInt("type");
 
                 user.setUserID(userID);
                 user.setUsername(username);
                 user.setPassword(password);
+                user.setPassword(fullName);
                 user.setType(type);
             }
         } catch (SQLException e) {
