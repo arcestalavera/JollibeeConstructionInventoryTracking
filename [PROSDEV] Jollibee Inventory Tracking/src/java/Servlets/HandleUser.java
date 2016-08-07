@@ -6,6 +6,7 @@
 package Servlets;
 
 import Database.Database;
+import Database.Security;
 import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
  * @author Stella
  */
 public class HandleUser extends HttpServlet {
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -75,7 +75,7 @@ public class HandleUser extends HttpServlet {
                 
                 break;
             case "redirect":
-                action = request.getParameter("action");
+                action = request.getParameter("type");
 
                 if (action.equals("add")) {
                     reqDispatcher = request.getRequestDispatcher("adduser.jsp");
