@@ -35,7 +35,8 @@
                             </ul>
                         </li>
                         <% 
-                            }
+                            } 
+                            if (type!=3){
                         %>
                         <li>
                             <a data-target="#warehousesNav" data-toggle="collapse" href="javascript:;"> 
@@ -49,6 +50,7 @@
                             </ul>
                         </li>
                         <% 
+                            }
                             if(type==0){
                         %>
                         <li>
@@ -95,6 +97,7 @@
                         </li>
                         <% 
                             }
+                            if (type!=3){
                         %>
                         <li>
                             <a data-target="#deliveriesNav" data-toggle="collapse" href="javascript:;"> 
@@ -108,6 +111,7 @@
                             </ul>
                         </li>
                         <% 
+                            }
                             if(type==0 || type==1){
                         %>
                         <li>

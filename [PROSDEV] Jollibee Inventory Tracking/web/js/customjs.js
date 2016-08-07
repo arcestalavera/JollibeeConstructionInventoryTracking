@@ -203,5 +203,59 @@ $(document).ready(function() {
         });
     });
     
+    $(document).on('click', "#submit-request", function(e){
+        var req = $("#req").value;
+        if(req.search("ViewItems")!=-1){
+            
+        } else if(req.search("ViewRequests")!=-1){
+            
+        } else if(req.search("ViewSuppliers")!=-1){
+            
+        } else if(req.search("ViewWarehouses")!=-1){
+            
+        }
+    });
+    
+    $(document).on('click', "#view-items", function(e){
+        var target = $("#request-fill-in");
+        target.empty();
+        target.append('<div class="form-group"><label id="req-label">Request:</label><input id="req" class="form-control"'
+                + ' name="req"><button id="submit-request" class="btn" onclick="#">Submit Request</button></div>');
+    });
+    
+    $(document).on('click', "#view-item-info", function(e){
+        var target = $("#request-fill-in");
+        target.empty();
+        target.append('<div class="form-group"><label id="req-label">Request:</label><input id="req" class="form-control"'
+                + ' name="req"><button id="submit-request" class="btn" onclick="#">Submit Request</button></div>');
+    });
+    
+    $(document).on('click', "#view-requests", function(e){
+        var target = $("#request-fill-in");
+        target.empty();
+        target.append('<div class="form-group"><label id="req-label">Request:</label><input id="req" class="form-control"'
+                + ' name="req"><button id="submit-request" class="btn" onclick="#">Submit Request</button></div>');
+    });
+    
+    $(document).on('click', "#view-suppliers", function(e){
+        var target = $("#request-fill-in");
+        target.empty();
+        target.append('<div class="form-group"><label id="req-label">Request:</label><input id="req" class="form-control"'
+                + ' name="req"><button id="submit-request" class="btn" onclick="#">Submit Request</button></div>');
+    });
+    
+    $(document).on('click', "#view-supplier-info", function(e){
+        var target = $("#request-fill-in");
+        target.empty();
+        target.append('<div class="form-group"><label id="req-label">Request:</label><input id="req" class="form-control"'
+                + ' name="req"><button id="submit-request" class="btn" onclick="#">Submit Request</button></div>');
+    });
+    
+    $(document).on('click', "#view-warehouses", function(e){
+        var target = $("#request-fill-in");
+        target.empty();
+        target.append('<div class="form-group"><label id="req-label">Request:</label><input id="req" class="form-control"'
+                + ' name="req"><button id="submit-request" class="btn" onclick="#">Submit Request</button></div>');
+    });
 });
 
