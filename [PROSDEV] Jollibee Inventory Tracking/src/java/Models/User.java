@@ -55,7 +55,7 @@ public class User implements Serializable{
     /**
      * @param name the username to set
      */
-    public void setFullname(String name) {
+    public void setFullName(String name) {
         this.name = name;
     }
     
