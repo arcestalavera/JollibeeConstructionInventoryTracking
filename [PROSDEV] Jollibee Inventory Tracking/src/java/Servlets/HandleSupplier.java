@@ -96,6 +96,10 @@ public class HandleSupplier extends HttpServlet {
                 }
                 reqDispatcher.forward(request, response);
                 break;
+            case "error":
+                reqDispatcher = request.getRequestDispatcher("addsupplier.jsp");
+                reqDispatcher.forward(request, response);
+                break;
         }
     }
 

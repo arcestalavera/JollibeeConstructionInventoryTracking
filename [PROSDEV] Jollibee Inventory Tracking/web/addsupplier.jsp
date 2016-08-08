@@ -44,12 +44,15 @@
                     <!-- /.row -->
 
                     <!-- Page Content -->
+                    <div id="error" class="alert alert-warning">
+                    </div>
+                    
                     <div id = "add-suppliers-div" class="row">
                         <div class="col-lg-12">
                             <% 
                                 if (action.equals("add")){
                             %>
-                            <form class = "add-supplier-form" id="add-suppliers-form" method = "POST" onsubmit="return addSupplier()">
+                            <form class = "add-supplier-form" id="add-suppliers-form" method = "POST" onsubmit="return checkInput(-1)">
                                   <div class="form-group">
                                     <label>Name</label>
                                     <input id="name" class="form-control" name="name" required>
@@ -77,7 +80,7 @@
                             <%
                             } else if (action.equals("edit")) {
                             %>
-                            <form class = "add-suppliers-form" id="add-supplier-form" method = "POST" onsubmit="return editSupplier(<%=supplier.getSupplierID()%>)">    
+                            <form class = "add-suppliers-form" id="add-supplier-form" method = "POST" onsubmit="return checkInput(<%=supplier.getSupplierID()%>)">    
                                   <div class="form-group">
                                     <label>Name</label>
                                     <input id="name" class="form-control" name="name" value = "<%= supplier.getName()%>" required>
