@@ -54,7 +54,7 @@ function editSupplier(id){
 }
 
 function checkInput(id){
-    if($("#name").value.search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
+    if($("#name").value.search(/([<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//])|(\d{1})/ig)!==-1){
         $.ajax({
             type: "POST",
             url: "HandleSupplier?action=error",
@@ -65,7 +65,7 @@ function checkInput(id){
                 $("#error").text("Special characters not allowed in name. Please rewrite.");
             }
         });
-    } else if ($("#location").value.search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
+    } else if ($("#location").value.search(/[<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//]/ig)!==-1){
         $.ajax({
             type: "POST",
             url: "HandleSupplier?action=error",
@@ -76,7 +76,7 @@ function checkInput(id){
                 $("#error").text("Special characters not allowed in name. Please rewrite.");
             }
         });
-    } else if ($("#number").value.search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)){
+    } else if ($("#number").value.search(/^(\d{10,11})+/ig)!==-1){
         $.ajax({
             type: "POST",
             url: "HandleSupplier?action=error",
@@ -87,7 +87,7 @@ function checkInput(id){
                 $("#error").text("Special characters not allowed in unit of contact number. Please rewrite.");
             }
         });
-    } else if ($("#emailadd").value.search(/<>~`!#$%^&*()_-+={}[]:;"',?\//ig)!==-1){
+    } else if ($("#emailadd").value.search(/([<>])/ig)!==-1){
         $.ajax({
             type: "POST",
             url: "HandleSupplier?action=error",
@@ -98,7 +98,7 @@ function checkInput(id){
                 $("#error").text("Special characters not allowed in email address. Please rewrite.");
             }
         });
-    } else if ($("#contactperson").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
+    } else if ($("#contactperson").value.search(/([<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//])|(\d{1})/ig)!==-1){
         $.ajax({
             type: "POST",
             url: "HandleSupplier?action=error",
