@@ -110,8 +110,12 @@ function checkInput(id){
             }
         });
     } else if (id>=0){
+        $("#error").hide();
+        $("#error").text("");
         editSupplier(id);   
     } else if (id==-1){
+        $("#error").hide();
+        $("#error").text("");
         addSupplier();
     }
 }

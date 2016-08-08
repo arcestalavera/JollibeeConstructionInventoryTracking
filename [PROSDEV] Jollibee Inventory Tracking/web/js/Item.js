@@ -87,8 +87,12 @@ function checkInput(id){
             }
         });
     } else if (id>=0){
+        $("#error").hide();
+        $("#error").text("");
         editItem(id);   
     } else if (id==-1){
+        $("#error").hide();
+        $("#error").text("");
         addItem();
     }
 }
