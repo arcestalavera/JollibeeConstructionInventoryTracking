@@ -17,9 +17,9 @@
     }
 </script>
 <script type = "text/javascript" src = "js/jquery.js"></script>
-<script type = "text/javascript" src = "js/Item.js"></script>
+<script type = "text/javascript" src = "js/User.js"></script>
 <%
-    ArrayList<User> userList = (ArrayList<User>) request.getSession().getAttribute("user");
+    ArrayList<User> userList = (ArrayList<User>) request.getSession().getAttribute("users");
     User user;
 %>
 <div id="page-wrapper">
@@ -63,18 +63,18 @@
                         <th style="text-align: right;">Name</th>
                     </tr>
                 </thead>
-                <tbody id="itemTableBody">
+                <tbody id="userTableBody">
                     <%
                         for (int i = 0; i < userList.size(); i++) {
                             user = userList.get(i);
                     %>
                     <tr id = "i<%=user.getUserID()%>">
-                        <td id ="item-count"><%=(i + 1)%></td>
+                        <td id ="user-count"><%=(i + 1)%></td>
 
                         <td><button type="button" class="btn btn-link name" onclick = "redirect(<%=user.getUserID()%>)"><%=user.getUsername()%></button></td>
                         <td style="text-align: right;"><%=user.getType()%></td> <!--getUnit-->
-                        <td style="text-align: right;"><%=user.getFullname()%></td> <!--getUnit-->
-                        <td id = "item-actions" style="white-space: nowrap">
+                        <td style="text-align: right;"><%=user.getFullName()%></td> <!--getUnit-->
+                        <td id = "user-actions" style="white-space: nowrap">
                             <a class="edit-button" onclick="edit(<%=user.getUserID()%>)">
                                 <i class="fa fa-edit"></i>
                             </a>

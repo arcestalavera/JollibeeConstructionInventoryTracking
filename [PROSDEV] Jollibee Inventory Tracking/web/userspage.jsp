@@ -5,7 +5,7 @@
 <%@ include file="leftnav.html"%>
 
 <%
-    User user = (User) request.getSession().getAttribute("users");
+    User user = (User) request.getSession().getAttribute("seluser");
 %>
 
 <script>
@@ -51,7 +51,7 @@
         <ul class = "list-group">
             <li class = "list-group-item"><b class = "text-info">Password: </b><%=user.getPassword()%></li>
             <li class = "list-group-item"><b class = "text-info">Type: </b><%=user.getType()%></li>
-            <li class = "list-group-item"><b class = "text-info">Name: </b><%=user.getFullname()%></li>
+            <li class = "list-group-item"><b class = "text-info">Name: </b><%=user.getFullName()%></li>
         </ul>
     </div>
 

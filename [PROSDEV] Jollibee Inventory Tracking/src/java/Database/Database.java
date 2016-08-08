@@ -39,7 +39,7 @@ public class Database {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             String host = "jdbc:mysql://127.0.0.1:3306/inventory_tracking?user=root";
             String uUser = "root";
-            String uPass = "admin";
+            String uPass = "";
 
             con = DriverManager.getConnection(host, uUser, uPass);
             
@@ -916,7 +916,7 @@ public class Database {
 
     public void deleteUser(int userID) {
         sql = "UPDATE items SET isDeleted = " + true + ""
-                + " WHERE userID = ?";
+                + " WHERE user_id = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);

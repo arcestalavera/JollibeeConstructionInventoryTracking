@@ -137,7 +137,7 @@
                             <ul id="usersNav" class="collapse">
                                 <li>
                                     <a href="User"><i class="fa fa-fw fa-file"></i> View Users</a>
-                                    <!--<a href="User"><i class="fa fa-fw fa-file"></i> Add Users</a>-->
+                                    <a href="adduser.jsp"><i class="fa fa-fw fa-file"></i> Add Users</a>
                                 </li>
                             </ul>
                         </li>

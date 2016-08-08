@@ -57,10 +57,17 @@ public class HandleUser extends HttpServlet {
                         + username + "</i> has been added! </p>");
                 break;
                 
-            case "delete":
+            case "deleteFrmList":
                 id = Integer.parseInt(request.getParameter("id"));
 
                 db.deleteUser(id);
+                break;
+                
+            case "deleteFrmView":
+                id = Integer.parseInt(request.getParameter("id"));
+
+                db.deleteUser(id);
+                response.sendRedirect("User");
                 break;
             
             case "edit":
@@ -89,6 +96,10 @@ public class HandleUser extends HttpServlet {
                     user = db.getUserDetails(id);
                     request.getSession().setAttribute("user", user);
                 }
+                reqDispatcher.forward(request, response);
+                break;
+            case "error":
+                reqDispatcher = request.getRequestDispatcher("adduser.jsp");
                 reqDispatcher.forward(request, response);
                 break;
         }

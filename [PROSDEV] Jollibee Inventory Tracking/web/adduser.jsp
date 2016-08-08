@@ -4,7 +4,7 @@
 <%@ include file="leftnav.html" %>
 
 <script type = "text/javascript" src = "js/jquery.js"></script>
-<script type = "text/javascript" src = "js/Item.js"></script>
+<script type = "text/javascript" src = "js/User.js"></script>
 <%
     String action = request.getSession().getAttribute("action").toString();
     User user = new User();
@@ -38,6 +38,9 @@
                 <!-- /.row -->
 
                 <!-- Page Content -->
+                <div id="error" class="alert alert-warning">
+                </div>
+                
                 <div id = "add-user-div" class="row">
                     <div class="col-lg-12">
                         <%
@@ -72,7 +75,7 @@
                                     <%
                                     } else if (action.equals("edit")) {
                                     %>
-                                    <input id="name" class="form-control" name="name" value="<%=user.getFullname()%>" required>
+                                    <input id="name" class="form-control" name="name" value="<%=user.getFullName()%>" required>
                                     <%
                                         }
                                     %>

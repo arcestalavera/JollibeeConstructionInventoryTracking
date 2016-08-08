@@ -48,7 +48,7 @@ public class User implements Serializable{
     /**
      * @return the name
      */
-    public String getFullname() {
+    public String getFullName() {
         return name;
     }
     
