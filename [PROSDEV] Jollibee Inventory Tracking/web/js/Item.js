@@ -53,7 +53,7 @@ function editItem(id) {
 }
 
 function checkInput(id){
-    if($("#description").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
+    if($("#description").value.search(/[<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//]/ig)!==-1){
         $.ajax({
             type: "POST",
             url: "HandleItem?action=error",
@@ -64,7 +64,7 @@ function checkInput(id){
                 $("#error").text("Special characters not allowed in description. Please rewrite.");
             }
         });
-    } else if ($("#name").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
+    } else if ($("#name").value.search(/[<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//]/ig)!==-1){
         $.ajax({
             type: "POST",
             url: "HandleItem?action=error",
@@ -75,7 +75,7 @@ function checkInput(id){
                 $("#error").text("Special characters not allowed in name. Please rewrite.");
             }
         });
-    } else if ($("#unitofmeasure").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
+    } else if ($("#unitofmeasure").value.search(/[<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//]/ig)!==-1){
         $.ajax({
             type: "POST",
             url: "HandleItem?action=error",
