@@ -31,7 +31,7 @@ function deleteUserFromList() {
         url: "HandleUser?action=deleteFrmList",
         data: passData,
         success: function(html) {
-            $("td[id=item-count]").each(function(e) {
+            $("td[id=user-count]").each(function(e) {
                 old = $(this).siblings("#user-actions").find(".delete-user");
                 oid = old.attr("id");
                 n = oid.substr(oid.indexOf("-") + 1, oid.length - 1);
