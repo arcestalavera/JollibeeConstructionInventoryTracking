@@ -54,7 +54,7 @@ function editSupplier(id){
 }
 
 function checkInput(id){
-    if($("#name").value.search(/([<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//])|(\d{1})/ig)!==-1){
+    if($("#name").value.search(/([<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//])|(\d{1,})/ig)!==-1){
         $.ajax({
             type: "POST",
             url: "HandleSupplier?action=error",
@@ -98,7 +98,7 @@ function checkInput(id){
                 $("#error").text("Special characters not allowed in email address. Please rewrite.");
             }
         });
-    } else if ($("#contactperson").value.search(/([<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//])|(\d{1})/ig)!==-1){
+    } else if ($("#contactperson").value.search(/([<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//])|(\d{1,})/ig)!==-1){
         $.ajax({
             type: "POST",
             url: "HandleSupplier?action=error",
