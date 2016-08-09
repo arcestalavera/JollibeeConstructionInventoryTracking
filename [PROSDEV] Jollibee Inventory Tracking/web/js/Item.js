@@ -52,51 +52,6 @@ function editItem(id) {
     return false;
 }
 
-function checkInput(id){
-    if($("#description").value.search(/[<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//]/ig)!==-1){
-        $.ajax({
-            type: "POST",
-            url: "HandleItem?action=error",
-            data: $(".add-items-form").serialize(),
-            success: function(html){
-                $("#description").value = "";
-                $("#error").show();
-                $("#error").text("Special characters not allowed in description. Please rewrite.");
-            }
-        });
-    } else if ($("#name").value.search(/([<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//])|(\d{1,})/ig)!==-1){
-        $.ajax({
-            type: "POST",
-            url: "HandleItem?action=error",
-            data: $(".add-items-form").serialize(),
-            success: function(html){
-                $("#name").value = "";
-                $("#error").show();
-                $("#error").text("Special characters not allowed in name. Please rewrite.");
-            }
-        });
-    } else if ($("#unitofmeasure").value.search(/[<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',?//]|(\b[.]{2})/ig)!==-1){
-        $.ajax({
-            type: "POST",
-            url: "HandleItem?action=error",
-            data: $(".add-items-form").serialize(),
-            success: function(html){
-                $("#unitofmeasure").value = "";
-                $("#error").show();
-                $("#error").text("Special characters not allowed in unit of measure. Please rewrite.");
-            }
-        });
-    } else if (id>=0){
-        $("#error").hide();
-        $("#error").text("");
-        editItem(id);   
-    } else if (id==-1){
-        $("#error").hide();
-        $("#error").text("");
-        addItem();
-    }
-}
-
 $(document).ready(function() {
     $("#error").hide();
     $(document).on("click", "#yes-delete-item", function(e){

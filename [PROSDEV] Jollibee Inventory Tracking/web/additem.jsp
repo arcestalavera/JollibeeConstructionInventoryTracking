@@ -48,11 +48,13 @@
                 <%
                     if (action.equals("add")) {
                 %>
-                <form id="add-item-form" class = "add-items-form" onsubmit = "return checkInput(-1)" method = "POST">
+                <!--<form id="add-item-form" class = "add-items-form" onsubmit = "return checkInput(-1)" method = "POST">-->
+                <form id="add-item-form" class = "add-items-form" onsubmit = "return addItem()" method = "POST">
                     <%
                     } else if (action.equals("edit")) {
                     %>
-                    <form id="add-item-form" class = "add-items-form" onsubmit = "return checkInput(<%=item.getItemID()%>)" method = "POST">
+                    <!--<form id="add-item-form" class = "add-items-form" onsubmit = "return checkInput(<%=item.getItemID()%>)" method = "POST">-->
+                    <form id="add-item-form" class = "add-items-form" onsubmit = "return editItem(<%=item.getItemID()%>)" method = "POST">
                         <%
                             }
                         %>

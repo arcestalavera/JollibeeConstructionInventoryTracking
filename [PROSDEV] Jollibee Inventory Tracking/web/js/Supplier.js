@@ -1,4 +1,5 @@
 var name, id, count;
+var error = false;
 
 // -- ajax to add supplier ------
 function addSupplier() {
@@ -53,74 +54,11 @@ function editSupplier(id){
     return false;
 }
 
-function checkInput(id){
-    if($("#name").value.search(/([<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//])|(\d{1,})/ig)!==-1){
-        $.ajax({
-            type: "POST",
-            url: "HandleSupplier?action=error",
-            data: $(".add-supplier-form").serialize(),
-            success: function(html){
-                $("#name").value = "";
-                $("#error").show();
-                $("#error").text("Special characters not allowed in name. Please rewrite.");
-            }
-        });
-    } else if ($("#location").value.search(/[<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//]/ig)!==-1){
-        $.ajax({
-            type: "POST",
-            url: "HandleSupplier?action=error",
-            data: $(".add-supplier-form").serialize(),
-            success: function(html){
-                $("#location").value = "";
-                $("#error").show();
-                $("#error").text("Special characters not allowed in name. Please rewrite.");
-            }
-        });
-    } else if ($("#number").value.search(/^(\d{10,11})+/ig)!==-1){
-        $.ajax({
-            type: "POST",
-            url: "HandleSupplier?action=error",
-            data: $(".add-supplier-form").serialize(),
-            success: function(html){
-                $("#number").value = "";
-                $("#error").show();
-                $("#error").text("Special characters not allowed in unit of contact number. Please rewrite.");
-            }
-        });
-    } else if ($("#emailadd").value.search(/([<>])/ig)!==-1){
-        $.ajax({
-            type: "POST",
-            url: "HandleSupplier?action=error",
-            data: $(".add-supplier-form").serialize(),
-            success: function(html){
-                $("#emailadd").value = "";
-                $("#error").show();
-                $("#error").text("Special characters not allowed in email address. Please rewrite.");
-            }
-        });
-    } else if ($("#contactperson").value.search(/([<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//])|(\d{1,})/ig)!==-1){
-        $.ajax({
-            type: "POST",
-            url: "HandleSupplier?action=error",
-            data: $(".add-supplier-form").serialize(),
-            success: function(html){
-                $("#contactperson").value = "";
-                $("#error").show();
-                $("#error").text("Special characters not allowed in contact person. Please rewrite.");
-            }
-        });
-    } else if (id>=0){
-        $("#error").hide();
-        $("#error").text("");
-        editSupplier(id);   
-    } else if (id==-1){
-        $("#error").hide();
-        $("#error").text("");
-        addSupplier();
-    }
-}
-
 $(document).ready(function() {
+    if (error===false)
+        $("#error").hide();
+    else $("#error").show();
+    
     $(document).on("click", "#yes-delete", function(e) {
         name = $(this).attr('name');
         id = name.substr(1, name.indexOf("-") - 1);

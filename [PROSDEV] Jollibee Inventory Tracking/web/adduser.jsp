@@ -6,7 +6,12 @@
 <script type = "text/javascript" src = "js/jquery.js"></script>
 <script type = "text/javascript" src = "js/User.js"></script>
 <%
-    String action = request.getSession().getAttribute("action").toString();
+    String action;
+    try {
+        action = request.getSession().getAttribute("action").toString();
+    } catch (NullPointerException ex){
+        action = "add";
+    }
     User user = new User();
     String label = null;
     if (action.equals("edit")) {
@@ -41,16 +46,16 @@
                 <div id="error" class="alert alert-warning">
                 </div>
                 
-                <div id = "add-user-div" class="row">
+                <div id = "add-users-div" class="row">
                     <div class="col-lg-12">
                         <%
                             if (action.equals("add")) {
                         %>
-                        <form id="add-user-form" class = "add-users-form" onsubmit = "return addItem()" method = "POST">
+                        <form id="add-user-form" class = "add-users-form" onsubmit = "return addUser()" method = "POST">
                             <%
                             } else if (action.equals("edit")) {
                             %>
-                            <form id="add-user-form" class = "add-users-form" onsubmit = "return editItem(<%=user.getUserID()%>)" method = "POST">
+                            <form id="add-user-form" class = "add-users-form" onsubmit = "return editUser(<%=user.getUserID()%>)" method = "POST">
                                 <%
                                     }
                                 %>
@@ -80,6 +85,15 @@
                                         }
                                     %>
                                 </div><!-- end of .form-group -->
+                                <div class="form-group">
+                                    <label>User type</label>
+                                    <select id="utype" class="form-control">
+                                        <option value="0" selected>Administrator</option>
+                                        <option value="1">Inventory Manager</option>
+                                        <option value="2">External Officer for Supplier</option>
+                                        <option value="3">API Client</option>
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <label>Password</label>
                                     <%                if (action.equals("add")) {

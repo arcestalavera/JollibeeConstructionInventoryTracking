@@ -37,7 +37,7 @@ public class HandleSupplier extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         Database db = Database.getInstance();
-        String action, name, location, contactNo, emailAdd, contactPerson, type;
+        String action, name, location, contactNo, emailAdd, contactPerson, type, error;
         int id;
         
         Supplier supplier = new Supplier();
@@ -45,16 +45,19 @@ public class HandleSupplier extends HttpServlet {
 
         switch (action) {
             case "add":
-                name = request.getParameter("name");
-                location = request.getParameter("location");
-                contactNo = request.getParameter("contactno");
-                emailAdd = request.getParameter("emailadd");
-                contactPerson = request.getParameter("contactperson");
+                error = request.getParameter("error");
+                if (error=="no"){
+                    name = request.getParameter("name");
+                    location = request.getParameter("location");
+                    contactNo = request.getParameter("contactno");
+                    emailAdd = request.getParameter("emailadd");
+                    contactPerson = request.getParameter("contactperson");
 
-                db.addSupplier(name, location, contactNo, emailAdd, contactPerson);
-                System.out.println("name = " + name);
-                out.write("<p id = \"add-warehouse-message\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">Supplier <i>"
-                        + name + "</i> has been added! </p>");
+                    db.addSupplier(name, location, contactNo, emailAdd, contactPerson);
+                    System.out.println("name = " + name);
+                    out.write("<p id = \"add-warehouse-message\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">Supplier <i>"
+                            + name + "</i> has been added! </p>");
+                }
                 break;
             case "deleteFrmList":
                 id = Integer.parseInt(request.getParameter("id"));
@@ -69,17 +72,20 @@ public class HandleSupplier extends HttpServlet {
                 response.sendRedirect("Supplier");
                 break;
             case "edit":
-                id = Integer.parseInt(request.getParameter("id"));
-                name = request.getParameter("name");
-                location = request.getParameter("location");
-                contactNo = request.getParameter("contactno");
-                emailAdd = request.getParameter("emailadd");
-                contactPerson = request.getParameter("contactperson");
-                
-                db.editSupplier(id, name, location, contactNo, emailAdd, contactPerson);
-                
-                out.write("<p id = \"add-warehouse-message\" style=\"font-size: 16px; color: green; margin: 0px\" align=\"center\"> Supplier<i>"
-                        + "</i> has been updated!</p>");
+                error = request.getParameter("error");
+                if (error=="no"){
+                    id = Integer.parseInt(request.getParameter("id"));
+                    name = request.getParameter("name");
+                    location = request.getParameter("location");
+                    contactNo = request.getParameter("contactno");
+                    emailAdd = request.getParameter("emailadd");
+                    contactPerson = request.getParameter("contactperson");
+
+                    db.editSupplier(id, name, location, contactNo, emailAdd, contactPerson);
+
+                    out.write("<p id = \"add-warehouse-message\" style=\"font-size: 16px; color: green; margin: 0px\" align=\"center\"> Supplier<i>"
+                            + "</i> has been updated!</p>");
+                }
                 break;
             case "redirect":
                 type = request.getParameter("type");
@@ -94,10 +100,6 @@ public class HandleSupplier extends HttpServlet {
                     supplier = db.getSupplierDetails(id, false);
                     request.getSession().setAttribute("supplier", supplier);
                 }
-                reqDispatcher.forward(request, response);
-                break;
-            case "error":
-                reqDispatcher = request.getRequestDispatcher("addsupplier.jsp");
                 reqDispatcher.forward(request, response);
                 break;
         }

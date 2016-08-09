@@ -4,16 +4,16 @@
  * and open the template in the editor.
  */
 
-var name, id, count;
+var uname, id, password, fullname;
 
-// -- ajax to add supplier ------
+// -- ajax to add user ------
 function addUser() {
     $.ajax({
         type: "POST",
         url: "HandleUser?action=add",
-        data: $(".add-users-form").serialize(),
+        data: $(".add-user-form").serialize(),
         success: function(html) {
-            $("#add-user-div").prepend(html);
+            $("#add-users-div").prepend(html);
             $("#uname").val("");
             $("#name").val("");
             $("#password").val("");
@@ -50,22 +50,22 @@ function editUser(id) {
     $.ajax({
         type: "POST",
         url: "HandleUser?action=edit&id=" + id,
-        data: $(".add-users-form").serialize(),
+        data: $(".add-user-form").serialize(),
         success: function(html) {
-            $("#add-user-div").prepend(html);
+            $("#add-users-div").prepend(html);
         }
     });
     return false;
 }
 
 function checkInput(id){
-    if($("#description").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
+    if($("#uname").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
         $.ajax({
             type: "POST",
             url: "HandleUser?action=error",
-            data: $(".add-items-form").serialize(),
+            data: $(".add-user-form").serialize(),
             success: function(html){
-                $("#description").value = "";
+                $("#uname").value = "";
                 $("#error").show();
                 $("#error").text("Special characters not allowed in description. Please rewrite.");
             }
@@ -73,19 +73,19 @@ function checkInput(id){
     } else if ($("#name").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
         $.ajax({
             type: "POST",
-            url: "HandleItem?action=error",
-            data: $(".add-items-form").serialize(),
+            url: "HandleUser?action=error",
+            data: $(".add-user-form").serialize(),
             success: function(html){
                 $("#name").value = "";
                 $("#error").show();
                 $("#error").text("Special characters not allowed in name. Please rewrite.");
             }
         });
-    } else if ($("#unitofmeasure").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
+    } else if ($("#password").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
         $.ajax({
             type: "POST",
-            url: "HandleItem?action=error",
-            data: $(".add-items-form").serialize(),
+            url: "HandleUser?action=error",
+            data: $(".add-user-form").serialize(),
             success: function(html){
                 $("#unitofmeasure").value = "";
                 $("#error").show();
