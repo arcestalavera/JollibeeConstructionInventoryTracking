@@ -1,10 +1,11 @@
 var name, id, count;
+var error = false;
 
 // -- ajax to add supplier ------
 function addSupplier() {
     $.ajax({
         type: "POST",
-        url: "HandleSupplier?action=add",
+        url: "HandleSupplier?action=add&error=no",
         data: $(".add-supplier-form").serialize(),
         success: function(html) {
             $("#add-supplier-div").prepend(html);
@@ -44,7 +45,7 @@ function deleteSupplierFromList() {
 function editSupplier(id){
     $.ajax({
         type: "POST",
-        url: "HandleSupplier?action=edit&id="+id,
+        url: "HandleSupplier?action=edit&error=no&id="+id,
         data: $(".add-suppliers-form").serialize(),
         success: function(html){
             $("#add-suppliers-div").prepend(html);
@@ -53,74 +54,94 @@ function editSupplier(id){
     return false;
 }
 
-function checkInput(id){
-    if($("#name").value.search(/([<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//])|(\d{1,})/ig)!==-1){
+function checkInput(id, type){
+    var url = "";
+    if(id==-1){
+        url = "HandleSupplier?action=add&error=yes";
+    } else if (id!=-1){
+        url = "HandleSupplier?action=edit&error=yes&id=" + id;
+    }
+    if($("#name").val().search(/([<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//])|(\d{1,})/ig)!==-1){
         $.ajax({
             type: "POST",
-            url: "HandleSupplier?action=error",
+            url: url,
             data: $(".add-supplier-form").serialize(),
             success: function(html){
-                $("#name").value = "";
-                $("#error").show();
+//                $("#name").value = "";
+//                $("#error").show();
                 $("#error").text("Special characters not allowed in name. Please rewrite.");
             }
         });
-    } else if ($("#location").value.search(/[<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//]/ig)!==-1){
+        error = true;
+    }
+    if ($("#location").val().search(/[<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//]/ig)!==-1){
         $.ajax({
             type: "POST",
-            url: "HandleSupplier?action=error",
+            url: url,
             data: $(".add-supplier-form").serialize(),
             success: function(html){
-                $("#location").value = "";
-                $("#error").show();
+//                $("#location").value = "";
+//                $("#error").show();
                 $("#error").text("Special characters not allowed in name. Please rewrite.");
             }
         });
-    } else if ($("#number").value.search(/^(\d{10,11})+/ig)!==-1){
+        error = true;
+    }
+    if ($("#number").val().search(/^(\d{10,11})+/ig)!==-1){
         $.ajax({
             type: "POST",
-            url: "HandleSupplier?action=error",
+            url: url,
             data: $(".add-supplier-form").serialize(),
             success: function(html){
-                $("#number").value = "";
-                $("#error").show();
+//                $("#number").value = "";
+//                $("#error").show();
                 $("#error").text("Special characters not allowed in unit of contact number. Please rewrite.");
             }
         });
-    } else if ($("#emailadd").value.search(/([<>])/ig)!==-1){
+        error = true;
+    }
+    if ($("#emailadd").val().search(/([<>])/ig)!==-1){
         $.ajax({
             type: "POST",
-            url: "HandleSupplier?action=error",
+            url: url,
             data: $(".add-supplier-form").serialize(),
             success: function(html){
-                $("#emailadd").value = "";
-                $("#error").show();
+//                $("#emailadd").value = "";
+//                $("#error").show();
                 $("#error").text("Special characters not allowed in email address. Please rewrite.");
             }
         });
-    } else if ($("#contactperson").value.search(/([<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//])|(\d{1,})/ig)!==-1){
+        error = true;
+    }
+    if ($("#contactperson").val().search(/([<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//])|(\d{1,})/ig)!==-1){
         $.ajax({
             type: "POST",
-            url: "HandleSupplier?action=error",
+            url: url,
             data: $(".add-supplier-form").serialize(),
             success: function(html){
-                $("#contactperson").value = "";
-                $("#error").show();
+//                $("#contactperson").value = "";
+//                $("#error").show();
                 $("#error").text("Special characters not allowed in contact person. Please rewrite.");
             }
         });
-    } else if (id>=0){
-        $("#error").hide();
+    }
+    if (id>=0 && !error){
+        error = false;
         $("#error").text("");
         editSupplier(id);   
-    } else if (id==-1){
-        $("#error").hide();
+    }
+    if (id==-1 && !error){
+        error = false;
         $("#error").text("");
         addSupplier();
     }
 }
 
 $(document).ready(function() {
+    if (error===false)
+        $("#error").hide();
+    else $("#error").show();
+    
     $(document).on("click", "#yes-delete", function(e) {
         name = $(this).attr('name');
         id = name.substr(1, name.indexOf("-") - 1);
