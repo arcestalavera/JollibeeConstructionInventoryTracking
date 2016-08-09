@@ -49,7 +49,7 @@ public class HandleLogin extends HttpServlet {
 
         String username = request.getParameter("username");
         String tempPass = request.getParameter("password");
-        
+
         String s1, s2, password;
         s1 = sec.createSalt(username, 1);
         s2 = sec.createSalt(username, 2);
@@ -84,8 +84,10 @@ public class HandleLogin extends HttpServlet {
                 dos.flush();
                 dos.close();
                 request.getSession().setAttribute("token", token);
+                reqDispatcher = request.getRequestDispatcher("apihome.jsp");
+            } else {
+                reqDispatcher = request.getRequestDispatcher("homepage.jsp");
             }
-            reqDispatcher = request.getRequestDispatcher("homepage.jsp");
         }
         reqDispatcher.forward(request, response);
     }
