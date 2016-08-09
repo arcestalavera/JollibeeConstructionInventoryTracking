@@ -3,6 +3,87 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+function checkName(name){
+    if(name.search(/([<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//])|(\d{1,})/ig)!==-1)
+        return 0;
+    else return 1;
+}
+
+function checkLocation(loc){
+    if (loc.search(/[<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//]/ig)!==-1)
+        return 0;
+    else return 1;
+}
+
+function checkNumber(num){
+    if (num.search(/^(\d{10,11})+/ig)!==-1)
+        return 0;
+    else return 1;
+}
+
+function checkEmailAdd(email){
+    if(email.search(/([<>])/ig)!==-1)
+        return 0;
+    else return 1;
+}
+
+function checkContactPerson(contact){
+    if(contact.search(/([<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//])|(\d{1,})/ig)!==-1)
+        return 0;
+    else return 1;
+}
+
+function checkInput(id, form){
+    var url = "";
+    if(id==-1 && (!checkName($("#name").val())
+        || !checkLocation($("#location").val())
+        || !checkNumber($("#number").val()) 
+        || !checkEmailAdd($("#emailadd").val())
+        || !checkContactPerson($("#contactperson").val()))){
+        error = true;
+        url = "HandleSupplier?action=add&error=yes";
+    } else if (id!=-1 && (!checkName($("#name").val())
+        || !checkLocation($("#location").val())
+        || !checkNumber($("#number").val()) 
+        || !checkEmailAdd($("#emailadd").val())
+        || !checkContactPerson($("#contactperson").val()))){
+        error = true;
+        url = "HandleSupplier?action=edit&error=yes&id=" + id;
+    }
+    
+    if(error){
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: $(".add-supplier-form").serialize(),
+            success: function(html){
+//                $("#name").value = "";
+//                error = true;
+                $("#error").text("Please input the correct entries.");
+                $("#error").show();
+                if(!checkName($("#name").val()))
+                    $("#name").css();
+                if(!checkLocation($("#location").val()))
+                    $("#location").css();
+                if(!checkNumber($("#number").val()))
+                    $("#number").css();
+                if(!checkEmailAdd($("#emailadd").val()))
+                    $("#emailadd").css();
+                if(!checkContactPerson($("#contactperson").val()))
+                    $("#contactperson").css();
+            }
+        });
+        
+    } else if (id>=0 && !error){
+        error = false;
+        $("#error").text("");
+        editSupplier(id);   
+    }else if (id==-1 && !error){
+        error = false;
+        $("#error").text("");
+        addSupplier();
+    }
+}
 
 $(document).ready(function() {
     var id, status;
