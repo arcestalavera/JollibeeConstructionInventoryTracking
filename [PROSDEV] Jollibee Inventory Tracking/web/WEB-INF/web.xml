@@ -69,7 +69,7 @@
         <servlet-class>Servlets.HandleUser</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>User</servlet-name>
+        <servlet-name>ViewUser</servlet-name>
         <servlet-class>Servlets.ViewUser</servlet-class>
     </servlet>
     <servlet-mapping>
@@ -141,7 +141,7 @@
         <url-pattern>/HandleUser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>User</servlet-name>
+        <servlet-name>ViewUser</servlet-name>
         <url-pattern>/User</url-pattern>
     </servlet-mapping>
     <session-config>
