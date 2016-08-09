@@ -1,7 +1,7 @@
 <%@page import="Models.User"%>
 <%@ include file="header.html"%>
-<%@ include file="topnav.html"%>
-<%@ include file="leftnav.html" %>
+<%@ include file="topnav.jsp"%>
+<%@ include file="leftnav.jsp"%>
 
 <script type = "text/javascript" src = "js/jquery.js"></script>
 <script type = "text/javascript" src = "js/User.js"></script>
@@ -12,7 +12,7 @@
     } catch (NullPointerException ex){
         action = "add";
     }
-    User user = new User();
+    //User user = new User();
     String label = null;
     if (action.equals("edit")) {
         user = (User) request.getSession().getAttribute("user");
@@ -87,7 +87,7 @@
                                 </div><!-- end of .form-group -->
                                 <div class="form-group">
                                     <label>User type</label>
-                                    <select id="utype" class="form-control">
+                                    <select id="utype" name="utype" class="form-control">
                                         <option value="0" selected>Administrator</option>
                                         <option value="1">Inventory Manager</option>
                                         <option value="2">External Officer for Supplier</option>

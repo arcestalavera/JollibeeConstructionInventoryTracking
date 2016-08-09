@@ -1,8 +1,8 @@
 <%@page import="Models.User"%>
 <%@page import="java.util.ArrayList"%>
 <%@ include file="header.html" %>
-<%@ include file="topnav.html" %>
-<%@ include file="leftnav.html" %>
+<%@ include file="topnav.jsp" %>
+<%@ include file="leftnav.jsp" %>
 
 <script type ="text/javascript">
     function redirect(id) {
@@ -20,7 +20,7 @@
 <script type = "text/javascript" src = "js/User.js"></script>
 <%
     ArrayList<User> userList = (ArrayList<User>) request.getSession().getAttribute("users");
-    User user;
+//    User user;
 %>
 <div id="page-wrapper">
 

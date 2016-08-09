@@ -33,11 +33,11 @@
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-                    </li> -->
+                    </li>
                     <li>
                         <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
                     </li>
-                    <li class="divider"></li>
+                    <li class="divider"></li>-->
                     <li>
                         <a href="HandleLogout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                     </li>
