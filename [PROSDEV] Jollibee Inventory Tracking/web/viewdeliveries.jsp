@@ -63,6 +63,7 @@
                                 for (int i = 0; i < deliveryList.size(); i++) {
                                     delivery = deliveryList.get(i);
                                     item = delivery.getItem();
+                                    String status = delivery.getStatus();
                             %>
                             <tr>
                                 <td><%=(i + 1)%></td>
@@ -71,6 +72,20 @@
                                 <td style="width: 20%;"><button type="button" class="btn btn-link name" onclick = "redirect('i<%=item.getItemID()%>')"><%=item.getName()%></button></td>
                                 <td style="width: 20%;"><%=item.getCount()%></td>
                                 <td style="width: 20%;"><%=delivery.getStatus()%></td>
+                                <td style="white-space: no-wrap">
+                                    <!--<a class="edit-button">
+                                        <i class="fa fa-edit"></i>
+                                    </a>-->
+                                    <%
+                                        if (status.equals("Pending") || status.equals("In Transit")) {
+                                    %>
+                                    <a class = "edit-button" name="d<%=delivery.getDeliveryID()%>" title="Cancel Delivery"  id="activate-modal" class="activate-modal" data-toggle="modal" data-target="#requestmodal" data-verdict="cancel">
+                                        <i class="fa fa-ban"></i>
+                                    </a>
+                                    <%
+                                        }
+                                    %>
+                                </td>
                             </tr>
                             <%
                                 }
