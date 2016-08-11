@@ -39,7 +39,7 @@ public class Database {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             String host = "jdbc:mysql://127.0.0.1:3306/inventory_tracking?user=root";
             String uUser = "root";
-            String uPass = "admin";
+            String uPass = "";
 
             con = DriverManager.getConnection(host, uUser, uPass);
             
@@ -424,6 +424,8 @@ public class Database {
                 warehouse.setWarehouseID(warehouseID);
                 warehouse.setLocation(location);
                 warehouse.setName(name);
+                
+                warehouse.setItemList(new ArrayList<Item>());
                 item = getItemDetails(itemID, false);
                 item.setCount(count);
 

@@ -51,7 +51,10 @@ public class ViewItem extends HttpServlet {
             int iid = Integer.parseInt(id);
             item = db.getItemDetails(iid, false);
             System.out.println("ID = " + id);
-            warehouseList = db.getItemWarehouses(iid);
+            if(db.getItemWarehouses(iid)==null){
+                System.out.println("No warehouses");
+                warehouseList = null;
+            } else warehouseList = db.getItemWarehouses(iid);
             supplierList = db.getItemSuppliers(iid);
             count = db.getItemCount(iid);
             
