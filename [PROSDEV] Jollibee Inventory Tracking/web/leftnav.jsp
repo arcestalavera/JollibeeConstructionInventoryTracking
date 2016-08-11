@@ -112,7 +112,7 @@
                         </li>
                         <% 
                             }
-                            if(type==0 || type==1){
+                            if(type != 3){
                         %>
                         <li>
                             <a data-target="#requestsNav" data-toggle="collapse" href="javascript:;"> 
