@@ -41,64 +41,76 @@ public class HandleItem extends HttpServlet {
         Item item;
 
         action = request.getParameter("action");
-
-        switch (action) {
-            case "add":
-                name = request.getParameter("name");
-                unit = request.getParameter("unitofmeasure");
-                description = request.getParameter("description");
-
-                db.addItem(name, description, unit);
-                System.out.println("name = " + name);
-                out.write("<p id = \"add-warehouse-message\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">Item <i>"
-                        + name + "</i> has been added! </p>");
-                break;
-                
-            case "deleteFrmList":
-                id = Integer.parseInt(request.getParameter("id"));
-
-                db.deleteItem(id);
-                break;
-                
-            case "deleteFrmView":
-                id = Integer.parseInt(request.getParameter("id"));
-
-                db.deleteItem(id);
-                response.sendRedirect("Item");
-                break;
-                
-            case "edit":
-                id = Integer.parseInt(request.getParameter("id"));
-                name = request.getParameter("name");
-                unit = request.getParameter("unitofmeasure");
-                description = request.getParameter("description");
-                
-                db.editItem(id, name, description, unit);
-                
-                out.write("<p id = \"add-warehouse-message\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">Item <i>"
-                        + name + "</i> has been updated! </p>");
-                
-                break;
-            case "redirect":
-                type = request.getParameter("type");
-
-                if (type.equals("add")) {
-                    reqDispatcher = request.getRequestDispatcher("additem.jsp");
-                    request.getSession().setAttribute("action", "add");
-                } else if (type.equals("edit")) {
-                    reqDispatcher = request.getRequestDispatcher("additem.jsp");
-                    request.getSession().setAttribute("action", "edit");
-                    id = Integer.parseInt(request.getParameter("id"));
-                    item = db.getItemDetails(id, false);
-                    request.getSession().setAttribute("item", item);
-                }
-                reqDispatcher.forward(request, response);
-                break;
-            case "error":
-                reqDispatcher = request.getRequestDispatcher("additem.jsp");
-                reqDispatcher.forward(request, response);
-                break;
+        int userType = -1;
+        try{
+        userType = Integer.parseInt(request.getParameter("type"));
+        } catch(Exception e){
+            request.getRequestDispatcher("notfound.jsp");
         }
+
+        if(userType==1){
+            switch (action) {
+                case "add":
+                    name = request.getParameter("name");
+                    unit = request.getParameter("unitofmeasure");
+                    description = request.getParameter("description");
+
+                    db.addItem(name, description, unit);
+                    System.out.println("name = " + name);
+                    out.write("<p id = \"add-warehouse-message\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">Item <i>"
+                            + name + "</i> has been added! </p>");
+                    break;
+
+                case "deleteFrmList":
+                    id = Integer.parseInt(request.getParameter("id"));
+
+                    db.deleteItem(id);
+                    break;
+
+                case "deleteFrmView":
+                    id = Integer.parseInt(request.getParameter("id"));
+
+                    db.deleteItem(id);
+                    response.sendRedirect("Item");
+                    break;
+
+                case "edit":
+                    id = Integer.parseInt(request.getParameter("id"));
+                    name = request.getParameter("name");
+                    unit = request.getParameter("unitofmeasure");
+                    description = request.getParameter("description");
+
+                    db.editItem(id, name, description, unit);
+
+                    out.write("<p id = \"add-warehouse-message\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">Item <i>"
+                            + name + "</i> has been updated! </p>");
+
+                    break;
+                case "redirect":
+                    type = request.getParameter("type");
+
+                    if (type.equals("add")) {
+                        reqDispatcher = request.getRequestDispatcher("additem.jsp");
+                        request.getSession().setAttribute("action", "add");
+                    } else if (type.equals("edit")) {
+                        reqDispatcher = request.getRequestDispatcher("additem.jsp");
+                        request.getSession().setAttribute("action", "edit");
+                        id = Integer.parseInt(request.getParameter("id"));
+                        item = db.getItemDetails(id, false);
+                        request.getSession().setAttribute("item", item);
+                    }
+                    reqDispatcher.forward(request, response);
+                    break;
+                case "error":
+                    reqDispatcher = request.getRequestDispatcher("additem.jsp");
+                    reqDispatcher.forward(request, response);
+                    break;
+            }
+        } else {
+            reqDispatcher = request.getRequestDispatcher("notfound.jsp");
+            reqDispatcher.forward(request, response);
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -8,6 +8,7 @@ package Servlets;
 import Database.Database;
 import Models.Item;
 import Models.Supplier;
+import Models.User;
 import Models.Warehouse;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -46,8 +47,15 @@ public class ViewItem extends HttpServlet {
         int count;
         
         String id = request.getParameter("id");
+        int userType = -1;
+        try{
+        userType = Integer.parseInt(request.getParameter("type"));
+        } catch(Exception e){
+            reqDispatcher = request.getRequestDispatcher("notfound.jsp");
+            reqDispatcher.forward(request, response);
+        }
 
-        if (id != null) {
+        if (id != null && userType==1) {
             int iid = Integer.parseInt(id);
             item = db.getItemDetails(iid, false);
             System.out.println("ID = " + id);
@@ -63,12 +71,13 @@ public class ViewItem extends HttpServlet {
             request.getSession().setAttribute("item_supplier", supplierList);
             request.getSession().setAttribute("count", count);
             reqDispatcher = request.getRequestDispatcher("itempage.jsp");
-        } else {
+        } else if(id==null && userType<3 && userType>=0){
             itemList = db.getItems(false);
 
             request.getSession().setAttribute("items", itemList);
             reqDispatcher = request.getRequestDispatcher("viewitems.jsp");
-        }
+        } else if (userType>3 || userType<0)
+            reqDispatcher = request.getRequestDispatcher("notfound.jsp");
         
         reqDispatcher.forward(request, response);
     }

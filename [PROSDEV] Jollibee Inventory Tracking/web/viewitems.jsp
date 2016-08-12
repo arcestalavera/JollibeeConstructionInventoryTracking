@@ -1,5 +1,13 @@
 <%@page import="Models.Item"%>
 <%@page import="java.util.ArrayList"%>
+<%
+    ArrayList<Item> itemList = (ArrayList<Item>) request.getSession().getAttribute("items");
+    Item item;
+    int userType = Integer.parseInt(request.getParameter("type"));
+    if(userType<0 || userType>2){
+        response.sendRedirect("notfound.jsp");
+    } else {
+%>
 <%@ include file="header.html" %>
 <%@ include file="topnav.jsp" %>
 <%@ include file="leftnav.jsp" %>
@@ -18,10 +26,6 @@
 </script>
 <script type = "text/javascript" src = "js/jquery.js"></script>
 <script type = "text/javascript" src = "js/Item.js"></script>
-<%
-    ArrayList<Item> itemList = (ArrayList<Item>) request.getSession().getAttribute("items");
-    Item item;
-%>
 <div id="page-wrapper">
 
             <div class="container-fluid">
@@ -120,3 +124,7 @@
 </div>
 
 <%@ include file="footer.html"%>
+
+<%
+    }
+%>

@@ -2,10 +2,6 @@
 <%@page import="Models.Supplier"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Models.Item"%>
-<%@ include file="header.html"%>
-<%@ include file="topnav.jsp"%>
-<%@ include file="leftnav.jsp"%>
-
 <%
     Item item = (Item) request.getSession().getAttribute("item");
     ArrayList<Warehouse> warehouseList = (ArrayList<Warehouse>) request.getSession().getAttribute("item_warehouse");
@@ -13,8 +9,14 @@
     Warehouse warehouse;
     int count = (Integer) request.getSession().getAttribute("count");
     Supplier supplier;
+    int userType = Integer.parseInt(request.getParameter("type"));
+    if(userType<0 || userType>2){
+        response.sendRedirect("notfound.jsp");
+    } else {
 %>
-
+<%@ include file="header.html"%>
+<%@ include file="topnav.jsp"%>
+<%@ include file="leftnav.jsp"%>
 <script type="text/javascript">
     function redirect(id) {
         if (id === -1) {
@@ -169,3 +171,6 @@
 
 
 <%@ include file="footer.html"%>
+<%
+    }
+%>
