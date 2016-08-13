@@ -38,7 +38,7 @@ public class HandleLogout extends HttpServlet {
         //delete token file
         File file = new File("token.dat");
         file.delete();
-        response.sendRedirect("index.html");
+        response.sendRedirect("index.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
