@@ -44,8 +44,8 @@ public class ViewSuppliers extends HttpServlet implements TokenChecker {
         Gson gson = new Gson();
         Database db = Database.getInstance();
         String id = request.getParameter("id");
-        String json;
-
+        String json = "";
+        boolean isNull = false;
         if (checkToken(request)) {
             response.setContentType("application/json");
             if (id == null) {
@@ -53,10 +53,19 @@ public class ViewSuppliers extends HttpServlet implements TokenChecker {
                 json = gson.toJson(supplierList);
             } else {
                 Supplier supplier = db.getSupplierDetails(Integer.parseInt(id), true);
-                json = gson.toJson(supplier);
+                if (supplier == null) {
+                    isNull = true;
+                } else {
+                    json = gson.toJson(supplier);
+                }
             }
-            out.write(json);
-        } else{
+            if (!isNull) {
+                out.write(json);
+            } else {
+                response.setContentType("text/html;charset=UTF-8");
+                out.write("<h2>Supplier does not exist.</h2>");
+            }
+        } else {
             response.setContentType("text/html;charset=UTF-8");
             out.write("<h2>Access Denied For Non-API Clients.</h2>");
         }
@@ -113,7 +122,7 @@ public class ViewSuppliers extends HttpServlet implements TokenChecker {
             dis.readFully(a);
             dis.close();
 
-            sToken = (String) req.getSession().getAttribute("token");
+            sToken = (String) req.getParameter("token");
             bToken = new String(a);
             if (sToken != null && sToken.equals(bToken)) {
                 canPass = true;

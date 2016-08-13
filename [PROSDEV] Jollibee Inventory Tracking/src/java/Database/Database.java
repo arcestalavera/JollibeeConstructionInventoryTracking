@@ -29,6 +29,7 @@ import java.util.logging.Logger;
  * @author Arces
  */
 public class Database {
+
     private Connection con;
     private String sql;
     private static Database databaseInstance = new Database();
@@ -39,10 +40,10 @@ public class Database {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             String host = "jdbc:mysql://127.0.0.1:3306/inventory_tracking?user=root";
             String uUser = "root";
-            String uPass = "";
+            String uPass = "admin";
 
             con = DriverManager.getConnection(host, uUser, uPass);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -424,7 +425,7 @@ public class Database {
                 warehouse.setWarehouseID(warehouseID);
                 warehouse.setLocation(location);
                 warehouse.setName(name);
-                
+
                 warehouse.setItemList(new ArrayList<Item>());
                 item = getItemDetails(itemID, false);
                 item.setCount(count);
@@ -566,11 +567,11 @@ public class Database {
     public Item getItemDetails(int itemID, boolean isForAPI) {
         Statement stmt;
         ResultSet rs;
-        Item item = new Item();
+        Item item = null;
 
         String name, description, unit;
         int count;
-        boolean isDeleted;
+        boolean isDeleted = false;
 
         try {
             stmt = con.createStatement();
@@ -582,6 +583,7 @@ public class Database {
             rs = stmt.executeQuery(sql);
 
             if (rs.next()) {
+                item = new Item();
                 name = rs.getString("name");
                 unit = rs.getString("unit");
                 description = rs.getString("description");
@@ -589,6 +591,8 @@ public class Database {
 
                 if (!isForAPI) {
                     item.setItemID(itemID);
+                } else {
+                    isDeleted = rs.getBoolean("isDeleted");
                 }
                 item.setName(name);
                 item.setDescription(description);
@@ -598,24 +602,32 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return item;
+        if (item.getName() == null) {
+            item = null;
+        }
+        if (isDeleted) {
+            return null;
+        } else {
+            return item;
+        }
     }
 
     public Supplier getSupplierDetails(int supplierID, boolean isForAPI) {
         Statement stmt;
         ResultSet rs;
-        Supplier supplier = new Supplier();
+        Supplier supplier = null;
         String name, location, contactNumber, emailAddress, contactPerson;
+        boolean isDeleted = false;
         try {
             stmt = con.createStatement();
 
             sql = "SELECT * FROM suppliers"
-                    + " WHERE supplierID = " + supplierID;
+                    + " WHERE supplierID = " + supplierID + ";";
 
             rs = stmt.executeQuery(sql);
 
             if (rs.next()) {
+                supplier = new Supplier();
                 name = rs.getString("name");
                 location = rs.getString("location");
                 contactNumber = rs.getString("contactNumber");
@@ -624,6 +636,8 @@ public class Database {
 
                 if (!isForAPI) {
                     supplier.setSupplierID(supplierID);
+                } else {
+                    isDeleted = rs.getBoolean("isDeleted");
                 }
                 supplier.setName(name);
                 supplier.setLocation(location);
@@ -634,8 +648,11 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return supplier;
+        if (isDeleted) {
+            return null;
+        } else {
+            return supplier;
+        }
     }
 
     public Warehouse getWarehouseDetails(int warehouseID, boolean isForAPI) {

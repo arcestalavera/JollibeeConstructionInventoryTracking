@@ -26,15 +26,16 @@
                     Click on either View Item, View Item Information, View Requests, View Suppliers, View Supplier Info or View Warehouses.
                 </div>
                 <!--<form id="api-request-form" class = "api-request-form" onsubmit = "" method = "POST">-->
-                    <div id="request-fill-in">
-                        <!--                        <div class="form-group">
-                                                    <label id="req-label">Request:</label>
-                                                    <input id="req" class="form-control" name="req">
-                                                </div>
-                                                <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
-                                                    <button id="submit-request" class="btn" onclick=#">Submit Request</button>
-                                                </div>-->
+                <div id="request-fill-in">
+                    <div class="form-group">
+                        <label id="req-label">Request:</label>
+                        <input type = "text" id="req" class="form-control" name="req"/>
+                        <input type = "hidden" id = "token" value = "<%=request.getAttribute("token")%>"/>
                     </div>
+                    <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
+                        <button id="submit-request" class="btn" onclick=#">Submit Request</button>
+                    </div>
+                </div>
                 <!--</form>-->    
             </div>    
             <div class="col-lg-12">
