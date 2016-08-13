@@ -47,15 +47,19 @@ public class ViewItem extends HttpServlet {
         int count;
         
         String id = request.getParameter("id");
+        
         int userType = -1;
         try{
-        userType = Integer.parseInt(request.getParameter("type"));
+        userType = (int)(request.getSession().getAttribute("type"));
+        System.out.println("userType = " + userType);
         } catch(Exception e){
             reqDispatcher = request.getRequestDispatcher("notfound.jsp");
-            reqDispatcher.forward(request, response);
         }
 
-        if (id != null && userType==1) {
+        System.out.println("userType = " + userType);
+        if (id != null && (userType==1 || userType==0)) {
+            System.out.println("seeing item info");
+            System.out.println("userType = " + userType);
             int iid = Integer.parseInt(id);
             item = db.getItemDetails(iid, false);
             System.out.println("ID = " + id);
@@ -71,15 +75,19 @@ public class ViewItem extends HttpServlet {
             request.getSession().setAttribute("item_supplier", supplierList);
             request.getSession().setAttribute("count", count);
             reqDispatcher = request.getRequestDispatcher("itempage.jsp");
-        } else if(id==null && userType<3 && userType>=0){
+        } else if(id==null && userType<=3 && userType>=0){
+            System.out.println("viewing all items");
+            System.out.println("userType = " + userType);
             itemList = db.getItems(false);
 
             request.getSession().setAttribute("items", itemList);
             reqDispatcher = request.getRequestDispatcher("viewitems.jsp");
-        } else if (userType>3 || userType<0)
+        } else if (userType>3 || userType<0){
+            System.out.println("total error");
             reqDispatcher = request.getRequestDispatcher("notfound.jsp");
+        }
         
-        reqDispatcher.forward(request, response);
+        if (reqDispatcher!=null) reqDispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -3,7 +3,7 @@
 <%
     ArrayList<Item> itemList = (ArrayList<Item>) request.getSession().getAttribute("items");
     Item item;
-    int userType = Integer.parseInt(request.getParameter("type"));
+    int userType = (int)request.getSession().getAttribute("type");
     if(userType<0 || userType>2){
         response.sendRedirect("notfound.jsp");
     } else {
