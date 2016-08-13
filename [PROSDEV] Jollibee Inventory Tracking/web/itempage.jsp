@@ -9,8 +9,8 @@
     Warehouse warehouse;
     int count = (Integer) request.getSession().getAttribute("count");
     Supplier supplier;
-    int userType = Integer.parseInt(request.getParameter("type"));
-    if(userType<0 || userType>2){
+    int userType = (int)request.getSession().getAttribute("type");
+    if(userType<0 || userType>=2){
         response.sendRedirect("notfound.jsp");
     } else {
 %>
