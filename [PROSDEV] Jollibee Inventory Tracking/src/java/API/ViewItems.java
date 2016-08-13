@@ -43,7 +43,8 @@ public class ViewItems extends HttpServlet implements TokenChecker {
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
         Database db = Database.getInstance();
-        String json;
+        String json = "";
+        boolean isNull = false;
 
         if (checkToken(request)) {
             response.setContentType("application/json");
@@ -52,9 +53,18 @@ public class ViewItems extends HttpServlet implements TokenChecker {
                 json = gson.toJson(itemList);
             } else {
                 Item item = db.getItemDetails(Integer.parseInt(id), true);
-                json = gson.toJson(item);
+                if (item == null) {
+                    isNull = true;
+                } else {
+                    json = gson.toJson(item);
+                }
             }
-            out.write(json);
+            if (!isNull) {
+                out.write(json);
+            } else {
+                response.setContentType("text/html;charset=UTF-8");
+                out.write("<h2>Item does not exist.</h2>");
+            }
         } else {
             response.setContentType("text/html;charset=UTF-8");
             out.write("<h2>Access Denied For Non-API Clients.</h2>");
@@ -112,7 +122,7 @@ public class ViewItems extends HttpServlet implements TokenChecker {
             dis.readFully(a);
             dis.close();
 
-            sToken = (String) req.getSession().getAttribute("token");
+            sToken = (String) req.getParameter("token");
             bToken = new String(a);
             if (sToken != null && sToken.equals(bToken)) {
                 canPass = true;

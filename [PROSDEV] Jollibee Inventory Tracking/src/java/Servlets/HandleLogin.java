@@ -13,6 +13,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -69,27 +71,36 @@ public class HandleLogin extends HttpServlet {
         }
 
         if (pass == false) {
-            reqDispatcher = request.getRequestDispatcher("login.html");
+            response.sendRedirect("login.html");
         } else {
-            request.getSession().setAttribute("loggedUser", user);
-            request.getSession().setAttribute("type", user.getType());
-            if (user.getType() == 3) {
-                //generate token
-                UUID uid = UUID.randomUUID();
-                String token = uid.toString().replaceAll("-", "");
-                byte[] tokenBytes = token.getBytes();
-                //store token
-                DataOutputStream dos = new DataOutputStream(new FileOutputStream("token.dat"));
-                dos.write(tokenBytes);
-                dos.flush();
-                dos.close();
-                request.getSession().setAttribute("token", token);
-                reqDispatcher = request.getRequestDispatcher("apihome.jsp");
+            //generate token
+            UUID uid = UUID.randomUUID();
+            String token = uid.toString().replaceAll("-", "");
+            byte[] tokenBytes = token.getBytes();
+
+            //store token
+            request.setAttribute("token", token);
+            DataOutputStream dos = new DataOutputStream(new FileOutputStream("token.dat"));
+            dos.write(tokenBytes);
+            dos.flush();
+            dos.close();
+            
+            if (request.getHeader("Referer") != null) {
+                request.getSession().setAttribute("loggedUser", user);
+                request.getSession().setAttribute("type", user.getType());
+                if (user.getType() == 3) {
+                    reqDispatcher = request.getRequestDispatcher("apihome.jsp");
+                } else {
+                    reqDispatcher = request.getRequestDispatcher("homepage.jsp");
+                }
+                reqDispatcher.forward(request, response);
             } else {
-                reqDispatcher = request.getRequestDispatcher("homepage.jsp");
+                response.setContentType("application/json");
+                String json = "{\"token\":\"" + token + "\"}";
+                PrintWriter out = response.getWriter();
+                out.write(json);
             }
         }
-        reqDispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -352,45 +352,33 @@ $(document).ready(function() {
     });
 
     $(document).on('click', "#view-items", function(e) {
-        var target = $("#request-fill-in");
-        target.empty();
-        target.append('<div class="form-group"><label id="req-label">Request:</label><input id="req" class="form-control"'
-                + ' name="req" value="http://localhost:8080/_PROSDEV__Jollibee_Inventory_Tracking/ViewItems"><button id="submit-request" class="btn" onclick="#">Submit Request</button></div>');
+        var target = $("#req");
+        target.val("http://localhost:8080/_PROSDEV__Jollibee_Inventory_Tracking/ViewItems?token=" + $("#token").val());
     });
 
     $(document).on('click', "#view-item-info", function(e) {
-        var target = $("#request-fill-in");
-        target.empty();
-        target.append('<div class="form-group"><label id="req-label">Request:</label><input id="req" class="form-control"'
-                + ' name="req" value="http://localhost:8080/_PROSDEV__Jollibee_Inventory_Tracking/ViewItems?id=<ID#>"><button id="submit-request" class="btn" onclick="#">Submit Request</button></div>');
+        var target = $("#req");
+        target.val("http://localhost:8080/_PROSDEV__Jollibee_Inventory_Tracking/ViewItems?token=" + $("#token").val() + "&id=<ID#>");
     });
 
     $(document).on('click', "#view-requests", function(e) {
-        var target = $("#request-fill-in");
-        target.empty();
-        target.append('<div class="form-group"><label id="req-label">Request:</label><input id="req" class="form-control"'
-                + ' name="req" value="http://localhost:8080/_PROSDEV__Jollibee_Inventory_Tracking/ViewRequests"><button id="submit-request" class="btn" onclick="#">Submit Request</button></div>');
+        var target = $("#req");
+        target.val("http://localhost:8080/_PROSDEV__Jollibee_Inventory_Tracking/ViewRequests?token=" + $("#token").val());
     });
 
     $(document).on('click', "#view-suppliers", function(e) {
-        var target = $("#request-fill-in");
-        target.empty();
-        target.append('<div class="form-group"><label id="req-label">Request:</label><input id="req" class="form-control"'
-                + ' name="req" value="http://localhost:8080/_PROSDEV__Jollibee_Inventory_Tracking/ViewSuppliers"><button id="submit-request" class="btn" onclick="#">Submit Request</button></div>');
+        var target = $("#req");
+        target.val("http://localhost:8080/_PROSDEV__Jollibee_Inventory_Tracking/ViewSuppliers?token=" + $("#token").val());
     });
 
     $(document).on('click', "#view-supplier-info", function(e) {
-        var target = $("#request-fill-in");
-        target.empty();
-        target.append('<div class="form-group"><label id="req-label">Request:</label><input id="req" class="form-control"'
-                + ' name="req" value="http://localhost:8080/_PROSDEV__Jollibee_Inventory_Tracking/ViewSuppliers?id=<id #>"><button id="submit-request" class="btn" onclick="#">Submit Request</button></div>');
+        var target = $("#req");
+        target.val("http://localhost:8080/_PROSDEV__Jollibee_Inventory_Tracking/ViewSuppliers?token=" + $("#token").val() + "&id=<ID#>");
     });
 
     $(document).on('click', "#view-warehouses", function(e) {
-        var target = $("#request-fill-in");
-        target.empty();
-        target.append('<div class="form-group"><label id="req-label">Request:</label><input id="req" class="form-control"'
-                + ' name="req" value="http://localhost:8080/_PROSDEV__Jollibee_Inventory_Tracking/ViewWarehouses"><button id="submit-request" class="btn" onclick="#">Submit Request</button></div>');
+        var target = $("#req");
+        target.val("http://localhost:8080/_PROSDEV__Jollibee_Inventory_Tracking/ViewWarehouses?token=" + $("#token").val());
     });
 
     $(document).on('click', "#submit-request", function(e) {

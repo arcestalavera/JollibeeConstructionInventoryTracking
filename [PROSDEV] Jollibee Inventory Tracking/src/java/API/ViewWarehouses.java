@@ -112,7 +112,7 @@ public class ViewWarehouses extends HttpServlet implements TokenChecker {
             dis.readFully(a);
             dis.close();
 
-            sToken = (String) req.getSession().getAttribute("token");
+            sToken = (String) req.getParameter("token");
             bToken = new String(a);
             if (sToken != null && sToken.equals(bToken)) {
                 canPass = true;
