@@ -111,11 +111,11 @@
                                 <td style="width: 18%;"><%=item.getDescription()%></td>
                                 <td style="width: 18%;"><%=item.getUnit()%></td>
                                 <td id = "d<%=delivery.getDeliveryID()%>-status" style="width: 18%;"><%=delivery.getStatus()%></td>
-                                <td id = "d<%=delivery.getDeliveryID()%>-status" style="width: 18%;"><%=delivery.getType()%></td>
+                                <td style="width: 18%;"><%=delivery.getType()%></td>
 
                                 <td id = "d<%=delivery.getDeliveryID()%>-actions" style="width: 5%;">
                                     <%
-                                        if (delivery.getType().equals("Incoming") && !delivery.getStatus().equals("Finished")) {
+                                        if (delivery.getType().equals("Incoming") && (!delivery.getStatus().equals("Finished") && !delivery.getStatus().equals("Cancelled"))) {
                                     %>
                                     <a class = "edit-button" name="d<%=delivery.getDeliveryID()%>" title="Cancel Delivery"  id="activate-modal" class="activate-modal" data-toggle="modal" data-target="#requestmodal" data-verdict="cancel">
                                         <i class="fa fa-ban"></i>
@@ -124,7 +124,7 @@
                                         }
                                     %>
                                     <%
-                                        if (!delivery.getStatus().equals("Finished")) {
+                                        if (!delivery.getStatus().equals("Finished") && !delivery.getStatus().equals("Cancelled")) {
                                     %>
                                     <a class = "edit-button" name="d<%=delivery.getDeliveryID()%>" title="Mark Delivery of <%=delivery.getItem().getName()%> as Finished"  id="activate-modal" class="activate-modal" data-toggle="modal" data-target="#requestmodal" data-verdict="finish">
                                         <i class="fa fa-check-circle"></i>

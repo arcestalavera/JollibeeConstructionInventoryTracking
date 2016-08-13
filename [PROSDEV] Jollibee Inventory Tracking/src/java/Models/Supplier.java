@@ -117,6 +117,8 @@ public class Supplier implements Serializable{
     }
     
     public void addItem(Item item){
+        if(itemList == null)
+            setItemList(new ArrayList<Item>());
         itemList.add(item);
     }    
 }

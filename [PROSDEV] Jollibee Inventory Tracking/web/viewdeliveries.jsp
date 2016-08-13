@@ -20,6 +20,8 @@
         }
     }
 </script>
+<script type = "text/javascript" src = "js/jquery.js"></script>
+<script type = "text/javascript" src = "js/Request.js"></script>
 <div id="page-wrapper">
 
     <div class="container-fluid">
@@ -51,11 +53,12 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th style="width: 20%;">Request Name of Delivery</th>
-                                <th style="width: 20%;">Type</th>
-                                <th style="width: 20%;">Item Being Delivered</th>
-                                <th style="width: 20%;">Count</th>
-                                <th style="width: 20%;">Status</th>
+                                <th style="width: 18%;">Request Name of Delivery</th>
+                                <th style="width: 18%;">Type</th>
+                                <th style="width: 18%;">Item Being Delivered</th>
+                                <th style="width: 18%;">Count</th>
+                                <th style="width: 18%;">Status</th>
+                                <th style="width: 5%;"></th>
                             </tr>
                         </thead>
                         <tbody id="deliveryTableBody">
@@ -67,20 +70,26 @@
                             %>
                             <tr>
                                 <td><%=(i + 1)%></td>
-                                <td style="width: 20%;"><button type="button" class="btn btn-link name" onclick="redirect('r<%=delivery.getRequest().getRequestID()%>')"><%=delivery.getRequest().getName()%></button></td>
-                                <td style="width: 20%;"><%=delivery.getType()%></td>
-                                <td style="width: 20%;"><button type="button" class="btn btn-link name" onclick = "redirect('i<%=item.getItemID()%>')"><%=item.getName()%></button></td>
-                                <td style="width: 20%;"><%=item.getCount()%></td>
-                                <td style="width: 20%;"><%=delivery.getStatus()%></td>
-                                <td style="white-space: no-wrap">
-                                    <!--<a class="edit-button">
-                                        <i class="fa fa-edit"></i>
-                                    </a>-->
+                                <td style="width: 18%;"><button type="button" class="btn btn-link name" onclick="redirect('r<%=delivery.getRequest().getRequestID()%>')"><%=delivery.getRequest().getName()%></button></td>
+                                <td style="width: 18%;"><%=delivery.getType()%></td>
+                                <td style="width: 18%;"><button type="button" class="btn btn-link name" onclick = "redirect('i<%=item.getItemID()%>')"><%=item.getName()%></button></td>
+                                <td style="width: 18%;"><%=item.getCount()%></td>
+                                <td id = "d<%=delivery.getDeliveryID()%>-status" style="width: 18%;"><%=delivery.getStatus()%></td>
+                                <td id = "d<%=delivery.getDeliveryID()%>-actions" style="width: 5%;">
                                     <%
-                                        if (status.equals("Pending") || status.equals("In Transit")) {
+                                        if (delivery.getType().equals("Incoming") && (!delivery.getStatus().equals("Finished") && !delivery.getStatus().equals("Cancelled"))) {
                                     %>
                                     <a class = "edit-button" name="d<%=delivery.getDeliveryID()%>" title="Cancel Delivery"  id="activate-modal" class="activate-modal" data-toggle="modal" data-target="#requestmodal" data-verdict="cancel">
                                         <i class="fa fa-ban"></i>
+                                    </a>
+                                    <%
+                                        }
+                                    %>
+                                    <%
+                                        if (!delivery.getStatus().equals("Finished") && !delivery.getStatus().equals("Cancelled")) {
+                                    %>
+                                    <a class = "edit-button" name="d<%=delivery.getDeliveryID()%>" title="Mark Delivery of <%=delivery.getItem().getName()%> as Finished"  id="activate-modal" class="activate-modal" data-toggle="modal" data-target="#requestmodal" data-verdict="finish">
+                                        <i class="fa fa-check-circle"></i>
                                     </a>
                                     <%
                                         }
@@ -99,9 +108,7 @@
 
         </div>
         <!-- /.row -->
-
-
-        <div class="modal fade" id="deliveriesmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
+        <div class="modal fade" id="requestmodal" tabindex="-1" role="dialog" aria-labelledby="messageModal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
@@ -112,5 +119,4 @@
                 </div>
             </div>
         </div>
-
         <%@ include file="footer.html"%>
