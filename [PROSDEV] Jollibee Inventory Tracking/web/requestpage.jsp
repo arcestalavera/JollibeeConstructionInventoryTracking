@@ -5,20 +5,20 @@
 <%@page import="Models.Supplier"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Models.Item"%>
-<%@ include file="header.html"%>
+<%@ include file="scratch/header.html"%>
 <%@ include file="topnav.jsp"%>
-<%@ include file="leftnav.jsp"%>
 
 <%
-    Request req = (Request) request.getSession().getAttribute("request");
-    ArrayList<Delivery> deliveryList = req.getDeliveryList();
-    Warehouse sourceWarehouse = req.getSourceWarehouse();
-    Warehouse destWarehouse = req.getDestWarehouse();
-    Item item;
-    Delivery delivery;
-    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+    if(user!=null){
+        Request req = (Request) request.getSession().getAttribute("request");
+        ArrayList<Delivery> deliveryList = req.getDeliveryList();
+        Warehouse sourceWarehouse = req.getSourceWarehouse();
+        Warehouse destWarehouse = req.getDestWarehouse();
+        Item item;
+        Delivery delivery;
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 %>
-
+<%@ include file="leftnav.jsp"%>
 <script type = "text/javascript" src = "js/jquery.js"></script>
 <script type = "text/javascript" src = "js/Request.js"></script>
 <script>
@@ -154,4 +154,7 @@
                 </div>
             </div>
         </div>
-        <%@ include file="footer.html"%>
+        <%@ include file="scratch/footer.html"%>
+<% 
+    } //else response.sendRedirect("index.jsp");
+%>

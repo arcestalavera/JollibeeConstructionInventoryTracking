@@ -1,4 +1,13 @@
-<%    int type = (int) request.getSession().getAttribute("type");
+<%@page import="Models.User"%>
+<%    
+    User ucheck = null;
+    try{
+        ucheck = (User)request.getSession().getAttribute("loggedUser");
+    } catch (Exception e){
+        response.sendRedirect("index.jsp");
+    }
+    if(ucheck!=null){
+        int type = (int) request.getSession().getAttribute("type");
 %>
 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 
@@ -148,3 +157,6 @@
                 </div>
                 <!-- /.navbar-collapse -->
             </nav>
+<%
+    } else response.sendRedirect("index.jsp");
+%>

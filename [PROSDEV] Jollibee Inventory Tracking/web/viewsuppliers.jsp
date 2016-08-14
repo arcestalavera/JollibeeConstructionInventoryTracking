@@ -1,7 +1,11 @@
 <%@page import="Models.Supplier"%>
 <%@page import="java.util.ArrayList"%>
-<%@ include file="header.html" %>
+<%@ include file="scratch/header.html" %>
 <%@ include file="topnav.jsp" %>
+<%
+    if(user!=null){
+        int uType = (int) request.getSession().getAttribute("type");
+%>
 <%@ include file="leftnav.jsp" %>
 
 <script type ="text/javascript">
@@ -46,7 +50,7 @@
 
                 <!-- Page Content -->
                 <% 
-                    if (type==1){
+                    if (uType==1){
                 %>
                 <div class="row">
                     <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
@@ -87,7 +91,7 @@
                                         <td style="text-align: right;"><%=supplier.getEmailAddress()%></td>
                                         <td style="text-align: right;"><%=supplier.getContactPerson()%></td>
                                         <% 
-                                            if(type==1){
+                                            if(uType==1){
                                         %>
                                         <td id="supplier-actions" style="white-space: nowrap">
                                             <a class="edit-button" onclick="edit(<%= supplier.getSupplierID()%>)">
@@ -124,4 +128,7 @@
                         </div>
                     </div>
                 </div>
-                <%@ include file="footer.html"%>
+                <%@ include file="scratch/footer.html"%>
+<%
+    } //else response.sendRedirect("index.jsp");
+%>

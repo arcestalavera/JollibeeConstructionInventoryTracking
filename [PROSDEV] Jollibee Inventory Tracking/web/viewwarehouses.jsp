@@ -1,8 +1,11 @@
 <%@page import="Database.Database"%>
 <%@page import="Models.Warehouse"%>
 <%@page import="java.util.ArrayList"%>
-<%@ include file="header.html" %>
+<%@ include file="scratch/header.html" %>
 <%@ include file="topnav.jsp" %>
+<%
+    if(user!=null){
+%>
 <%@ include file="leftnav.jsp" %>
 
 <script type="text/javascript">
@@ -86,4 +89,7 @@
                         </div>
                     </div>
 
-        <%@ include file="footer.html"%>
+        <%@ include file="scratch/footer.html"%>
+<%
+        } //else response.sendRedirect("index.jsp");
+%>

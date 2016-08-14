@@ -5,8 +5,11 @@
 <%@page import="Models.Supplier"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Models.Item"%>
-<%@ include file="header.html"%>
+<%@ include file="scratch/header.html"%>
 <%@ include file="topnav.jsp"%>
+<%
+    if(user!=null){
+%>
 <%@ include file="leftnav.jsp"%>
 <script>
     function redirect(id) {
@@ -108,4 +111,7 @@
                 </div>
             </div>
         </div>
-        <%@ include file="footer.html"%>
+        <%@ include file="scratch/footer.html"%>
+<%
+    } //else response.sendRedirect("index.jsp");
+%>

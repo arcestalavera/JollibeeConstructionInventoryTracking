@@ -1,5 +1,8 @@
-<%@include file="header.html"%>
+<%@include file="scratch/header.html"%>
 <%@include file="topnav.jsp"%>
+<%
+    if(user!=null){
+%>
 <%@include file="leftnav.jsp"%>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -35,21 +38,11 @@
                     </div>
                 </div>
 
-            </div>
-            <!-- /.container-fluid -->
-
-        </div>
-        <!-- /#page-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+            <%@include file="scratch/footer.html"%>
 
 </body>
 
 </html>
+<%
+    } //else response.sendRedirect("index.jsp");
+%>

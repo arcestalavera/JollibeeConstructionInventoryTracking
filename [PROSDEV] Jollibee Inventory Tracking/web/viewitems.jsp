@@ -1,5 +1,7 @@
 <%@page import="Models.Item"%>
 <%@page import="java.util.ArrayList"%>
+<%@ include file="scratch/header.html" %>
+<%@ include file="topnav.jsp" %>
 <%
     ArrayList<Item> itemList = (ArrayList<Item>) request.getSession().getAttribute("items");
     Item item;
@@ -8,8 +10,6 @@
         response.sendRedirect("notfound.jsp");
     } else {
 %>
-<%@ include file="header.html" %>
-<%@ include file="topnav.jsp" %>
 <%@ include file="leftnav.jsp" %>
 
 <script type ="text/javascript">
@@ -51,7 +51,7 @@
 <div class="row viewitemcontent">
 
     <% 
-        if (type==1){
+        if (userType==1){
     %>
     <div class="row">
         <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
@@ -85,7 +85,7 @@
                         <td><button type="button" class="btn btn-link name" onclick = "redirect(<%=item.getItemID()%>)"><%=item.getName()%></button></td>
                         <td style="text-align: right;"><%=item.getUnit()%></td>
                         <% 
-                            if (type==1){
+                            if (userType==1){
                         %>
                         <td id = "item-actions" style="white-space: nowrap">
                             <a class="edit-button" onclick="edit(<%=item.getItemID()%>)">
@@ -123,7 +123,7 @@
     </div>
 </div>
 
-<%@ include file="footer.html"%>
+<%@ include file="scratch/footer.html"%>
 
 <%
     }

@@ -1,5 +1,8 @@
-<%@include file="header.html"%>
+<%@include file="scratch/header.html"%>
 <%@include file="topnav.jsp"%>
+<%
+    if(user!=null){
+%>
 <%@include file="leftnav.jsp"%>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/customjs.js"></script>
@@ -50,4 +53,7 @@
             </div>
         </div>
 
-        <%@ include file="footer.html"%>
+        <%@ include file="scratch/footer.html"%>
+<%
+    } //else response.sendRedirect("index.jsp");
+%>
