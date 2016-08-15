@@ -75,6 +75,7 @@ function checkValues(){
     
     var error = $("#error");
     
+    error.empty();
     if (username.search(/[<>&\=;"'.?//]/ig) !== -1){   
         valid = false;
         error.append("<p>Please enter a proper username.</p><br/>");
