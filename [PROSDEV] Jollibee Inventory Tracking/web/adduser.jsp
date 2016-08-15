@@ -88,14 +88,47 @@
                                         }
                                     %>
                                 </div><!-- end of .form-group -->
-                                <div class="form-group">
+                                 <div class="form-group">
                                     <label>User type</label>
-                                    <select id="utype" name="utype" class="form-control">
-                                        <option value="0" selected>Administrator</option>
-                                        <option value="1">Inventory Manager</option>
-                                        <option value="2">External Officer for Supplier</option>
-                                        <option value="3">API Client</option>
-                                    </select>
+                                    <% if (action.equals("edit")) { 
+                                            if (user.getType() == 0) { %>
+                                        <select id="utype" class="form-control">
+                                            <option value="0" selected>Administrator</option>
+                                            <option value="1">Inventory Manager</option>
+                                            <option value="2">External Officer for Supplier</option>
+                                            <option value="3">API Client</option>
+                                        </select>
+                                        <% } else if (user.getType() == 1) { %>
+                                        <select id="utype" class="form-control">
+                                            <option value="0">Administrator</option>
+                                            <option value="1" selected>Inventory Manager</option>
+                                            <option value="2">External Officer for Supplier</option>
+                                            <option value="3">API Client</option>
+                                        </select>
+                                        <% } else if (user.getType() == 2) { %>
+                                        <select id="utype" class="form-control">
+                                            <option value="0">Administrator</option>
+                                            <option value="1">Inventory Manager</option>
+                                            <option value="2" selected>External Officer for Supplier</option>
+                                            <option value="3">API Client</option>
+                                        </select>
+                                        <% } else { %>
+                                        <select id="utype" class="form-control">
+                                            <option value="0">Administrator</option>
+                                            <option value="1">Inventory Manager</option>
+                                            <option value="2">External Officer for Supplier</option>
+                                            <option value="3" selected>API Client</option>
+                                        </select>
+                                        <% } 
+                                    } %>
+                                    <% if (action.equals("add")) { %>
+                                        <select id="utype" class="form-control">
+                                            <option value="0" selected>Administrator</option>
+                                            <option value="1">Inventory Manager</option>
+                                            <option value="2">External Officer for Supplier</option>
+                                            <option value="3">API Client</option>
+                                        </select>
+                                    <%} %>
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
