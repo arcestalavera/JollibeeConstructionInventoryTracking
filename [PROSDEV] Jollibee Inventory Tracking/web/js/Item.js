@@ -82,16 +82,6 @@ function checkValues(){
         error.append("<p>Please enter a proper unit of measurement.</p><br/>");
     } else if (valid) valid = true;
     
-//    if(!valid){
-//        error.show();
-////        event.preventDefault();
-//    }
-//
-//    if(valid) {
-//        error.hide();
-//        error.empty();
-////        document.login.submit();
-//    }
     return valid;
 }
 

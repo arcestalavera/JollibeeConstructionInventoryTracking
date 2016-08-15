@@ -3,19 +3,23 @@ var error = false;
 
 // -- ajax to add supplier ------
 function addSupplier() {
-    $.ajax({
-        type: "POST",
-        url: "HandleSupplier?action=add",
-        data: $(".add-supplier-form").serialize(),
-        success: function(html) {
-            $("#add-supplier-div").prepend(html);
-            $("#name").val("");
-            $("#location").val("");
-            $("#contactno").val("");
-            $("#emailadd").val("");
-            $("#contactperson").val("");
-        }
-    });
+    if (checkValues()) {
+        $.ajax({
+            type: "POST",
+            url: "HandleSupplier?action=add",
+            data: $(".add-supplier-form").serialize(),
+            success: function(html) {
+                $("#add-suppliers-div").prepend(html);
+                $("#name").val("");
+                $("#location").val("");
+                $("#contactno").val("");
+                $("#emailadd").val("");
+                $("#contactperson").val("");
+                $("#error").hide();
+            }
+        });
+    } else
+        $("#error").show();
     return false;
 }
 
@@ -43,23 +47,63 @@ function deleteSupplierFromList() {
     });
 }
 
-function editSupplier(id){
-    $.ajax({
-        type: "POST",
-        url: "HandleSupplier?action=edit&id="+id,
-        data: $(".add-suppliers-form").serialize(),
-        success: function(html){
-            $("#add-suppliers-div").prepend(html);
-        }
-    });
-    return false;
+function editSupplier(id) {
+    if (checkValues()) {
+        $.ajax({
+            type: "POST",
+            url: "HandleSupplier?action=edit&id=" + id,
+            data: $(".add-suppliers-form").serialize(),
+            success: function(html) {
+                $("#add-suppliers-div").prepend(html);
+            }
+        });
+        return false;
+    } else
+        $("#error").show();
+}
+
+function checkValues() {
+    var valid = false;
+    var name = $("#name").val();
+    var location = $("#location").val();
+    var contactno = $("#contactno").val();
+    var emailadd = $("#emailadd").val();
+    var contactperson = $("#contactperson").val();
+    var error = $("#error");
+
+    error.empty();
+    if (name.search(/[<>&\=;"'.?//]/ig) !== -1) {
+        valid = false;
+        error.append("<p>Please enter a proper supplier name.</p><br/>");
+    } else
+        valid = true;
+    if (location.search(/[<>&\=;"'.?//]/ig) !== -1) {
+        valid = false;
+        error.append("<p>Please enter a proper location.</p><br/>");
+    } else if (valid)
+        valid = true;
+    if (contactperson.search(/[<>&\=;"'.?//]/ig) !== -1) {
+        valid = false;
+        error.append("<p>Please enter a proper name for the contact person.</p><br/>");
+    } else if (valid)
+        valid = true;
+    if (emailadd.search(/[<>&\=;"'?//]/ig) !== -1) {
+        valid = false;
+        error.append("<p>Please enter a proper name for the contact person.</p><br/>");
+    } else if (valid)
+        valid = true;
+    if (contactno.search(/^(\d{10,11})+/ig) === -1) {
+        valid = false;
+        error.append("<p>Please enter a proper contact number.</p><br/>");
+    } else if (valid)
+        valid = true;
+
+    return valid;
 }
 
 $(document).ready(function() {
-    if (error===false)
-        $("#error").hide();
-    else $("#error").show();
-    
+    $("#error").hide();
+
     $(document).on("click", "#yes-delete", function(e) {
         name = $(this).attr('name');
         id = name.substr(1, name.indexOf("-") - 1);
@@ -67,10 +111,10 @@ $(document).ready(function() {
 
         deleteSupplierFromList(id, count);
     });
-    
-    $(document).on("click", "#yes-delete-supplier", function(e){
+
+    $(document).on("click", "#yes-delete-supplier", function(e) {
         name = $(this).attr('name');
-        id = name.substr(1, name.indexOf("d")+1);
+        id = name.substr(1, name.indexOf("d") + 1);
         location.href = "HandleSupplier?action=deleteFrmView&id=" + id;
     });
 });
