@@ -43,7 +43,7 @@ public class HandleItem extends HttpServlet {
         action = request.getParameter("action");
         int userType = -1;
         try{
-        userType = Integer.parseInt(request.getParameter("type"));
+        userType = (int)request.getSession().getAttribute("type");
         } catch(Exception e){
             request.getRequestDispatcher("notfound.jsp");
         }

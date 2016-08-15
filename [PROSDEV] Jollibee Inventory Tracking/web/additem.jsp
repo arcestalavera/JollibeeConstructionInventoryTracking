@@ -3,7 +3,12 @@
 <%@ include file="topnav.jsp"%>
 
 <%
-    if(user!=null){
+    int userType = (int)request.getSession().getAttribute("type");
+    //if(userType<0 || userType>2){
+    //    response.sendRedirect("notfound.jsp");
+    //} else {
+    if(user!=null && userType==1){
+        
 %>
 <%@ include file="leftnav.jsp" %>
 
@@ -74,7 +79,7 @@
                             <%
                             } else if (action.equals("edit")) {
                             %>
-                            <input id = "name" class="form-control" name="name" value = "<%=item.getName()%>"required>
+                            <input id = "name" class="form-control" name="name" value = "<%=item.getName()%>" required>
                             <%
                                 }
                             %>
@@ -105,7 +110,7 @@
                                 }
                             %>
                         </div><!-- end of .form-group -->
-                        <input type="submit" class="btn btn-primary" value="<%=label%>" id="submit">
+                        <input type="submit" class="btn btn-primary" value="<%=label%>" id="submit" onclick="checkValues()">
                     </form>
             </div>
         </div>

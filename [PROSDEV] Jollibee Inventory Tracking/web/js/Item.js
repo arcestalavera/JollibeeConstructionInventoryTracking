@@ -2,17 +2,21 @@ var name, id, count;
 
 // -- ajax to add supplier ------
 function addItem() {
-    $.ajax({
-        type: "POST",
-        url: "HandleItem?action=add",
-        data: $(".add-items-form").serialize(),
-        success: function(html) {
-            $("#add-items-div").prepend(html);
-            $("#name").val("");
-            $("#unitofmeasure").val("");
-            $("#description").val("");
-        }
-    });
+    if(checkValues()){
+        $("#error").hide();
+        $("#error").empty();
+        $.ajax({
+            type: "POST",
+            url: "HandleItem?action=add",
+            data: $(".add-items-form").serialize(),
+            success: function(html) {
+                $("#add-items-div").prepend(html);
+                $("#name").val("");
+                $("#unitofmeasure").val("");
+                $("#description").val("");
+            }
+        });
+    } else $("#error").show();
     return false;
 }
 
@@ -41,15 +45,54 @@ function deleteItemFromList() {
 }
 
 function editItem(id) {
-    $.ajax({
-        type: "POST",
-        url: "HandleItem?action=edit&id=" + id,
-        data: $(".add-items-form").serialize(),
-        success: function(html) {
-            $("#add-items-div").prepend(html);
-        }
-    });
+    if(checkValues()){
+        $("#error").hide();
+        $("#error").empty();
+        $.ajax({
+            type: "POST",
+            url: "HandleItem?action=edit&id=" + id,
+            data: $(".add-items-form").serialize(),
+            success: function(html) {
+                $("#add-items-div").prepend(html);
+            }
+        });
+    } else $("#error").show();
     return false;
+}
+
+function checkValues(){
+    var valid = false;
+    var name = $("#name").val();
+    var description = $("#description").val();
+    var unitofmeasure = $("#unitofmeasure").val();
+    
+    var error = $("#error");
+    
+    error.empty();
+    if (name.search(/[<>&\=;"'.?//]/ig) !== -1){   
+        valid = false;
+        error.append("<p>Please enter a proper item name.</p><br/>");
+    } else valid = true;
+    if (description.search(/[<>&\=;"'.?//]/ig) !== -1){
+        valid = false;
+        error.append("<p>Please enter a proper description.</p><br/>");
+    } else if (valid) valid = true;
+    if(unitofmeasure.search(/[<>&\=;"'.?//]/ig)!== -1){
+        valid = false;
+        error.append("<p>Please enter a proper unit of measurement.</p><br/>");
+    } else if (valid) valid = true;
+    
+//    if(!valid){
+//        error.show();
+////        event.preventDefault();
+//    }
+//
+//    if(valid) {
+//        error.hide();
+//        error.empty();
+////        document.login.submit();
+//    }
+    return valid;
 }
 
 $(document).ready(function() {

@@ -50,7 +50,7 @@ public class ViewItem extends HttpServlet {
         
         int userType = -1;
         try{
-        userType = (int)(request.getSession().getAttribute("type"));
+        userType = (int)request.getSession().getAttribute("type");
         System.out.println("userType = " + userType);
         } catch(Exception e){
             reqDispatcher = request.getRequestDispatcher("notfound.jsp");
@@ -75,7 +75,7 @@ public class ViewItem extends HttpServlet {
             request.getSession().setAttribute("item_supplier", supplierList);
             request.getSession().setAttribute("count", count);
             reqDispatcher = request.getRequestDispatcher("itempage.jsp");
-        } else if(id==null && userType<=3 && userType>=0){
+        } else if(id==null && userType<3 && userType>=0){
             System.out.println("viewing all items");
             System.out.println("userType = " + userType);
             itemList = db.getItems(false);
