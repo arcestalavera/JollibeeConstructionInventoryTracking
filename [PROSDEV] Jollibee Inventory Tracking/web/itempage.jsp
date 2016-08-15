@@ -2,7 +2,10 @@
 <%@page import="Models.Supplier"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Models.Item"%>
+<%@ include file="scratch/header.html"%>
+<%@ include file="topnav.jsp"%>
 <%
+    if(user!=null){
     Item item = (Item) request.getSession().getAttribute("item");
     ArrayList<Warehouse> warehouseList = (ArrayList<Warehouse>) request.getSession().getAttribute("item_warehouse");
     ArrayList<Supplier> supplierList = (ArrayList<Supplier>) request.getSession().getAttribute("item_supplier");
@@ -14,8 +17,6 @@
         response.sendRedirect("notfound.jsp");
     } else {
 %>
-<%@ include file="header.html"%>
-<%@ include file="topnav.jsp"%>
 <%@ include file="leftnav.jsp"%>
 <script type="text/javascript">
     function redirect(id) {
@@ -170,7 +171,8 @@
     </div>
 
 
-<%@ include file="footer.html"%>
+<%@ include file="scratch/footer.html"%>
 <%
-    }
+        }
+    } //else response.sendRedirect("index.jsp");
 %>

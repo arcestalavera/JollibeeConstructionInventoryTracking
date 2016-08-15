@@ -1,11 +1,14 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="Models.User"%>
-<%@ include file="header.html"%>
-<%@ include file="topnav.html"%>
-<%@ include file="leftnav.html"%>
+<%@ include file="scratch/header.html"%>
+<%@ include file="topnav.jsp"%>
+<%
+    if(user!=null){
+%>
+<%@ include file="leftnav.jsp"%>
 
 <%
-    User user = (User) request.getSession().getAttribute("seluser");
+    User seluser = (User) request.getSession().getAttribute("seluser");
 %>
 
 <script>
@@ -47,11 +50,11 @@
 <!-- Page Content -->
 <div class="row">
     <div class ="row">
-        <h4 class = "text-info">Details of <%=user.getUsername()%></h4>
+        <h4 class = "text-info">Details of <%=seluser.getUsername()%></h4>
         <ul class = "list-group">
-            <li class = "list-group-item"><b class = "text-info">Password: </b><%=user.getPassword()%></li>
-            <li class = "list-group-item"><b class = "text-info">Type: </b><%=user.getType()%></li>
-            <li class = "list-group-item"><b class = "text-info">Name: </b><%=user.getFullName()%></li>
+            <li class = "list-group-item"><b class = "text-info">Password: </b><%=seluser.getPassword()%></li>
+            <li class = "list-group-item"><b class = "text-info">Type: </b><%=seluser.getType()%></li>
+            <li class = "list-group-item"><b class = "text-info">Name: </b><%=seluser.getFullName()%></li>
         </ul>
     </div>
 
@@ -62,4 +65,7 @@
     </div>
 </div><!-- end of .row -->
 
-<%@ include file="footer.html"%>
+<%@ include file="scratch/footer.html"%>
+<%
+    } //else response.sendRedirect("index.jsp");
+%>

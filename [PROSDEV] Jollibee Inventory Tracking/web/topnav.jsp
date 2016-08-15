@@ -3,12 +3,17 @@
     Created on : Jul 12, 2016, 9:04:00 AM
     Author     : Darren
 --%>
+<%
+    User user = null;
+    try{
+        user = (User)request.getSession().getAttribute("loggedUser");
+    } catch (Exception e){
+        response.sendRedirect("index.jsp");
+    }
+    if(user!=null){
+%>
 <%@page import="Models.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    User user = (User)request.getSession().getAttribute("loggedUser");
-%>
-
 <!DOCTYPE html>
 <div id="wrapper">
     <!-- Navigation -->
@@ -44,3 +49,6 @@
                 </ul>
             </li>
         </ul>
+<% 
+    } else response.sendRedirect("index.jsp");
+%>

@@ -2,8 +2,11 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Models.Delivery"%>
 <%@page import="java.util.ArrayList"%>
-<%@include file="header.html"%>
+<%@include file="scratch/header.html"%>
 <%@include file="topnav.jsp"%>
+<%
+    if(user!=null){
+%>
 <%@include file="leftnav.jsp"%>
 
 <%    ArrayList<Delivery> deliveryList = (ArrayList<Delivery>) request.getSession().getAttribute("deliveries");
@@ -119,4 +122,7 @@
                 </div>
             </div>
         </div>
-        <%@ include file="footer.html"%>
+        <%@ include file="scratch/footer.html"%>
+<%
+    } //else response.sendRedirect("index.jsp");
+%>

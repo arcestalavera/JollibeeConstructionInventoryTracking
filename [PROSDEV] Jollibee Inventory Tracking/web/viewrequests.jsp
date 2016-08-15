@@ -4,8 +4,12 @@
 <%@page import="Models.Request"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ include file="header.html" %>
+<%@ include file="scratch/header.html" %>
 <%@ include file="topnav.jsp" %>
+<%
+    if(user!=null){
+        int uType = (int) request.getSession().getAttribute("type");
+%>
 <%@ include file="leftnav.jsp" %>
 <%
     ArrayList<Request> requestList = (ArrayList<Request>) request.getSession().getAttribute("requests");
@@ -81,7 +85,7 @@
                                         <i class="fa fa-edit"></i>
                                     </a>-->
                                     <%
-                                        if (status.equals("Pending") && type==1) {
+                                        if (status.equals("Pending") && uType==1) {
                                     %>
                                     <a id = "<%=status.substring(0, 1).toLowerCase()%><%=req.getRequestID()%>" class="approve-button" data-toggle="modal" 
                                        data-target="#requestsmodal" data-verdict="approve">
@@ -113,4 +117,7 @@
             </div>
         </div>
 
-<%@ include file="footer.html"%>
+<%@ include file="scratch/footer.html"%>
+<%
+    } //else response.sendRedirect("index.jsp");
+%>
