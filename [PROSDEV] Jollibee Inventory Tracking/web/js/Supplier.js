@@ -13,6 +13,7 @@ function addSupplier() {
             $("#location").val("");
             $("#contactno").val("");
             $("#emailadd").val("");
+            $("#contactperson").val("");
         }
     });
     return false;

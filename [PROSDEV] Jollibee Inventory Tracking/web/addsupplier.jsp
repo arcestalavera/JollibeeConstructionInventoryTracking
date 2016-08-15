@@ -7,7 +7,9 @@
 <%@ include file="leftnav.jsp"%>
 
 <script type ="text/javascript" src="js/jquery.js"></script>
+<script type ="text/javascript" src="js/customjs.js"></script>
 <script type = "text/javascript" src = "js/Supplier.js"></script>
+
 <%
     String action;
     try {
@@ -59,27 +61,27 @@
                             <form class = "add-supplier-form" id="add-suppliers-form" name="add-supplier" method = "POST" onsubmit="return addSupplier()">
                                   <div class="form-group">
                                     <label>Name</label>
-                                    <input id="name" class="form-control" name="name" required>
+                                    <input type = "text" id="name" class="form-control" name="name" required>
                                 </div><!-- end of .form-group -->
 
                                 <div class="form-group">
                                     <label>Location</label>
-                                    <input id="location" class="form-control" name="location" required>
+                                    <input type = "text" id="location" class="form-control" name="location" required>
                                 </div><!-- end of .form-group -->
                                 
                                 <div class="form-group">
                                     <label>Number</label>
-                                    <input id="contactno" class="form-control" name="contactno" required>
+                                    <input type = "text" id="contactno" class="form-control" name="contactno" required>
                                 </div><!-- end of .form-group -->
                                 
                                 <div class="form-group">
                                     <label>Email Address</label>
-                                    <input id="emailadd" class="form-control" name="emailadd" required>
+                                    <input type = "email" id="emailadd" class="form-control" name="emailadd" required>
                                 </div><!-- end of .form-group -->
                                 
                                 <div class="form-group">
                                     <label>Contact Person</label>
-                                    <input id="emailadd" class="form-control" name="contactperson" required>
+                                    <input type = "text" id="contactperson" class="form-control" name="contactperson" required>
                                 </div><!-- end of .form-group -->
                             <%
                             } else if (action.equals("edit")) {
@@ -88,27 +90,27 @@
                             <form class = "add-supplier-form" id="add-suppliers-form" name="edit-supplier" method = "POST" onsubmit="return editSupplier(<%=supplier.getSupplierID()%>)">
                                   <div class="form-group">
                                     <label>Name</label>
-                                    <input id="name" class="form-control" name="name" value = "<%= supplier.getName()%>" required>
+                                    <input type = "text" id="name" class="form-control" name="name" value = "<%= supplier.getName()%>" required>
                                 </div><!-- end of .form-group -->
 
                                 <div class="form-group">
                                     <label>Location</label>
-                                    <input id="location" class="form-control" name="location"  value = "<%=supplier.getLocation()%>"required>
+                                    <input type = "text" id="location" class="form-control" name="location"  value = "<%=supplier.getLocation()%>"required>
                                 </div><!-- end of .form-group -->
                                 
                                 <div class="form-group">
                                     <label>Number</label>
-                                    <input id="contactno" class="form-control" name="contactno" value = "<%= supplier.getContactNumber()%>"required>
+                                    <input type = "tel" id="contactno" class="form-control" name="contactno" value = "<%= supplier.getContactNumber()%>"required>
                                 </div><!-- end of .form-group -->
                                 
                                 <div class="form-group">
                                     <label>Email Address</label>
-                                    <input id="emailadd" class="form-control" name="emailadd" value = "<%=supplier.getEmailAddress()%>" required>
+                                    <input type = "email" id="emailadd" class="form-control" name="emailadd" value = "<%=supplier.getEmailAddress()%>" required>
                                 </div><!-- end of .form-group -->
                                 
                                 <div class="form-group">
                                     <label>Contact Person</label>
-                                    <input id="emailadd" class="form-control" name="contactperson" value = "<%=supplier.getContactPerson()%>"required>
+                                    <input type = "text" id="contactperson" class="form-control" name="contactperson" value = "<%=supplier.getContactPerson()%>"required>
                                 </div><!-- end of .form-group -->
                             <%
                             }

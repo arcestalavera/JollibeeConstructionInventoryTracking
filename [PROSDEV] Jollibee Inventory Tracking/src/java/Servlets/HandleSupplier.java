@@ -45,8 +45,6 @@ public class HandleSupplier extends HttpServlet {
 
         switch (action) {
             case "add":
-                error = request.getParameter("error");
-                if (error=="no"){
                     name = request.getParameter("name");
                     location = request.getParameter("location");
                     contactNo = request.getParameter("contactno");
@@ -57,7 +55,6 @@ public class HandleSupplier extends HttpServlet {
                     System.out.println("name = " + name);
                     out.write("<p id = \"add-warehouse-message\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">Supplier <i>"
                             + name + "</i> has been added! </p>");
-                }
                 break;
             case "deleteFrmList":
                 id = Integer.parseInt(request.getParameter("id"));
@@ -72,8 +69,6 @@ public class HandleSupplier extends HttpServlet {
                 response.sendRedirect("Supplier");
                 break;
             case "edit":
-                error = request.getParameter("error");
-                if (error=="no"){
                     id = Integer.parseInt(request.getParameter("id"));
                     name = request.getParameter("name");
                     location = request.getParameter("location");
@@ -85,7 +80,6 @@ public class HandleSupplier extends HttpServlet {
 
                     out.write("<p id = \"add-warehouse-message\" style=\"font-size: 16px; color: green; margin: 0px\" align=\"center\"> Supplier<i>"
                             + "</i> has been updated!</p>");
-                }
                 break;
             case "redirect":
                 type = request.getParameter("type");
