@@ -39,11 +39,12 @@ public class HandleLogin extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher reqDispatcher = null;
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
         Database db = Database.getInstance();
         Security sec = Security.getInstance();
         ArrayList<User> userList = new ArrayList();
+        String message = "";
         User user = null;
 
         boolean pass = false;
@@ -53,53 +54,55 @@ public class HandleLogin extends HttpServlet {
         String tempPass = request.getParameter("password");
 
         String s1, s2, password;
-        s1 = sec.createSalt(username, 1);
-        s2 = sec.createSalt(username, 2);
-        password = s1 + sec.encryptString(tempPass) + s2;
-        userList = db.getUsers();
+        if (username.length() >= 5) {
+            s1 = sec.createSalt(username, 1);
+            s2 = sec.createSalt(username, 2);
+            password = s1 + sec.encryptString(tempPass) + s2;
+            userList = db.getUsers();
 
-        for (i = 0; i < userList.size(); i++) {
-            if (username.equals(userList.get(i).getUsername())) {
-                if (password.equals(userList.get(i).getPassword())) {
-                    user = userList.get(i);
-                    pass = true;
-                    break;
-                } else {
-                    break;
+            for (i = 0; i < userList.size(); i++) {
+                if (username.equals(userList.get(i).getUsername())) {
+                    if (password.equals(userList.get(i).getPassword())) {
+                        user = userList.get(i);
+                        pass = true;
+                        break;
+                    } else {
+                        break;
+                    }
                 }
             }
-        }
 
-        if (pass == false) {
-            response.sendRedirect("login.html");
-        } else {
-            //generate token
-            UUID uid = UUID.randomUUID();
-            String token = uid.toString().replaceAll("-", "");
-            byte[] tokenBytes = token.getBytes();
-
-            //store token
-            request.setAttribute("token", token);
-            DataOutputStream dos = new DataOutputStream(new FileOutputStream("token.dat"));
-            dos.write(tokenBytes);
-            dos.flush();
-            dos.close();
-            
-            if (request.getHeader("Referer") != null) {
-                request.getSession().setAttribute("loggedUser", user);
-                request.getSession().setAttribute("type", user.getType());
-                if (user.getType() == 3) {
-                    reqDispatcher = request.getRequestDispatcher("apihome.jsp");
-                } else {
-                    reqDispatcher = request.getRequestDispatcher("homepage.jsp");
-                }
-                reqDispatcher.forward(request, response);
+            if (pass == false) {
+                message = "{\"login\":" + false + "}";
             } else {
-                response.setContentType("application/json");
-                String json = "{\"token\":\"" + token + "\"}";
-                PrintWriter out = response.getWriter();
-                out.write(json);
+                //generate token
+                UUID uid = UUID.randomUUID();
+                String token = uid.toString().replaceAll("-", "");
+                byte[] tokenBytes = token.getBytes();
+
+                //store token
+                request.setAttribute("token", token);
+                DataOutputStream dos = new DataOutputStream(new FileOutputStream("token.dat"));
+                dos.write(tokenBytes);
+                dos.flush();
+                dos.close();
+
+                if (request.getHeader("Referer") != null) {
+                    request.getSession().setAttribute("loggedUser", user);
+                    request.getSession().setAttribute("type", user.getType());
+                    if (user.getType() == 3) {
+                        message = "{\"login\":" + true + ", \"loc\": \"apihome.jsp\"}";
+                    } else {
+                        message = "{\"login\":" + true + ", \"loc\": \"homepage.jsp\"}";
+                    }
+                    //    reqDispatcher.forward(request, response);
+                } else {
+                    message = "{\"token\":\"" + token + "\"}";
+                }
             }
+            out.write(message);
+        } else{
+            out.write("{\"login\":" + false + "}");
         }
     }
 
