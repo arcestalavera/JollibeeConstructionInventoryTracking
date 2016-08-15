@@ -79,7 +79,7 @@
                             <%
                             } else if (action.equals("edit")) {
                             %>
-                            <input id = "name" class="form-control" name="name" value = "<%=item.getName()%>"required>
+                            <input id = "name" class="form-control" name="name" value = "<%=item.getName()%>" required>
                             <%
                                 }
                             %>
@@ -110,7 +110,7 @@
                                 }
                             %>
                         </div><!-- end of .form-group -->
-                        <input type="submit" class="btn btn-primary" value="<%=label%>" id="submit">
+                        <input type="submit" class="btn btn-primary" value="<%=label%>" id="submit" onclick="checkValues()">
                     </form>
             </div>
         </div>

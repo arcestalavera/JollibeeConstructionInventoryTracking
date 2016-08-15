@@ -3,136 +3,143 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-function checkName(name) {
-    if (name.search(/([<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//])|(\d{1,})/ig) !== -1)
-        return 0;
-    else
-        return 1;
-}
+//function checkName(elem) {
+//    if (elem.value.search(/[<>&\=;"'.?//]/ig) !== -1 ||
+//            elem.value==="")
+//        return 0;
+//    else
+//        return 1;
+//}
+//
+//function checkLocation(elem) {
+//    if (elem.value.search(/([<>&\=;"'.?//])|(\d)/ig) !== -1 ||
+//            elem.value==="")
+//        return 0;
+//    else
+//        return 1;
+//}
+//
+//function checkNumber(elem) {
+//    if (elem.value.search(/^(\d{10,11})+/ig) === -1 ||
+//            elem.value==="")
+//        return 0;
+//    else
+//        return 1;
+//}
+//
+//function checkEmailAdd(elem) {
+//    if (elem.value.search(/([<>])/ig) !== -1 ||
+//            elem.value==="")
+//        return 0;
+//    else
+//        return 1;
+//}
+//
+//function checkContactPerson(elem) {
+//    if (elem.value.search(/([<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//])|([a-zA-Z])/ig) !== -1 ||
+//            elem.value==="")
+//        return 0;
+//    else
+//        return 1;
+//}
 
-function checkLocation(loc) {
-    if (loc.search(/[<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//]/ig) !== -1)
-        return 0;
-    else
-        return 1;
-}
 
-function checkNumber(num) {
-    if (num.search(/^(\d{10,11})+/ig) !== -1)
-        return 0;
-    else
-        return 1;
-}
-
-function checkEmailAdd(email) {
-    if (email.search(/([<>])/ig) !== -1)
-        return 0;
-    else
-        return 1;
-}
-
-function checkContactPerson(contact) {
-    if (contact.search(/([<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//])|(\d{1,})/ig) !== -1)
-        return 0;
-    else
-        return 1;
-}
-function checkInput2(id) {
-    if ($("#description").value.search(/[<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//]/ig) !== -1) {
-        $.ajax({
-            type: "POST",
-            url: "HandleItem?action=error",
-            data: $(".add-items-form").serialize(),
-            success: function(html) {
-                $("#description").value = "";
-                $("#error").show();
-                $("#error").text("Special characters not allowed in description. Please rewrite.");
-            }
-        });
-    } else if ($("#name").value.search(/([<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//])|(\d{1,})/ig) !== -1) {
-        $.ajax({
-            type: "POST",
-            url: "HandleItem?action=error",
-            data: $(".add-items-form").serialize(),
-            success: function(html) {
-                $("#name").value = "";
-                $("#error").show();
-                $("#error").text("Special characters not allowed in name. Please rewrite.");
-            }
-        });
-    } else if ($("#unitofmeasure").value.search(/[<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',?//]|(\b[.]{2})/ig) !== -1) {
-        $.ajax({
-            type: "POST",
-            url: "HandleItem?action=error",
-            data: $(".add-items-form").serialize(),
-            success: function(html) {
-                $("#unitofmeasure").value = "";
-                $("#error").show();
-                $("#error").text("Special characters not allowed in unit of measure. Please rewrite.");
-            }
-        });
-    } else if (id >= 0) {
-        $("#error").hide();
-        $("#error").text("");
-        editItem(id);
-    } else if (id == -1) {
-        $("#error").hide();
-        $("#error").text("");
-        addItem();
-    }
-}
-
-function checkInput(id, form) {
-    var url = "";
-    if (id == -1 && (!checkName($("#name").val())
-            || !checkLocation($("#location").val())
-            || !checkNumber($("#number").val())
-            || !checkEmailAdd($("#emailadd").val())
-            || !checkContactPerson($("#contactperson").val()))) {
-        error = true;
-        url = "HandleSupplier?action=add&error=yes";
-    } else if (id != -1 && (!checkName($("#name").val())
-            || !checkLocation($("#location").val())
-            || !checkNumber($("#number").val())
-            || !checkEmailAdd($("#emailadd").val())
-            || !checkContactPerson($("#contactperson").val()))) {
-        error = true;
-        url = "HandleSupplier?action=edit&error=yes&id=" + id;
-    }
-
-    if (error) {
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: $(".add-supplier-form").serialize(),
-            success: function(html) {
+//function checkInput2(id) {
+//    if ($("#description").value.search(/[<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//]/ig) !== -1) {
+//        $.ajax({
+//            type: "POST",
+//            url: "HandleItem?action=error",
+//            data: $(".add-items-form").serialize(),
+//            success: function(html) {
+//                $("#description").value = "";
+//                $("#error").show();
+//                $("#error").text("Special characters not allowed in description. Please rewrite.");
+//            }
+//        });
+//    } else if ($("#name").value.search(/([<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',.?//])|(\d{1,})/ig) !== -1) {
+//        $.ajax({
+//            type: "POST",
+//            url: "HandleItem?action=error",
+//            data: $(".add-items-form").serialize(),
+//            success: function(html) {
 //                $("#name").value = "";
-//                error = true;
-                $("#error").text("Please input the correct entries.");
-                $("#error").show();
-                if (!checkName($("#name").val()))
-                    $("#name").css();
-                if (!checkLocation($("#location").val()))
-                    $("#location").css();
-                if (!checkNumber($("#number").val()))
-                    $("#number").css();
-                if (!checkEmailAdd($("#emailadd").val()))
-                    $("#emailadd").css();
-                if (!checkContactPerson($("#contactperson").val()))
-                    $("#contactperson").css();
-            }
-        });
+//                $("#error").show();
+//                $("#error").text("Special characters not allowed in name. Please rewrite.");
+//            }
+//        });
+//    } else if ($("#unitofmeasure").value.search(/[<>~`!@#$%\^&*\(\)_\-\+\=\{\}\[\]:;"',?//]|(\b[.]{2})/ig) !== -1) {
+//        $.ajax({
+//            type: "POST",
+//            url: "HandleItem?action=error",
+//            data: $(".add-items-form").serialize(),
+//            success: function(html) {
+//                $("#unitofmeasure").value = "";
+//                $("#error").show();
+//                $("#error").text("Special characters not allowed in unit of measure. Please rewrite.");
+//            }
+//        });
+//    } else if (id >= 0) {
+//        $("#error").hide();
+//        $("#error").text("");
+//        editItem(id);
+//    } else if (id == -1) {
+//        $("#error").hide();
+//        $("#error").text("");
+//        addItem();
+//    }
+//}
 
-    } else if (id >= 0 && !error) {
-        error = false;
-        $("#error").text("");
-        editSupplier(id);
-    } else if (id == -1 && !error) {
-        error = false;
-        $("#error").text("");
-        addSupplier();
-    }
-}
+//function checkInput(id, form) {
+//    var url = "";
+//    if (id == -1 && (!checkName($("#name").val())
+//            || !checkLocation($("#location").val())
+//            || !checkNumber($("#number").val())
+//            || !checkEmailAdd($("#emailadd").val())
+//            || !checkContactPerson($("#contactperson").val()))) {
+//        error = true;
+//        url = "HandleSupplier?action=add&error=yes";
+//    } else if (id != -1 && (!checkName($("#name").val())
+//            || !checkLocation($("#location").val())
+//            || !checkNumber($("#number").val())
+//            || !checkEmailAdd($("#emailadd").val())
+//            || !checkContactPerson($("#contactperson").val()))) {
+//        error = true;
+//        url = "HandleSupplier?action=edit&error=yes&id=" + id;
+//    }
+//
+//    if (error) {
+//        $.ajax({
+//            type: "POST",
+//            url: url,
+//            data: $(".add-supplier-form").serialize(),
+//            success: function(html) {
+////                $("#name").value = "";
+////                error = true;
+//                $("#error").text("Please input the correct entries.");
+//                $("#error").show();
+//                if (!checkName($("#name").val()))
+//                    $("#name").css();
+//                if (!checkLocation($("#location").val()))
+//                    $("#location").css();
+//                if (!checkNumber($("#number").val()))
+//                    $("#number").css();
+//                if (!checkEmailAdd($("#emailadd").val()))
+//                    $("#emailadd").css();
+//                if (!checkContactPerson($("#contactperson").val()))
+//                    $("#contactperson").css();
+//            }
+//        });
+//
+//    } else if (id >= 0 && !error) {
+//        error = false;
+//        $("#error").text("");
+//        editSupplier(id);
+//    } else if (id == -1 && !error) {
+//        error = false;
+//        $("#error").text("");
+//        addSupplier();
+//    }
+//}
 
 $(document).ready(function() {
     var id, status;

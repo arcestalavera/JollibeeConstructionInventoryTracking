@@ -52,6 +52,10 @@ function editItem(id) {
     return false;
 }
 
+function checkValues(){
+    var valid = false;
+}
+
 $(document).ready(function() {
     $("#error").hide();
     $(document).on("click", "#yes-delete-item", function(e){
