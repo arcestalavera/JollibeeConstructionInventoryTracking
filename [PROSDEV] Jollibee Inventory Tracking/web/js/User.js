@@ -11,9 +11,9 @@ function addUser() {
     $.ajax({
         type: "POST",
         url: "HandleUser?action=add",
-        data: $(".add-user-form").serialize(),
+        data: $(".add-users-form").serialize(),
         success: function(html) {
-            $("#add-users-div").prepend(html);
+            $("#add-user-div").prepend(html);
             $("#uname").val("");
             $("#name").val("");
             $("#password").val("");
@@ -50,54 +50,54 @@ function editUser(id) {
     $.ajax({
         type: "POST",
         url: "HandleUser?action=edit&id=" + id,
-        data: $(".add-user-form").serialize(),
+        data: $(".add-users-form").serialize(),
         success: function(html) {
-            $("#add-users-div").prepend(html);
+            $("#add-user-div").prepend(html);
         }
     });
     return false;
 }
 
-function checkInput(id){
-    if($("#uname").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
-        $.ajax({
-            type: "POST",
-            url: "HandleUser?action=error",
-            data: $(".add-user-form").serialize(),
-            success: function(html){
-                $("#uname").value = "";
-                $("#error").show();
-                $("#error").text("Special characters not allowed in description. Please rewrite.");
-            }
-        });
-    } else if ($("#name").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
-        $.ajax({
-            type: "POST",
-            url: "HandleUser?action=error",
-            data: $(".add-user-form").serialize(),
-            success: function(html){
-                $("#name").value = "";
-                $("#error").show();
-                $("#error").text("Special characters not allowed in name. Please rewrite.");
-            }
-        });
-    } else if ($("#password").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
-        $.ajax({
-            type: "POST",
-            url: "HandleUser?action=error",
-            data: $(".add-user-form").serialize(),
-            success: function(html){
-                $("#unitofmeasure").value = "";
-                $("#error").show();
-                $("#error").text("Special characters not allowed in unit of measure. Please rewrite.");
-            }
-        });
-    } else if (id>=0){
-        editUser(id);   
-    } else if (id==-1){
-        addUser();
-    }
-}
+//function checkInput(id){
+//    if($("#uname").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
+//        $.ajax({
+//            type: "POST",
+//            url: "HandleUser?action=error",
+//            data: $(".add-user-form").serialize(),
+//            success: function(html){
+//                $("#uname").value = "";
+//                $("#error").show();
+//                $("#error").text("Special characters not allowed in description. Please rewrite.");
+//            }
+//        });
+//    } else if ($("#name").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
+//        $.ajax({
+//            type: "POST",
+//            url: "HandleUser?action=error",
+//            data: $(".add-user-form").serialize(),
+//            success: function(html){
+//                $("#name").value = "";
+//                $("#error").show();
+//                $("#error").text("Special characters not allowed in name. Please rewrite.");
+//            }
+//        });
+//    } else if ($("#password").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
+//        $.ajax({
+//            type: "POST",
+//            url: "HandleUser?action=error",
+//            data: $(".add-user-form").serialize(),
+//            success: function(html){
+//                $("#unitofmeasure").value = "";
+//                $("#error").show();
+//                $("#error").text("Special characters not allowed in unit of measure. Please rewrite.");
+//            }
+//        });
+//    } else if (id>=0){
+//        editUser(id);   
+//    } else if (id==-1){
+//        addUser();
+//    }
+//}
 
 $(document).ready(function() {
     $("#error").hide();

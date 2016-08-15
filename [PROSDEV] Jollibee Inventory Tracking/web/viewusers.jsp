@@ -23,7 +23,7 @@
 <script type = "text/javascript" src = "js/User.js"></script>
 <%
     ArrayList<User> userList = (ArrayList<User>) request.getSession().getAttribute("users");
-//    User user;
+    User seluser;
 %>
 <div id="page-wrapper">
 
@@ -69,22 +69,28 @@
                 <tbody id="userTableBody">
                     <%
                         for (int i = 0; i < userList.size(); i++) {
-                            user = userList.get(i);
+                            seluser = userList.get(i);
                     %>
-                    <tr id = "i<%=user.getUserID()%>">
+                    <tr id = "i<%=seluser.getUserID()%>">
                         <td id ="user-count"><%=(i + 1)%></td>
 
-                        <td><button type="button" class="btn btn-link name" onclick = "redirect(<%=user.getUserID()%>)"><%=user.getUsername()%></button></td>
-                        <td style="text-align: right;"><%=user.getType()%></td> <!--getUnit-->
-                        <td style="text-align: right;"><%=user.getFullName()%></td> <!--getUnit-->
+                        <td><button type="button" class="btn btn-link name" onclick = "redirect(<%=seluser.getUserID()%>)"><%=seluser.getUsername()%></button></td>
+                        <td style="text-align: right;"><%=seluser.getType()%></td> <!--getUnit-->
+                        <td style="text-align: right;"><%=seluser.getFullName()%></td> <!--getUnit-->
                         <td id = "user-actions" style="white-space: nowrap">
-                            <a class="edit-button" onclick="edit(<%=user.getUserID()%>)">
+                            <a class="edit-button" onclick="edit(<%=seluser.getUserID()%>)">
                                 <i class="fa fa-edit"></i>
                             </a>
-                            <a id = "d<%=user.getUserID()%>-<%=(i + 1)%>" class="delete-user delete-button" data-toggle="modal" 
+                            <%
+                                if(user.getUserID()!=seluser.getUserID()){
+                            %>
+                            <a id = "d<%=seluser.getUserID()%>-<%=(i + 1)%>" class="delete-user delete-button" data-toggle="modal" 
                                data-target="#usersmodal" data-verdict="delete">
                                 <i class="fa fa-trash-o"></i>
                             </a>
+                            <%
+                                }
+                            %>
                         </td>
                     </tr>
                     <%
