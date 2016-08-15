@@ -8,17 +8,21 @@ var uname, id, password, fullname;
 
 // -- ajax to add user ------
 function addUser() {
-    $.ajax({
-        type: "POST",
-        url: "HandleUser?action=add",
-        data: $(".add-users-form").serialize(),
-        success: function(html) {
-            $("#add-user-div").prepend(html);
-            $("#uname").val("");
-            $("#name").val("");
-            $("#password").val("");
-        }
-    });
+    if(checkValues()){
+        $("#error").hide();
+        $("#error").empty();
+        $.ajax({
+            type: "POST",
+            url: "HandleUser?action=add",
+            data: $(".add-users-form").serialize(),
+            success: function(html) {
+                $("#add-user-div").prepend(html);
+                $("#uname").val("");
+                $("#name").val("");
+                $("#password").val("");
+            }
+        });
+    } else $("#error").show();
     return false;
 }
 
@@ -47,58 +51,60 @@ function deleteUserFromList() {
 }
 
 function editUser(id) {
-    $.ajax({
-        type: "POST",
-        url: "HandleUser?action=edit&id=" + id,
-        data: $(".add-users-form").serialize(),
-        success: function(html) {
-            $("#add-user-div").prepend(html);
-        }
-    });
+    if(checkValues()){
+        $("#error").hide();
+        $("#error").empty();
+        $.ajax({
+            type: "POST",
+            url: "HandleUser?action=edit&id=" + id,
+            data: $(".add-users-form").serialize(),
+            success: function(html) {
+                $("#add-user-div").prepend(html);
+            }
+        });
+    } else $("#error").show();
     return false;
 }
 
-//function checkInput(id){
-//    if($("#uname").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
-//        $.ajax({
-//            type: "POST",
-//            url: "HandleUser?action=error",
-//            data: $(".add-user-form").serialize(),
-//            success: function(html){
-//                $("#uname").value = "";
-//                $("#error").show();
-//                $("#error").text("Special characters not allowed in description. Please rewrite.");
-//            }
-//        });
-//    } else if ($("#name").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
-//        $.ajax({
-//            type: "POST",
-//            url: "HandleUser?action=error",
-//            data: $(".add-user-form").serialize(),
-//            success: function(html){
-//                $("#name").value = "";
-//                $("#error").show();
-//                $("#error").text("Special characters not allowed in name. Please rewrite.");
-//            }
-//        });
-//    } else if ($("#password").search(/<>~`!@#$%^&*()_-+={}[]:;"',.?\//ig)!==-1){
-//        $.ajax({
-//            type: "POST",
-//            url: "HandleUser?action=error",
-//            data: $(".add-user-form").serialize(),
-//            success: function(html){
-//                $("#unitofmeasure").value = "";
-//                $("#error").show();
-//                $("#error").text("Special characters not allowed in unit of measure. Please rewrite.");
-//            }
-//        });
-//    } else if (id>=0){
-//        editUser(id);   
-//    } else if (id==-1){
-//        addUser();
+function checkValues(){
+    var valid = false;
+    var username = $("#uname").val();
+    var name = $("#name").val();
+    var utype = $("#utype").val();
+    var password = $("#password").val();
+    
+    var error = $("#error");
+    
+    if (username.search(/[<>&\=;"'.?//]/ig) !== -1){   
+        valid = false;
+        error.append("<p>Please enter a proper username.</p><br/>");
+    } else valid = true;
+    if (name.search(/([<>&\=;"'.?//])|(\d)/ig) !== -1){
+        valid = false;
+        error.append("<p>Please enter a proper full name.</p><br/>");
+    } else if (valid) valid = true;
+    if(utype<0 || utype>3 || utype.search(/[<>&\=;"'.?//a-zA-Z]/ig)!== -1){
+        valid = false;
+        error.append("<p>\nThere are only three user types." +
+                "Please select a proper user type.</p><br/>");
+    } else if (valid) valid = true;
+    if (password.search(/[<>&\=;"'.?//]/ig) !== -1){
+        error.append("<p>Please enter a proper password.</p>");
+        valid = false;
+    } else if (valid) valid = true;
+    
+//    if(!valid){
+//        error.show();
+////        event.preventDefault();
 //    }
-//}
-
+//
+//    if(valid) {
+//        error.hide();
+//        error.empty();
+////        document.login.submit();
+//    }
+    return valid;
+}
 $(document).ready(function() {
     $("#error").hide();
     $(document).on("click", "#yes-delete-user", function(e){

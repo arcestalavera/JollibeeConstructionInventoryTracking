@@ -70,7 +70,7 @@
                                     <%
                                     } else if (action.equals("edit")) {
                                     %>
-                                    <input id = "uname" class="form-control" name="uname" value = "<%=user.getUsername()%>"required>
+                                    <input id = "uname" class="form-control" name="uname" value = "<%=user.getUsername()%>" required>
                                     <%
                                         }
                                     %>
