@@ -39,7 +39,6 @@ public class HandleRequest extends HttpServlet {
         String action, resp;
         Request req;
         int id;
-        String status, statusWord = null;
 
         action = request.getParameter("action");
 
@@ -50,6 +49,7 @@ public class HandleRequest extends HttpServlet {
 
                 resp = request.getParameter("resp");
                 db.respondRequest(id, resp);
+                
                 break;
             case "report":
                 id = Integer.parseInt(request.getParameter("id"));
