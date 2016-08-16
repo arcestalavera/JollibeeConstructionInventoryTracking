@@ -875,13 +875,14 @@ public class Database {
      METHODS THAT WILL EDIT THE DETAILS OF AN OBJECT
      */
     public void respondRequest(int id, String response) {
-        sql = "UPDATE requests SET status = ?"
+        sql = "UPDATE requests R NATURAL JOIN item_of_request IR NATURAL JOIN deliveries D"
+                + " SET R.status = ?, D.status = ?"
                 + " WHERE requestID = ?";
-
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, response);
-            ps.setInt(2, id);
+            ps.setString(2, response);
+            ps.setInt(3, id);
 
             ps.execute();
         } catch (SQLException e) {
@@ -1074,6 +1075,7 @@ public class Database {
             //update item count in warehouse
             sql = "UPDATE place_of_item SET count = ?"
                     + " WHERE warehouseID = ? AND itemID = ?";
+            
             ps = con.prepareStatement(sql);
 
             ps.setInt(1, current + count);
