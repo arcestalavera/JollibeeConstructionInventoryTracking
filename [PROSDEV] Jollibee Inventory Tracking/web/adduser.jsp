@@ -136,7 +136,7 @@
                             <%
                                 if (action.equals("add")) {
                             %>
-                            <input type="password" id="password" class="form-control" name="pass" placeholder = "Password (Leave this blank if you don't want to change the password)" required />
+                            <input type="password" id="password" class="form-control" name="pass" required />
                             <%
                             } else if(action.equals("edit")){
                             %>

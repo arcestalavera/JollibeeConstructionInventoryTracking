@@ -58,7 +58,6 @@ public class HandleUser extends HttpServlet {
                 
             case "deleteFrmList":
                 id = Integer.parseInt(request.getParameter("id"));
-
                 db.deleteUser(id);
                 break;
                 

@@ -271,7 +271,8 @@ public class Database {
         try {
             stmt = con.createStatement();
 
-            sql = "SELECT * FROM users";
+            sql = "SELECT * FROM users"
+                    + " WHERE isDeleted = 0;";
 
             rs = stmt.executeQuery(sql);
 
@@ -935,7 +936,7 @@ public class Database {
     }
 
     public void deleteUser(int userID) {
-        sql = "UPDATE items SET isDeleted = " + true + ""
+        sql = "UPDATE users SET isDeleted = " + true + ""
                 + " WHERE user_id = ?";
 
         try {

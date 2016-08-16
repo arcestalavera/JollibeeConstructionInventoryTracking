@@ -8,7 +8,7 @@ var uname, id, password, fullname;
 
 // -- ajax to add user ------
 function addUser(id) {
-    if(checkValues(id)){
+    if (checkValues(id)) {
         $("#error").hide();
         $("#error").empty();
         $.ajax({
@@ -23,7 +23,8 @@ function addUser(id) {
                 $("#password").val("");
             }
         });
-    } else $("#error").show();
+    } else
+        $("#error").show();
     return false;
 }
 
@@ -52,7 +53,7 @@ function deleteUserFromList() {
 }
 
 function editUser(id) {
-    if(checkValues(id)){
+    if (checkValues(id)) {
         $("#error").hide();
         $("#error").empty();
         $.ajax({
@@ -64,38 +65,43 @@ function editUser(id) {
                 $("#add-users-div").prepend(html);
             }
         });
-    } else $("#error").show();
+    } else
+        $("#error").show();
     return false;
 }
 
-function checkValues(id){
+function checkValues(id) {
     var valid = false;
     var username = $("#uname").val();
     var name = $("#name").val();
     var utype = $("#utype").val();
     var password = $("#password").val();
-    
+
     var error = $("#error");
-    
+
     error.empty();
-    if (username.search(/[<>&\=;"'.?//]/ig) !== -1){   
+    if (username.search(/[<>&\=;"'.?//]/ig) !== -1) {
         valid = false;
         error.append("<p>Please enter a proper username.</p><br/>");
-    } else valid = true;
-    if (name.search(/([<>&\=;"'.?//])|(\d)/ig) !== -1){
+    } else
+        valid = true;
+    if (name.search(/([<>&\=;"'.?//])|(\d)/ig) !== -1) {
         valid = false;
         error.append("<p>Please enter a proper full name.</p><br/>");
-    } else if (valid) valid = true;
-    if(utype<0 || utype>3 || utype.search(/[<>&\=;"'.?//a-zA-Z]/ig)!== -1){
+    } else if (valid)
+        valid = true;
+    if (utype < 0 || utype > 3 || utype.search(/[<>&\=;"'.?//a-zA-Z]/ig) !== -1) {
         valid = false;
         error.append("<p>\nThere are only three user types." +
                 "Please select a proper user type.</p><br/>");
-    } else if (valid) valid = true;
-    if (password.search(/[<>&\=;"'.?//]/ig) !== -1 && id===-1){
+    } else if (valid)
+        valid = true;
+    if (password.search(/[<>&\=;"'.?//]/ig) !== -1 && id === -1) {
         error.append("<p>Please enter a proper password.</p>");
         valid = false;
-    } else if (valid) valid = true;
-    
+    } else if (valid)
+        valid = true;
+
 //    if(!valid){
 //        error.show();
 ////        event.preventDefault();
@@ -110,13 +116,13 @@ function checkValues(id){
 }
 $(document).ready(function() {
     $("#error").hide();
-    $(document).on("click", "#yes-delete-user", function(e){
+    $(document).on("click", "#yes-delete-user", function(e) {
         name = $(this).attr('name');
-        id = name.substr(1, name.indexOf("d")+1);
- 
-        location.href="HandleUser?action=deleteFrmView&id=" + id;
+        id = name.substr(1, name.indexOf("d") + 1);
+
+        location.href = "HandleUser?action=deleteFrmView&id=" + id;
     });
-    
+
     $(document).on("click", "#yes-delete", function(e) {
         name = $(this).attr('name');
         id = name.substr(1, name.indexOf("-") - 1);
@@ -124,5 +130,5 @@ $(document).ready(function() {
 
         deleteUserFromList(id, count);
     });
-    
+
 });
