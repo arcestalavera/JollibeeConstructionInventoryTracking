@@ -32,11 +32,10 @@ public class HandleUser extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
         RequestDispatcher reqDispatcher = null;
         PrintWriter out = response.getWriter();
         Database db = Database.getInstance();
-        String action, username, password, name;
+        String action, username, password, name, aType;
         int type;
         int id;
         User user;
@@ -46,12 +45,12 @@ public class HandleUser extends HttpServlet {
         switch (action) {
             case "add":
                 username = request.getParameter("uname");
-                password = request.getParameter("upass");
-//                type = Integer.parseInt(request.getParameter("utype"));
-                System.out.println("utype = "+request.getParameter("utype"));
-                name = request.getParameter("ufname");
+                password = request.getParameter("pass");
+                type = Integer.parseInt(request.getParameter("utype"));
+                System.out.println("utype = " + request.getParameter("utype"));
+                name = request.getParameter("name");
 
-//                db.addUser(username, password, type, name);
+                db.addUser(username, password, type, name);
                 System.out.println("name = " + username);
                 out.write("<p id = \"add-user-message\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">User <i>"
                         + username + "</i> has been added! </p>");
@@ -71,12 +70,12 @@ public class HandleUser extends HttpServlet {
                 break;
             
             case "edit":
-                id = Integer.parseInt(request.getParameter("id"));
-                username = request.getParameter("username");
-                password = request.getParameter("password");
-                type = Integer.parseInt(request.getParameter("type"));
-                name = request.getParameter("ufname");
                 
+                id = Integer.parseInt(request.getParameter("id"));
+                username = request.getParameter("uname");
+                password = request.getParameter("pass");
+                type = Integer.parseInt(request.getParameter("utype"));
+                name = request.getParameter("name");
                 db.editUser(id, username, password, type, name);
                 
                 out.write("<p id = \"add-user-message\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">User <i>"
@@ -84,22 +83,18 @@ public class HandleUser extends HttpServlet {
                 
                 break;
             case "redirect":
-                action = request.getParameter("action");
+                aType = request.getParameter("type");
 
-                if (action.equals("add")) {
+                if (aType.equals("add")) {
                     reqDispatcher = request.getRequestDispatcher("adduser.jsp");
                     request.getSession().setAttribute("action", "add");
-                } else if (action.equals("edit")) {
+                } else if (aType.equals("edit")) {
                     reqDispatcher = request.getRequestDispatcher("adduser.jsp");
                     request.getSession().setAttribute("action", "edit");
                     id = Integer.parseInt(request.getParameter("id"));
                     user = db.getUserDetails(id);
                     request.getSession().setAttribute("user", user);
                 }
-                reqDispatcher.forward(request, response);
-                break;
-            case "error":
-                reqDispatcher = request.getRequestDispatcher("adduser.jsp");
                 reqDispatcher.forward(request, response);
                 break;
         }

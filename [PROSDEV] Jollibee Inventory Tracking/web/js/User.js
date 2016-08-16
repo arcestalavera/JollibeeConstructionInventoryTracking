@@ -7,8 +7,8 @@
 var uname, id, password, fullname;
 
 // -- ajax to add user ------
-function addUser() {
-    if(checkValues()){
+function addUser(id) {
+    if(checkValues(id)){
         $("#error").hide();
         $("#error").empty();
         $.ajax({
@@ -16,7 +16,8 @@ function addUser() {
             url: "HandleUser?action=add",
             data: $(".add-users-form").serialize(),
             success: function(html) {
-                $("#add-user-div").prepend(html);
+                $("#add-user-message").remove();
+                $("#add-users-div").prepend(html);
                 $("#uname").val("");
                 $("#name").val("");
                 $("#password").val("");
@@ -51,7 +52,7 @@ function deleteUserFromList() {
 }
 
 function editUser(id) {
-    if(checkValues()){
+    if(checkValues(id)){
         $("#error").hide();
         $("#error").empty();
         $.ajax({
@@ -59,14 +60,15 @@ function editUser(id) {
             url: "HandleUser?action=edit&id=" + id,
             data: $(".add-users-form").serialize(),
             success: function(html) {
-                $("#add-user-div").prepend(html);
+                $("#add-user-message").remove();
+                $("#add-users-div").prepend(html);
             }
         });
     } else $("#error").show();
     return false;
 }
 
-function checkValues(){
+function checkValues(id){
     var valid = false;
     var username = $("#uname").val();
     var name = $("#name").val();
@@ -89,7 +91,7 @@ function checkValues(){
         error.append("<p>\nThere are only three user types." +
                 "Please select a proper user type.</p><br/>");
     } else if (valid) valid = true;
-    if (password.search(/[<>&\=;"'.?//]/ig) !== -1){
+    if (password.search(/[<>&\=;"'.?//]/ig) !== -1 && id===-1){
         error.append("<p>Please enter a proper password.</p>");
         valid = false;
     } else if (valid) valid = true;

@@ -349,7 +349,7 @@ public class Database {
                 user.setUserID(userID);
                 user.setUsername(username);
                 user.setPassword(password);
-                user.setPassword(fullName);
+                user.setFullName(fullName);
                 user.setType(type);
             }
         } catch (SQLException e) {
@@ -853,7 +853,7 @@ public class Database {
         String s1, s2;
         s1 = sec.createSalt(username, 1);
         s2 = sec.createSalt(username, 2);
-        sql = "INSERT INTO users(username, salt1, password, salt2, type, fname)"
+        sql = "INSERT INTO users(username, salt1, password, salt2, type, fullName)"
                 + " VALUES(?, ?, ?, ?, ?, ?);";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -988,21 +988,32 @@ public class Database {
     }
 
     public void editUser(int userID, String username, String password, int type, String fname) {
-        sql = "UPDATE users SET username = ?, password = ?, type = ?, fullName = ?"
-                + " WHERE user_id = ?";
+        if (password.length() == 0) {
+            sql = "UPDATE users SET username = ?, salt1 = ?, salt2 = ?, type = ?, fullName = ?"
+                    + " WHERE user_id = ?";
+        } else {
+            sql = "UPDATE users SET username = ?, salt1 = ?, salt2 = ?, type = ?, fullName = ?, password = ?"
+                    + " WHERE user_id = ?";
+        }
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, username);
-            ps.setString(2, password);
-            ps.setInt(3, type);
-            ps.setString(4, fname);
-            ps.setInt(5, userID);
+            ps.setString(2, sec.createSalt(username, 1));
+            ps.setString(3, sec.createSalt(username, 2));
+            ps.setInt(4, type);
+            ps.setString(5, fname);
+            if (password.length() != 0) {
+                ps.setString(6, sec.encryptString(password));
+                ps.setInt(7, userID);
+            }
+            else{
+                ps.setInt(6, userID);
+            }
 
             ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     public void changeRequestStatus(int requestID, String status) {
@@ -1075,7 +1086,7 @@ public class Database {
             //update item count in warehouse
             sql = "UPDATE place_of_item SET count = ?"
                     + " WHERE warehouseID = ? AND itemID = ?";
-            
+
             ps = con.prepareStatement(sql);
 
             ps.setInt(1, current + count);
