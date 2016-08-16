@@ -47,11 +47,11 @@ public class HandleUser extends HttpServlet {
             case "add":
                 username = request.getParameter("uname");
                 password = request.getParameter("upass");
-//                type = Integer.parseInt(request.getParameter("utype"));
+                type = Integer.parseInt(request.getParameter("utype"));
                 System.out.println("utype = "+request.getParameter("utype"));
-                name = request.getParameter("ufname");
+                name = request.getParameter("name");
 
-//                db.addUser(username, password, type, name);
+                db.addUser(username, password, type, name);
                 System.out.println("name = " + username);
                 out.write("<p id = \"add-user-message\" style=\"font-size: 16px; color: green; margin:0px\" align=\"center\">User <i>"
                         + username + "</i> has been added! </p>");

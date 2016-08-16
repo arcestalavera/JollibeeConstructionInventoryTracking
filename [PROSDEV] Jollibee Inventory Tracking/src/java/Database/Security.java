@@ -15,8 +15,8 @@ import java.util.logging.Logger;
  * @author Arces
  */
 public class Security {
-    private StringBuffer sb;
-    private MessageDigest md;
+    private StringBuffer sb = new StringBuffer();
+    private MessageDigest md = null;
     private static Security securityInstance = new Security();
 
     public String encryptString(String string) {
@@ -26,17 +26,19 @@ public class Security {
             Logger.getLogger(Security.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        md.update(string.getBytes());
+        if (md!=null) {
+            md.update(string.getBytes());
 
-        byte[] encPass = md.digest();
+            byte[] encPass = md.digest();
 
-        //convert the byte to hex
-        sb = new StringBuffer();
-        for (int i = 0; i < encPass.length; i++) {
-            sb.append(Integer.toString((encPass[i] & 0xff) + 0x100, 16).substring(1));
-        }
+            //convert the byte to hex
+//            sb = new StringBuffer();
+            for (int i = 0; i < encPass.length; i++) {
+                sb.append(Integer.toString((encPass[i] & 0xff) + 0x100, 16).substring(1));
+            }
 
-        return sb.toString();
+            return sb.toString();
+        } else return null;
     }
 
     public String createSalt(String string, int type) {

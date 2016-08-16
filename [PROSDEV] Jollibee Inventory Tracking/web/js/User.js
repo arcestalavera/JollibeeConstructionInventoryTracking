@@ -11,12 +11,14 @@ function addUser() {
     if(checkValues()){
         $("#error").hide();
         $("#error").empty();
+//        var str = $(".add-users-form").serialize();
+//        console.log(str);
         $.ajax({
             type: "POST",
             url: "HandleUser?action=add",
             data: $(".add-users-form").serialize(),
             success: function(html) {
-                $("#add-user-div").prepend(html);
+                $("#add-users-div").prepend(html);
                 $("#uname").val("");
                 $("#name").val("");
                 $("#password").val("");

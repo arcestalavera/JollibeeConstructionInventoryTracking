@@ -860,7 +860,7 @@ public class Database {
 
             ps.setString(1, username);
             ps.setString(2, s1);
-            ps.setString(3, sec.encryptString(password));
+            if(sec.encryptString(password)!=null) ps.setString(3, sec.encryptString(password));
             ps.setString(4, s2);
             ps.setInt(5, type);
             ps.setString(6, fname);
