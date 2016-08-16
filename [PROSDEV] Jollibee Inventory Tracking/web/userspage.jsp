@@ -51,7 +51,7 @@
         <!-- /.row -->
         <!-- Page Content -->
         <div class="row">
-            <div class ="row">
+            <div class ="col-lg-12">
                 <h4 class = "text-info">Details of <%=seluser.getUsername()%></h4>
                 <ul class = "list-group">
                     <li class = "list-group-item"><b class = "text-info">Type: </b><%=seluser.getType()%></li>
@@ -59,7 +59,7 @@
                 </ul>
             </div>
 
-            <div class="row">
+            <div class="col-lg-12">
                 <div style="text-align: right; margin-right: 15px; margin-bottom: 30px;">
                     <button id="add-item" class="btn btn-primary" onclick="edit(<%=seluser.getUserID()%>)">Edit User Details</button>
                 </div>
